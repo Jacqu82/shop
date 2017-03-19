@@ -78,10 +78,10 @@ CREATE TABLE `photos` (
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `user`
+-- Struktura tabeli dla tabeli `users`
 --
 
-CREATE TABLE `user` (
+CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   `surname` varchar(255) NOT NULL,
@@ -90,10 +90,10 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Zrzut danych tabeli `user`
+-- Zrzut danych tabeli `users`
 --
 
-INSERT INTO `user` (`id`, `name`, `surname`, `email`, `password`) VALUES
+INSERT INTO `users` (`id`, `name`, `surname`, `email`, `password`) VALUES
 (1, 'Adam', 'Kowalski', 'kowalski@o2.pl', 'qwerty'),
 (2, 'Jan', 'Nowak', 'nowak@o2.pl', 'asdfg');
 
@@ -123,9 +123,9 @@ ALTER TABLE `photos`
   ADD KEY `item_id` (`item_id`);
 
 --
--- Indexes for table `user`
+-- Indexes for table `users`
 --
-ALTER TABLE `user`
+ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `email` (`email`);
 
@@ -149,9 +149,9 @@ ALTER TABLE `orders`
 ALTER TABLE `photos`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT dla tabeli `user`
+-- AUTO_INCREMENT dla tabeli `users`
 --
-ALTER TABLE `user`
+ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- Ograniczenia dla zrzutów tabel
@@ -162,7 +162,7 @@ ALTER TABLE `user`
 --
 ALTER TABLE `orders`
   ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`item_id`) REFERENCES `item` (`id`),
-  ADD CONSTRAINT `orders_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
+  ADD CONSTRAINT `orders_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 
 --
 -- Ograniczenia dla tabeli `photos`

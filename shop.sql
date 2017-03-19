@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Czas generowania: 19 Mar 2017, 14:11
+-- Czas generowania: 19 Mar 2017, 15:04
 -- Wersja serwera: 5.7.17-0ubuntu0.16.04.1
 -- Wersja PHP: 7.0.15-0ubuntu0.16.04.4
 
@@ -34,6 +34,35 @@ CREATE TABLE `item` (
   `availability` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Zrzut danych tabeli `item`
+--
+
+INSERT INTO `item` (`id`, `name`, `price`, `description`, `availability`) VALUES
+(1, 'Piwo', 2.59, 'dobre piwko', 100),
+(2, 'Chleb', 4.79, 'duży', 50);
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabeli dla tabeli `orders`
+--
+
+CREATE TABLE `orders` (
+  `id` int(11) NOT NULL,
+  `status` varchar(255) NOT NULL,
+  `item_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Zrzut danych tabeli `orders`
+--
+
+INSERT INTO `orders` (`id`, `status`, `item_id`, `user_id`) VALUES
+(1, 'opłacone', 1, 1),
+(2, 'opłacone', 2, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -61,6 +90,14 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
+-- Zrzut danych tabeli `user`
+--
+
+INSERT INTO `user` (`id`, `name`, `surname`, `email`, `password`) VALUES
+(1, 'Adam', 'Kowalski', 'kowalski@o2.pl', 'qwerty'),
+(2, 'Jan', 'Nowak', 'nowak@o2.pl', 'asdfg');
+
+--
 -- Indeksy dla zrzutów tabel
 --
 
@@ -69,6 +106,14 @@ CREATE TABLE `user` (
 --
 ALTER TABLE `item`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `orders`
+--
+ALTER TABLE `orders`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `item_id` (`item_id`),
+  ADD KEY `user_id` (`user_id`);
 
 --
 -- Indexes for table `photos`
@@ -92,7 +137,12 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT dla tabeli `item`
 --
 ALTER TABLE `item`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT dla tabeli `orders`
+--
+ALTER TABLE `orders`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT dla tabeli `photos`
 --
@@ -102,10 +152,17 @@ ALTER TABLE `photos`
 -- AUTO_INCREMENT dla tabeli `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- Ograniczenia dla zrzutów tabel
 --
+
+--
+-- Ograniczenia dla tabeli `orders`
+--
+ALTER TABLE `orders`
+  ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`item_id`) REFERENCES `item` (`id`),
+  ADD CONSTRAINT `orders_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
 
 --
 -- Ograniczenia dla tabeli `photos`

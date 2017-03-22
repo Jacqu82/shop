@@ -8,9 +8,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $surname = $_POST['surname'];
         $email = $_POST['email'];
         $password = $_POST['password'];
+        $address = $_POST['address'];
         
         
-        $sql = "INSERT INTO users (`name`, `surname`, `email`, `password`) VALUES ('$name', '$surname', '$email', '$password')";
+        $sql = "INSERT INTO users (`name`, `surname`, `email`, `password`, `address`) VALUES ('$name', '$surname', '$email', '$password', '$address')";
         
         //$sql = "SELECT * FROM user";
         
@@ -19,9 +20,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (!$ready) {
             die($connection->connect_error);
         }
-        
-//        foreach ($ready as $value) {
-//            echo $value['name'] . $value['surname'] . $value['email'] . $value['password'];
-//        }
     }
 }

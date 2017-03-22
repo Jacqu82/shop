@@ -7,6 +7,7 @@ class User
     protected $surname;
     protected $email;
     protected $password;
+    protected $address;
 
     /**
      * User constructor.
@@ -22,8 +23,17 @@ class User
         $this->email = $email;
         $this->password = $password;
     }
+    function getAddress()
+    {
+        return $this->address;
+    }
 
-    /**
+    function setAddress($address)
+    {
+        $this->address = $address;
+    }
+
+        /**
      * @return mixed
      */
     public function getName()

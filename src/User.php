@@ -16,12 +16,13 @@ class User
      * @param $email
      * @param $password
      */
-    public function __construct($name, $surname, $email, $password)
+    public function __construct()
     {
-        $this->name = $name;
-        $this->surname = $surname;
-        $this->email = $email;
-        $this->password = $password;
+        $this->name = '';
+        $this->surname = '';
+        $this->email = '';
+        $this->password = '';
+        $this->address = '';
     }
     function getAddress()
     {
@@ -80,8 +81,12 @@ class User
     {
         $this->email = $email;
     }
+    function setPassword($password)
+    {
+        $this->password = $password;
+    }
 
-    /**
+        /**
      * @return mixed
      */
     public function getPassword()
@@ -89,7 +94,37 @@ class User
         return $this->password;
     }
 
+    static public function loadUserByName(mysqli $connection, $name)
+    {   
+        
+        $name = $connection->real_escape_string($name);
 
+        
+        $sql = "SELECT * FROM `users` WHERE `name` = '$name'";
+        
+        $result = $connection->query($sql);
+        
+        if (!$result) {
+            die("Error kurwa mać" . $connection->connect_error);
+        }
+        
+        if ($result->num_rows == 1) {
+            $userArray = $result->fetch_assoc();
+
+            $user = new User();
+            
+            $user->setName($userArray['name']);
+            $user->setSurname($userArray['surname']);
+            $user->setEmail($userArray['email']);
+            $user->setAddress($userArray['address']);
+            $user->setPassword($userArray['password']);
+            
+            return $user;
+            
+        } else {
+            return false;
+        }
+    }
 
 
 }

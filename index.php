@@ -18,11 +18,11 @@ if (isset($_SESSION['user'])) {
             <div id="container">
 
                 <?php
-                echo "Witaj " . $_SESSION['user'] . " | " . "<a href='logOut.php'>wyloguj</a>";
+                echo "Hello " . $_SESSION['user'] . " | " . "<a href='userPanel.php'>Panel</a>" . " | " . "<a href='logOut.php'>wyloguj</a>";
                 ?>
 
                 <div id="header">
-                    <p><i><b>TWITEREK</b></i></p> 
+                    <p><i><b>SHOP</b></i></p> 
                 </div>
 
 
@@ -42,15 +42,15 @@ if (isset($_SESSION['user'])) {
         <body>
             <div id="container">
 
-                <a href="loginForm.html">Zaloguj</a>&nbsp;|&nbsp; <a href="registerForm.html">Zarejestruj</a> 
+                <a href="loginForm.html">Login</a>&nbsp;|&nbsp; <a href="registerForm.html">Register</a> 
 
                 <div id="header">
                     <p><i><b>SHOP</b></i></p> 
                 </div>
 
                 <div id="main">
-                    <p>Zaloguj się aby korzystać z naszego serwisu.</p>
-                    <p>Jeżeli nie masz u nas konta zarejestruj się!</p>
+                    <p>You need to login to fully enjoy our service.</p>
+                    <p>If You haven't register yet, please do that by clicking register option.</p>
                 </div>
             </div>
         </body>

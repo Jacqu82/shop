@@ -1,27 +1,52 @@
 <?php
 
+include_once "../connection.php";
+include_once "Item.php";
+
 class Order
 {
-    protected $status;
-    
-    function __construct($status)
+    protected $id;
+    protected $statusId;
+    protected $userId;
+
+    function __construct($userId)
     {
-        $this->status = $status;
-    }
-    
-    function getStatus()
-    {
-        return $this->status;
+        $this->id = -1;
+        $this->statusId = 1;
+        $this->setUserId($userId);
     }
 
-    function setStatus($status)
+    public function getId()
     {
-        $this->status = $status;
+        return $this->id;
     }
-    
+
+    public function getUserId()
+    {
+        return $this->userId;
+    }
+
+    public function setUserId($userId)
+    {
+        $this->userId = $userId;
+        return $this;
+    }
+
+
+    function getStatusId()
+    {
+        return $this->statusId;
+    }
+
+    function setStatusId($statusId)
+    {
+        $this->statusId = $statusId;
+        return $this;
+    }
+
     public function showAll()
     {
-        
+
     }
-    
+
 }

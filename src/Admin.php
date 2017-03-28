@@ -1,5 +1,6 @@
 <?php
 
+include_once 'Item.php';
 
 class Admin
 {
@@ -14,11 +15,11 @@ class Admin
      * @param $email
      * @param $password
      */
-    public function __construct($name, $email, $password)
+    public function __construct()
     {
-        $this->name = $name;
-        $this->email = $email;
-        $this->password = $password;
+        $this->name = '';
+        $this->email = '';
+        $this->password = '';
     }
 
     /**
@@ -56,12 +57,78 @@ class Admin
     /**
      * @return mixed
      */
+    function setPassword($password)
+    {
+        $this->password = $password;
+    }
+
+        
     public function getPassword()
     {
         return $this->password;
     }
+    
+    static public function loadAdminByName(mysqli $connection, $name)
+    {   
+        $name = $connection->real_escape_string($name);
+        
+        $sql = "SELECT * FROM `admins` WHERE `adminName` = '$name'";
 
+        $result = $connection->query($sql);
 
+        if (!$result) {
+            die("Error " . $connection->connect_error);
+        }
+        
+        if ($result->num_rows == 1) {
+            $adminArray = $result->fetch_assoc();
 
+            $admin = new Admin();
+            
+            $admin->setName($adminArray['adminName']);
+            $admin->setEmail($adminArray['adminMail']);
+            $admin->setPassword($adminArray['adminPassword']);
+            
+            return $admin;
+            
+        } else {
+            return false;
+        }
+    }
+    
+    // trzy metody do obsługi przedmiotów
+    
+    public function addItem()
+    {
+        $item = new Item();
+        $item->setName($item);
+    }
+    
+    public function removeItem()
+    {
+        
+    }
+    
+    public function modifyItem()
+    {
+        
+    }
+    
+    //trzy metody do obsługi grup przedmiotów
+    
+    public function addGroup()
+    {
+        
+    }
+    
+    public function removeGroup()
+    {
+        
+    }
+    
+    public function modifyGroup()
+    {
+        
+    }
 
 }

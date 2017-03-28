@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.6deb1+deb.cihar.com~xenial.2
+-- version 4.6.4deb1+deb.cihar.com~xenial.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Czas generowania: 19 Mar 2017, 15:04
--- Wersja serwera: 5.7.17-0ubuntu0.16.04.1
--- Wersja PHP: 7.0.15-0ubuntu0.16.04.4
+-- Generation Time: Mar 29, 2017 at 12:23 AM
+-- Server version: 5.7.17-0ubuntu0.16.04.1
+-- PHP Version: 7.0.15-0ubuntu0.16.04.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,13 +17,55 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Baza danych: `shop`
+-- Database: `shop`
 --
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `item`
+-- Table structure for table `admins`
+--
+
+CREATE TABLE `admins` (
+  `id` int(11) NOT NULL,
+  `adminName` varchar(255) NOT NULL,
+  `adminPassword` varchar(255) NOT NULL,
+  `adminMail` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `admins`
+--
+
+INSERT INTO `admins` (`id`, `adminName`, `adminPassword`, `adminMail`) VALUES
+(1, 'slawek', 'slawek1', 'jajarzab@op.pl');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `groups`
+--
+
+CREATE TABLE `groups` (
+  `id` int(11) NOT NULL,
+  `groupName` varchar(255) NOT NULL,
+  `groupDescriptiopn` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `groups`
+--
+
+INSERT INTO `groups` (`id`, `groupName`, `groupDescriptiopn`) VALUES
+(1, 'AGD', 'Drobnei wieksze agd nie tylko do domu.'),
+(2, 'RTV', 'Telewizory LCD LED, nowe technologie.'),
+(3, 'Alkohole', 'Od tych najsÅ‚abszych po najmocniejsze'),
+(4, 'Zegarki', 'Klasyczne, sportowe, smartwatche');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `item`
 --
 
 CREATE TABLE `item` (
@@ -35,7 +77,7 @@ CREATE TABLE `item` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Zrzut danych tabeli `item`
+-- Dumping data for table `item`
 --
 
 INSERT INTO `item` (`id`, `name`, `price`, `description`, `availability`) VALUES
@@ -45,7 +87,7 @@ INSERT INTO `item` (`id`, `name`, `price`, `description`, `availability`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `orders`
+-- Table structure for table `orders`
 --
 
 CREATE TABLE `orders` (
@@ -55,18 +97,10 @@ CREATE TABLE `orders` (
   `user_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Zrzut danych tabeli `orders`
---
-
-INSERT INTO `orders` (`id`, `status`, `item_id`, `user_id`) VALUES
-(1, 'opłacone', 1, 1),
-(2, 'opłacone', 2, 1);
-
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `photos`
+-- Table structure for table `photos`
 --
 
 CREATE TABLE `photos` (
@@ -78,7 +112,7 @@ CREATE TABLE `photos` (
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `users`
+-- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
@@ -86,20 +120,34 @@ CREATE TABLE `users` (
   `name` varchar(255) NOT NULL,
   `surname` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL
+  `password` varchar(255) NOT NULL,
+  `address` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Zrzut danych tabeli `users`
+-- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `surname`, `email`, `password`) VALUES
-(1, 'Adam', 'Kowalski', 'kowalski@o2.pl', 'qwerty'),
-(2, 'Jan', 'Nowak', 'nowak@o2.pl', 'asdfg');
+INSERT INTO `users` (`id`, `name`, `surname`, `email`, `password`, `address`) VALUES
+(4, 'slawek', 'bobek', 'slawek@o2.pl', 'slawek1', 'dabrowa'),
+(5, 'basia', 'jar', 'asiia@op.pl', 'asia1', 'bedzin'),
+(7, 'igi', 'jar', 'ignas@op.pl', 'ignas1', 'igilandia');
 
 --
--- Indeksy dla zrzutów tabel
+-- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `admins`
+--
+ALTER TABLE `admins`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `groups`
+--
+ALTER TABLE `groups`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `item`
@@ -134,38 +182,48 @@ ALTER TABLE `users`
 --
 
 --
--- AUTO_INCREMENT dla tabeli `item`
+-- AUTO_INCREMENT for table `admins`
+--
+ALTER TABLE `admins`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `groups`
+--
+ALTER TABLE `groups`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT for table `item`
 --
 ALTER TABLE `item`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
--- AUTO_INCREMENT dla tabeli `orders`
+-- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT dla tabeli `photos`
+-- AUTO_INCREMENT for table `photos`
 --
 ALTER TABLE `photos`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT dla tabeli `users`
+-- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
--- Ograniczenia dla zrzutów tabel
+-- Constraints for dumped tables
 --
 
 --
--- Ograniczenia dla tabeli `orders`
+-- Constraints for table `orders`
 --
 ALTER TABLE `orders`
   ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`item_id`) REFERENCES `item` (`id`),
   ADD CONSTRAINT `orders_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 
 --
--- Ograniczenia dla tabeli `photos`
+-- Constraints for table `photos`
 --
 ALTER TABLE `photos`
   ADD CONSTRAINT `photos_ibfk_1` FOREIGN KEY (`item_id`) REFERENCES `item` (`id`);

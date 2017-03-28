@@ -1,88 +1,72 @@
 <?php
 
+include_once "../connection.php";
+
 class Item
 {
+    protected $id;
     protected $name;
-    
     protected $price;
-    
     protected $description;
-    
     protected $availability;
-    
-    public function __construct($name, $price, $description, $availability)
+
+    public function __construct()
     {
-        $this->name = $name;
-        $this->price = $price;
-        $this->description = $description;
-        $this->availability = $availability;
+        $this->id = -1;
+        $this->name = "";
+        $this->price = null;
+        $this->description = "";
+        $this->availability = null;
     }
 
-    /**
-     * @return mixed
-     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
     public function getName()
     {
         return $this->name;
     }
 
-    /**
-     * @param mixed $name
-     */
     public function setName($name)
     {
         $this->name = $name;
+        return $this;
     }
 
-    /**
-     * @return mixed
-     */
     public function getPrice()
     {
         return $this->price;
     }
 
-    /**
-     * @param mixed $price
-     */
     public function setPrice($price)
     {
         $this->price = $price;
+        return $this;
     }
 
-    /**
-     * @return mixed
-     */
     public function getDescription()
     {
         return $this->description;
     }
 
-    /**
-     * @param mixed $description
-     */
     public function setDescription($description)
     {
         $this->description = $description;
+        return $this;
     }
 
-    /**
-     * @return mixed
-     */
     public function getAvailability()
     {
         return $this->availability;
     }
 
-    /**
-     * @param mixed $availability
-     */
     public function setAvailability($availability)
     {
         $this->availability = $availability;
+        return $this;
     }
-
-
 
 }
 

@@ -1,5 +1,4 @@
 <?php
-include_once "../connection.php";
 
 class User
 {
@@ -10,7 +9,7 @@ class User
     protected $password;
     protected $address;
     protected $history;
-    public function __construct($name, $surname, $email, $password, $address)
+    public function __construct()
     {
         $this->id = -1;
         $this->name = "";

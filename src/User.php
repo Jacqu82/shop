@@ -9,6 +9,7 @@ class User
     protected $password;
     protected $address;
     protected $history;
+    
     public function __construct()
     {
         $this->id = -1;
@@ -19,50 +20,62 @@ class User
         $this->address = "";
         $this->history = [];
     }
+
     public function getId()
     {
         return $this->id;
     }
+
     function getAddress()
     {
         return $this->address;
     }
+
     function setAddress($address)
     {
         $this->address = $address;
     }
+
     public function getName()
     {
         return $this->name;
     }
+
     public function setName($name)
     {
         $this->name = $name;
     }
+
     public function getSurname()
     {
         return $this->surname;
     }
+
     public function setSurname($surname)
     {
         $this->surname = $surname;
     }
+
     public function getEmail()
     {
         return $this->email;
     }
+
     public function setEmail($email)
     {
         $this->email = $email;
     }
+
     public function getPassword()
     {
         return $this->password;
     }
+
     public function setPassword($password)
     {
         $this->password = $password;
     }
+
     static public function loadUserByName(mysqli $connection, $name)
     {
         $name = $connection->real_escape_string($name);

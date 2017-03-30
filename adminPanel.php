@@ -29,7 +29,7 @@ if (!isset($_SESSION['admin'])) {
                 <hr>
                 <ul>You are in admin panel. In thi section You can :
                     <li><a href="groupsOfProducts.php">Add, remove or modify a group of items</a></li>
-                    <li><a href="">Add, remove or modify an item</a> </li>
+                    <li><a href="itemPanel.php">Add, remove or modify an item</a> </li>
                     <li><a href="">Send a message</a></li>
                 </ul>
             </div>

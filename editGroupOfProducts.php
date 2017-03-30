@@ -26,11 +26,37 @@ if ($_SERVER['REQUEST_METHOD'] === "GET") {
         
         foreach ($result as $value) {
             $name = $value['groupName'];
-            $description = $value['group descriptiopn'];
+            $description = $value['groupDescriptiopn'];
         }
-        
-        echo $name . " | " . $description;
+
+
+
+        echo "<form action='editGroupOfProducts.php' method='post'>";
+        echo "Edit the name for the <b>" . $name . " </b>group.<br>";
+        echo "<input name='name' type='text'  value=$name><br><br>";
+        echo "Edit description for the <b>" . $name . "</b> group<br>";
+        echo "<textarea rows='4' cols='50' name='description'>" . $description . "</textarea><br>";
+        echo "<input type='hidden' name='id' value=$id>";
+        echo "<input type='submit' value='change'/>";
+        echo "</form>";  
     }
 }
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (isset($_POST['name']) && isset($_POST['description'])) {
+        $name = $_POST['name'];
+        $description = $_POST['description'];
+        $id= $_POST['id'];
+        
+        $sql = "UPDATE groups SET groupName='$name', groupDescriptiopn='$description' WHERE id=$id";
+        $result = $connection->query($sql);
+        
+        if(!$result) {
+            die ("Error");
+        }
+        
+        header('Location: groupsOfProducts.php');
+    }
+}
+//AND groupDescriptiopn=$description
 ?>

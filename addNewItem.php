@@ -26,6 +26,9 @@ echo "Hello " . $_SESSION['admin'] . " | " . "<a href='index.php'>Start</a>" . "
             <input type="text" name="name"/><br>            
             Select group of products or create <a href="addGroupOfProducts.php">new group:</a><br>
             <?php
+            
+            //wybieramy z listy rozwijalnej grupę produktów do której dodamy przedmiot
+            
                 $connection = new mysqli($host, $user, $password, $database);
 
                 $sql = "SELECT * FROM groups";
@@ -66,12 +69,16 @@ echo "Hello " . $_SESSION['admin'] . " | " . "<a href='index.php'>Start</a>" . "
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['name']) && isset($_POST['selection']) && isset($_POST['description']) && isset($_POST['price']) && isset($_POST['availability'])) {
 
+        //przypisujemy wszystkie dane z formularza do zmiennych
+        
         $name = $_POST['name'];
         $selection = $_POST['selection'];
         $description = $_POST['description'];
         $price = $_POST['price'];
         $availability = $_POST['availability'];
 
+        //tworzymy obiekt typu Item i ustawiamy setery zmiennymi otrzymanymiz formularza
+        
         $item = new Item();
         $item->setName($name);
         $item->setAvailability($availability);
@@ -85,19 +92,65 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
         $id = $item->getId();
         
+        //tworze folder z id pliku a nastepnie z jego nazwą
+        
         $path = "files/" . $id . $name;
         
         if (!file_exists($path)) {
-            mkdir($path);
+            $dirMode = 0777;
+            mkdir($path, $dirMode, true);
+        }      
+               
+        //w ten dziwny sposób okreslam ile zdjęć zostało załadowanych - wartość tą wykoprzystam w pętli
+        
+        if ($_FILES['file2']['size'] == 0) {
+            $flag = 1;
+        } else if ($_FILES['file3']['size'] == 0) {
+            $flag = 2;
+        } else if ($_FILES['file4']['size'] == 0) {
+            $flag = 3;
+        } else {
+            $flag = 4;
         }
 
-        for ($i = 0; $i != 4; $i++) {
-            $_FILES[$i]['name'] = $i+1 . "_" . $name; 
-            echo $_FILES[$i]['name'] . "<br>";
+
+        for ($i = 0; $i < $flag; $i++) {
+            
+            //strasznie rozbudowane, ale w każdym ifie sprawdzam z którym plikiem pracuję a następnie wyszukuje końcówki pliku
+            
+            if ($i == 0) {
+                $fileNo = 'file1';
+                $fileName = $_FILES['file1']['name'];
+                preg_match('~[\.][a-zA-Z]+~', $fileName, $matches);
+                $ending = $matches[0];
+            } else if ($i == 1) {
+                $fileNo = 'file2';
+                $fileName = $_FILES['file2']['name'];
+                preg_match('~[\.][a-zA-Z]+~', $fileName, $matches);
+                $ending = $matches[0];
+            } else if ($i == 2) {
+                $fileNo = 'file3';
+                $fileName = $_FILES['file3']['name'];
+                preg_match('~[\.][a-zA-Z]+~', $fileName, $matches);
+                $ending = $matches[0];
+            } else {
+                $fileNo = 'file4';
+                $fileName = $_FILES['file4']['name'];
+                preg_match('~[\.][a-zA-Z]+~', $fileName, $matches);
+                $ending = $matches[0];
+            } 
+            
+            //przy każdej iteracji resetuje zmiane sciezki dostepu do ustawien poczatkowych
+            $path = "files/" . $id . $name;
+            
+            //nastepnie zmieniam nazwe elementu na liczbe porzadkowa + nazwe przedmiotu + koncowka odpowiednia
+            
+            $_FILES[$i]['name'] = $i+1 . "_" . $name . $ending; 
             $path = $path . "/" . $_FILES[$i]['name'];
-            move_uploaded_file($_FILES[$i]['name'], $path);
+     
+            move_uploaded_file($_FILES[$fileNo]['tmp_name'], $path);
         }
 
-//        header('Location: itemPanel.php');
+        header('Location: itemPanel.php');
     }
 }

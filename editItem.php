@@ -33,12 +33,6 @@ if ($_SERVER['REQUEST_METHOD'] === "GET") {
         }
         
         $item = Item::loadItemByName($connection, $name);
-               
-        echo $item-> getName();
-        echo $item-> getDescription();
-        echo $item-> getPrice();
-        echo $item-> getAvailability();
-        echo $item->getId();
         
         $oldName = $item->getName();
           
@@ -54,12 +48,46 @@ if ($_SERVER['REQUEST_METHOD'] === "GET") {
         echo "<input type='hidden' name='oldName' value=" . $oldName . ">";
         echo "<input type='submit' value='change'/>";
         echo "</form>";
+        echo "<hr>";
+        
+        echo "<p>Edit Photos</p>";
+        
+        $sql = "SELECT * FROM photos WHERE `item_id`=$id";
+        
+        $result = $connection->query($sql);
+        
+        foreach ($result as $value) {
+            $tab[] = array($value);
+        }
+        
+        var_dump($tab);
+        $i = 0;
+        
+        echo "<form action='#' method='POST'enctype='multipart/form-data'>";
+        
+        for ($i = 0; $i < 4; $i++) {
+            if (isset($tab[$i][0])) {
+                
+                $path = $tab[$i][0]['path'];
+                echo "<br>Zdjęcie nr " . ($i+1). "<br>";
+                echo "<img src='" . $path . "' height='120' width='120'><br>";           
+                echo "Change | <a href='#'>Delete</a><br>";
+                echo "<input type='file' name='file'><br>";
+            } else {
+                echo "<br>Zdjęcie nr " . $i . "<br>";
+                echo "Brak załadowanego zdjęcia.<br>";
+                echo "<input type='file' name='file'><br>";
+            }
+        }
+        echo "<input type='submit' value='Add'/>";
+        echo "</form>";
+       
     }
 }
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (isset($_POST['name']) && isset($_POST['description'])) {
+//    if ((isset($_POST['name']) && isset($_POST['description'])) || isset($_POST['file'])) {
         $name = $_POST['name'];
         $description = $_POST['description'];
         $price=$_POST['price'];
@@ -73,7 +101,51 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $item->setPrice($price);
         $item->setAvailability($availability);
         
+        $id = $item->getId();
+        
+        $path = "files/" . $id . $name;
+        
+        if (!file_exists($path)) {
+            $dirMode = 0777;
+            mkdir($path, $dirMode, true);
+        }
+        
+        //po zmianie nazwy produktu, musimy również odpowiednio zmienić nazwę folderu, w którym przechowywane są zdjęcia
+        //odszukuję rekordy zgodne z item_id
+        
+        $sql = "SELECT * FROM photos WHERE item_id=$id";
+        $result=$connection->query($sql);
+        
+        if (!$result) {
+            die ("Error, błąd odczytu z bazy danych");
+        }
+        
+        //dla każdegop rekordu zmieniam ścieżkę na aktualną ale wcześniej kasuje już nieaktualne ścieżki dostepu do zdjęć
+        
+        $sql = "DELETE FROM photos WHERE item_id=$id";
+        $result2 = $connection->query($sql);
+            
+            if (!$result2) {
+                die ("Error - couldn't change path of photos unfortunatelly");
+            }
+        
+        foreach ($result as $value) {
+            $path = "files/" . $id . $name;
+            preg_match('~[\/][^+]+[\/]([^+]+)~', $value['path'], $matches);
+            $path = $path . "/" . $matches[1];
+            rename($value['path'], $path);      
+            
+            //zapisuje aktualną ścieżke kolejno dla każdego zdjęcia
+            
+            $sql = "INSERT INTO photos (`item_id`, `path`) VALUES ('$id', '$path')";
+            $result = $connection->query($sql);
+            
+            if (!$result) {
+                die ("Error - couldn't change path of photos");
+            }
+        }
+
         $item->save($connection);
         header('Location: itemPanel.php');
-    }
+//    }
 }

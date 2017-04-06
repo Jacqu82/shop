@@ -16,7 +16,11 @@ if ($_SERVER['REQUEST_METHOD'] === "GET") {
         
         $id = $_GET['id'];
         
+        $sql = "DELETE FROM photos WHERE `item_id`=$id";
+  
         $connection = new mysqli($host, $user, $password, $database);
+        
+        $connection->query($sql);
         
         $sql = "DELETE FROM item WHERE id=$id";
         

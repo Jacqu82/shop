@@ -92,12 +92,12 @@ class Item
             die("Error" . $connection->connect_error);
         }
 
-        if ($result->num_rows == 1) {
+        if ($result) {
 
             $itemArray = $result->fetch_assoc();
 
             $item = new Item();
-
+            
             $item->setName($itemArray['name']);
             $item->setDescription($itemArray['description']);
             $item->setPrice($itemArray['price']);

@@ -60,7 +60,6 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
         echo "</tr>";
         foreach ($result as $value) {
             $id = $value['id'];
-            echo $id;
             echo "<tr>";
             echo "<td>" . $value['name'] . "</td><td>" . $value['groupName'] . "</td><td>" . $value['description'] . "</td>";
             echo "<td>" . $value['availability'] . "</td><td>" . $value['price'] . "</td>";

@@ -32,7 +32,7 @@ foreach ($result as $value) {
     echo "<tr>";
     echo "<td>" . $value['id'] . "</td><td>" . $value['groupName'] . "</td><td>" . $value['groupDescriptiopn'] . "</td>";
     echo "<td><a href='editGroupOfProducts.php?id=$id'>Edit</a></td>";
-    echo "<td><a href='deleteGroupOfProducts.php'>Delete</a></td></tr>";
+    echo "<td><a href='deleteGroupOfProducts.php?id=$id'>Delete</a></td></tr>";
 }
 
 echo "</table>";

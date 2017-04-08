@@ -10,6 +10,7 @@ class User
     protected $address;
     protected $history;
     public function __construct()
+
     {
         $this->id = -1;
         $this->name = "";

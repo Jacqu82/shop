@@ -1,6 +1,6 @@
 <?php
 
-require_once 'connection.php';
+include_once 'connection.php';
 require_once 'src/User.php';
 
 session_start();

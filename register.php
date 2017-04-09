@@ -10,9 +10,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $password = $_POST['password'];
         $address = $_POST['address'];
         
-        
         $sql = "INSERT INTO users (`name`, `surname`, `email`, `password`, `address`) VALUES ('$name', '$surname', '$email', '$password', '$address')";
-        
+
         $ready = $connection->query($sql);
         
         if ($ready) {

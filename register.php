@@ -13,8 +13,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
         $sql = "INSERT INTO users (`name`, `surname`, `email`, `password`, `address`) VALUES ('$name', '$surname', '$email', '$password', '$address')";
         
-        //$sql = "SELECT * FROM user";
-        
         $ready = $connection->query($sql);
         
         if ($ready) {

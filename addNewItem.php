@@ -28,13 +28,8 @@ echo "Hello " . $_SESSION['admin'] . " | " . "<a href='index.php'>Start</a>" . "
 
         //wybieramy z listy rozwijalnej grupę produktów do której dodamy przedmiot
 
-        $sql = "SELECT * FROM groups";
+        $result = photoGallery::getGallery($host, $user, $password, $database);
 
-        $result = $connection->query($sql);
-
-        if (!$result) {
-            die ("Error");
-        }
         echo '<select name="selection">';
 
         foreach ($result as $value) {
@@ -140,12 +135,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_FILES[$i]['name'] = $i + 1 . "_" . $name . $ending;
             $path = $path . "/" . $_FILES[$i]['name'];
 
-            $sql = "INSERT INTO photos (`item_id`, `path`) VALUES ('$id', '$path')";
-            $result = $connection->query($sql);
-
-            if (!$result) {
-                die ("Error - couldn't add photos to database");
-            }
+            dbEdit::insert($connection, $id, $path);
 
             move_uploaded_file($_FILES[$fileNo]['tmp_name'], $path);
         }

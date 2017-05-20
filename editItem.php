@@ -1,10 +1,7 @@
 <?php
 
 include_once 'connection.php';
-require_once 'src/User.php';
-require_once 'src/Item.php';
-require_once 'src/showProduct.php';
-require_once 'src/dbEdit.php';
+require_once 'autoload.php';
 include_once 'config.php';
 
 // 1. Tak jak wszędzie sprawdzamy czy użytkownik jest zalogowany, jeśli tak wyświetlamy pasek powitalny
@@ -43,9 +40,9 @@ if ($_SERVER['REQUEST_METHOD'] === "GET") {
         // 3. Wyświtlamy formularz w którym wstawiamy wykorzystując gettery dane , które można edytować
 
         newItemCreation::showEditItem($name, $description, $price, $availability);
-        
+
         //4. Tworze formularz do edycji i dodawania zdjęć do przedmiotu, ale najpierw  odszukuje go poprzed item_id w tabeli photos
-        
+
         echo "<p>Edit Photos</p>";
 
         $result = showProduct::getPhotoPath($host, $user, $password, $database, $id);
@@ -102,20 +99,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             $path = "files/" . $number . $itemName;
 
-            if (!file_exists($path)) {
-                $dirMode = 0777;
-                mkdir($path, $dirMode, true);
-            }
+            newItemCreation::newFolder($path);
 
             $path = $path . "/" . $fileNo . "_" . $itemName . "." . $ending;
 
             move_uploaded_file($_FILES['file']['tmp_name'], $path);
 
             dbEdit::insert($connection, $number, $path);
-            
+
         }
     } else {
-        $name = $_SESSION['itemName'];
         $description = $_POST['description'];
         $price = $_POST['price'];
         $availability = $_POST['availability'];
@@ -127,35 +120,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $item->setDescription($description);
         $item->setPrice($price);
         $item->setAvailability($availability);
-
-        $id = $item->getId();
-
-//        $path = "files/" . $id . $name;
-//
-//        if (!file_exists($path)) {
-//            $dirMode = 0777;
-//            mkdir($path, $dirMode, true);
-//        }
-
-        //po zmianie nazwy produktu, musimy również odpowiednio zmienić nazwę folderu, w którym przechowywane są zdjęcia
-        //odszukuję rekordy zgodne z item_id
-
-//        $result = showProduct::getPhotoPath($host, $user, $password, $database, $id);
-
-        //dla każdegop rekordu zmieniam ścieżkę na aktualną ale wcześniej kasuje już nieaktualne ścieżki dostepu do zdjęć
-
-//        dbEdit::delete($connection, $id);
-
-//        foreach ($result as $value) {
-//            $path = "files/" . $id . $name;
-//            preg_match('~[\/][^+]+[\/]([^+]+)~', $value['path'], $matches);
-//            $path = $path . "/" . $matches[1];
-//            rename($value['path'], $path);
-//
-//            //zapisuje aktualną ścieżke kolejno dla każdego zdjęcia
-//
-//            dbEdit::insert($connection, $id, $path);
-//        }
 
         $item->save($connection);
         header('Location: itemPanel.php');

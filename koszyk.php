@@ -1,8 +1,7 @@
 <!DOCTYPE HTML>
 <?php
 include_once 'connection.php';
-require_once 'src/User.php';
-require_once 'src/Carousel.php';
+require_once 'autoload.php';
 
 session_start();
 ?>

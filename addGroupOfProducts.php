@@ -1,9 +1,9 @@
 <?php
 
 include_once 'connection.php';
-require_once 'src/User.php';
 include_once 'config.php';
-include_once 'src/Admin.php';
+require_once 'autoload.php';
+
 
 session_start();
 

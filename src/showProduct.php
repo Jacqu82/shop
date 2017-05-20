@@ -6,7 +6,7 @@
  * Time: 06:39
  */
 
-require_once 'src/Carousel.php';
+require_once 'Carousel.php';
 
 class showProduct
 {

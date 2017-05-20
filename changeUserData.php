@@ -1,9 +1,9 @@
 <?php
 
 require_once 'connection.php';
-require_once 'src/User.php';
 require_once 'login.php';
 require_once 'config.php';
+require_once 'autoload.php';
 
 if (!isset($_SESSION['user'])) {
     header('Location: index.php');

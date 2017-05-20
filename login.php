@@ -23,7 +23,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             echo $user->getPassword();
             
             $_SESSION['user'] = $user->getName();
-            var_dump($_SESSION);
             
             header('Location: index.php');
         } else {

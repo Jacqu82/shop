@@ -13,8 +13,7 @@ if (!isset($_SESSION['admin'])) {
 echo "Hello " . $_SESSION['admin'] . " | " . "<a href='index.php'>Start</a>" . " | " . "<a href='logOut.php'>wyloguj</a><hr>";
 
 if ($_SERVER['REQUEST_METHOD'] === "GET") {
-    
-    echo "ok";
+
     if (isset($_GET['photo_id']) && isset($_GET['id'])) {
         
         $id = $_GET['id'];

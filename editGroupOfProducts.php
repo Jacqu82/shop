@@ -2,6 +2,7 @@
 
 include_once 'connection.php';
 require_once 'src/User.php';
+require_once 'src/Admin.php';
 include_once 'config.php';
 
 session_start();
@@ -19,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === "GET") {
         $sql = "SELECT * FROM groups WHERE id=$id";
         $connection = new mysqli($host, $user, $password, $database);
         $result = $connection->query($sql);
-        
+
         if (!$result) {
             die ("error" . $connection->connect_error);
         }
@@ -29,11 +30,9 @@ if ($_SERVER['REQUEST_METHOD'] === "GET") {
             $description = $value['groupDescriptiopn'];
         }
 
-
-
         echo "<form action='editGroupOfProducts.php' method='post'>";
         echo "Edit the name for the <b>" . $name . " </b>group.<br>";
-        echo "<input name='name' type='text'  value=$name><br><br>";
+        echo "<textarea name='name' rows='1' col='50'>" . $name . "</textarea><br><br>";
         echo "Edit description for the <b>" . $name . "</b> group<br>";
         echo "<textarea rows='4' cols='50' name='description'>" . $description . "</textarea><br>";
         echo "<input type='hidden' name='id' value=$id>";
@@ -48,15 +47,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $description = $_POST['description'];
         $id= $_POST['id'];
         
-        $sql = "UPDATE groups SET groupName='$name', groupDescriptiopn='$description' WHERE id=$id";
-        $result = $connection->query($sql);
-        
-        if(!$result) {
-            die ("Error");
-        }
-        
-        header('Location: groupsOfProducts.php');
+        Admin::modifyGroup($connection, $name, $description, $id);
     }
 }
-//AND groupDescriptiopn=$description
+
 ?>

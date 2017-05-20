@@ -20,7 +20,7 @@ if (!isset($_SESSION['user'])) {
     ?>
     <body>
     <div class="container">
-        <div class="row" style="border-bottom: solid">
+        <div class="row" id="topMenu">
             <div class="col-md-2 col-sm-3 col-xs-4 witaj row1">
                 <a href="loginForm.html" class="btn btn-primary btn-block">Logowanie</a>
             </div>
@@ -41,7 +41,7 @@ if (!isset($_SESSION['user'])) {
     ?>
     <body>
     <div class="container">
-        <div class="row" style="border-bottom: solid">
+        <div class="row" id="topMenu">
             <div class="col-md-2 col-sm-3 col-xs-3 witaj row1">
                 <a href="userPanel.php" class="btn btn-primary btn-block"><?php echo $_SESSION['user']; ?></a>
             </div>
@@ -70,7 +70,7 @@ if (!isset($_SESSION['user'])) {
             <div class="col-md-8 tresc col-sm-8 col-xs-6" id="mainContent">
                 <div id="content">
 
-                    <h1 style="text-align: center">Wyjątkowy sklep internetowy</h1>
+                    <h1>Wyjątkowy sklep internetowy</h1>
                     <br>
 
                     <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
@@ -126,7 +126,7 @@ if (!isset($_SESSION['user'])) {
                         </div>
 
                     </div>
-                    <div id="productsCarousel" class="carousel slide" data-ride="carousel" style="margin-top: 100px">
+                    <div id="productsCarousel" class="carousel slide" data-ride="carousel">
                         <?php
                         ?>
                         <div class="carousel-inner">
@@ -145,7 +145,7 @@ if (!isset($_SESSION['user'])) {
                             </div>
                         </div>
                     </div>
-                    <div id="productsCarousel" class="carousel slide" data-ride="carousel" style="margin-top: 10px">
+                    <div id="productsCarousel" class="carousel slide" data-ride="carousel">
                         <?php
                         ?>
                         <div class="carousel-inner">

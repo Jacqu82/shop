@@ -37,7 +37,9 @@ session_start();
         </div>
 
         <div id="panel" class="row">
-            <h1>ALLEDROGO - niepoważny sklep internetowy</h1>
+            <div col-md-12 col-sm-12 col-xs-12>
+                <h1 style="">ALLEDROGO - niepoważny sklep internetowy</h1>
+            </div>
         </div>
 
         <div class="row mainRow">

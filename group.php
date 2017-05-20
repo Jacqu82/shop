@@ -17,26 +17,7 @@ session_start();
 </head>
 <?php
 if (!isset($_SESSION['user'])) {
-    ?>
-    <body>
-    <div class="container">
-        <div class="row" style="border-bottom: solid">
-            <div class="col-md-2 col-sm-3 col-xs-4 witaj row1">
-                <a href="loginForm.html" class="btn btn-primary btn-block">Logowanie</a>
-            </div>
-            <div class="col-md-2 col-sm-3 col-xs-4 rejestracja row1">
-                <a href="#" class="btn btn-primary btn-block">Rejestracja</a>
-            </div>
-            <div class="col-md-2 col-sm-3 col-xs-4 col-md-offset-6 col-sm-offset-3 koszyk row1">
-                <a href="koszyk.php" class="btn btn-success disabled btn-block">Koszyk</a>
-            </div>
-        </div>
-
-    </div>
-    <script src="js/jquery.js"></script>
-    <script src="js/bootstrap.js"></script>
-    </body>
-<?php
+    header("location:index.php");
 } else {
     ?>
     <body>

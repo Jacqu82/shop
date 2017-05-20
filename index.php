@@ -114,8 +114,6 @@ if (!isset($_SESSION['user'])) {
                         laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
                         voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
                         non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
-
-
                 </div>
             </div>
             <div class="col-md-2 col-sm-2 col-xs-3 witaj row1">
@@ -134,14 +132,10 @@ if (!isset($_SESSION['user'])) {
                                 <?php Carousel::getHTML($host, $user, $password, $database); ?>
                             </div>
                             <div class="item">
-
                                 <?php Carousel::getHTML($host, $user, $password, $database); ?>
-
-
                             </div>
                             <div class="item">
                                 <?php Carousel::getHTML($host, $user, $password, $database); ?>
-
                             </div>
                         </div>
                     </div>
@@ -153,7 +147,6 @@ if (!isset($_SESSION['user'])) {
                                 <?php Carousel::getHTML($host, $user, $password, $database); ?>
                             </div>
                             <div class="item">
-
                                 <?php Carousel::getHTML($host, $user, $password, $database); ?>
                             </div>
                             <div class="item">

@@ -23,7 +23,7 @@ session_start();
     ?>
     <body>
     <div class="container">
-        <div class="row" style="border-bottom: solid">
+        <div class="row">
             <div class="col-md-2 col-sm-3 col-xs-3 witaj row1">
                 <a href="userPanel.php" class="btn btn-primary btn-block"><?php echo $_SESSION['user'];?></a>
             </div>
@@ -38,7 +38,7 @@ session_start();
 
         <div id="panel" class="row">
             <div col-md-12 col-sm-12 col-xs-12>
-                <h1 style="">ALLEDROGO - niepoważny sklep internetowy</h1>
+                <h1>ALLEDROGO - niepoważny sklep internetowy</h1>
             </div>
         </div>
 
@@ -68,88 +68,33 @@ session_start();
                         </div>
 
                     </div>
-                    <div id="productsCarousel" class="carousel slide" data-ride="carousel" style="margin-top: 100px">
+                    <div id="productsCarousel" class="carousel slide" data-ride="carousel">
                         <?php
                         ?>
                         <div class="carousel-inner">
                             <div class="item active">
-
-                                <?php
-                                $result = Carousel::parametersReceiver($host, $user, $password, $database);
-                                $id = ($result['id']);
-                                ?>
-
-                                <div class="carousel-caption">
-                                    <?php echo "<a href='product.php?id=$id'>"?><img  id="wtf" class="img-responsive"  src="<?php echo $result['path']; ?>"></a>
-                                    <div id="inner1"><span style="padding-right: 10px">Cena:</span><span style="color: red; font-size: 110% "><?php echo $result['price'] . " zł."; ?></span><br><b><span style="font-size: 110%"><?php echo $result['name']; ?></span></b></div>
-                                </div>
+                                <?php Carousel::getHTML($host, $user, $password, $database); ?>
                             </div>
                             <div class="item">
-
-                                <?php
-                                $result = Carousel::parametersReceiver($host, $user, $password, $database);
-                                $id = ($result['id']);
-                                ?>
-
-                                <div class="carousel-caption">
-                                    <?php echo "<a href='product.php?id=$id'>"?><img  id="wtf" class="img-responsive"  src="<?php echo $result['path']; ?>"></a>
-                                    <div id="inner1"><span style="padding-right: 10px">Cena:</span><span style="color: red; font-size: 110% "><?php echo $result['price'] . " zł."; ?></span><br><b><span style="font-size: 110%"><?php echo $result['name']; ?></span></b></div>
-                                </div>
+                                <?php Carousel::getHTML($host, $user, $password, $database); ?>
                             </div>
                             <div class="item">
-
-                                <?php
-                                $result = Carousel::parametersReceiver($host, $user, $password, $database);
-                                $id = ($result['id']);
-                                ?>
-
-                                <div class="carousel-caption">
-                                    <?php echo "<a href='product.php?id=$id'>"?><img  id="wtf" class="img-responsive"  src="<?php echo $result['path']; ?>"></a>
-                                    <div id="inner1"><span style="padding-right: 10px">Cena:</span><span style="color: red; font-size: 110% "><?php echo $result['price'] . " zł."; ?></span><br><b><span style="font-size: 110%"><?php echo $result['name']; ?></span></b></div>
-                                </div>
+                                <?php Carousel::getHTML($host, $user, $password, $database); ?>
                             </div>
                         </div>
                     </div>
-                    <div id="productsCarousel" class="carousel slide" data-ride="carousel" style="margin-top: 10px">
+                    <div id="productsCarousel" class="carousel slide" data-ride="carousel">
                         <?php
                         ?>
                         <div class="carousel-inner">
                             <div class="item active">
-
-                                <?php
-                                $result = Carousel::parametersReceiver($host, $user, $password, $database);
-                                $id = ($result['id']);
-                                ?>
-
-
-                                <div class="carousel-caption">
-                                    <?php echo "<a href='product.php?id=$id'>"?><img  id="wtf" class="img-responsive"  src="<?php echo $result['path']; ?>"></a>
-                                    <div id="inner1"><span style="padding-right: 10px">Cena:</span><span style="color: red; font-size: 110% "><?php echo $result['price'] . " zł."; ?></span><br><b><span style="font-size: 110%"><?php echo $result['name']; ?></span></b></div>
-                                </div>
+                                <?php Carousel::getHTML($host, $user, $password, $database); ?>
                             </div>
                             <div class="item">
-
-                                <?php
-                                $result = Carousel::parametersReceiver($host, $user, $password, $database);
-                                $id = ($result['id']);
-                                ?>
-
-                                <div class="carousel-caption">
-                                    <?php echo "<a href='product.php?id=$id'>"?><img  id="wtf" class="img-responsive"  src="<?php echo $result['path']; ?>"></a>
-                                    <div id="inner1"><span style="padding-right: 10px">Cena:</span><span style="color: red; font-size: 110% "><?php echo $result['price'] . " zł."; ?></span><br><b><span style="font-size: 110%"><?php echo $result['name']; ?></span></b></div>
-                                </div>
+                                <?php Carousel::getHTML($host, $user, $password, $database); ?>
                             </div>
                             <div class="item">
-
-                                <?php
-                                $result = Carousel::parametersReceiver($host, $user, $password, $database);
-                                $id = ($result['id']);
-                                ?>
-
-                                <div class="carousel-caption">
-                                    <?php echo "<a href='product.php?id=$id'>"?><img  id="wtf" class="img-responsive"  src="<?php echo $result['path']; ?>"></a>
-                                    <div id="inner1"><span style="padding-right: 10px">Cena:</span><span style="color: red; font-size: 110% "><?php echo $result['price'] . " zł."; ?></span><br><b><span style="font-size: 110%"><?php echo $result['name']; ?></span></b></div>
-                                </div>
+                                <?php Carousel::getHTML($host, $user, $password, $database); ?>
                             </div>
                         </div>
                     </div>

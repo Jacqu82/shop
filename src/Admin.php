@@ -2,6 +2,7 @@
 
 include_once 'Item.php';
 
+
 class Admin
 {
 
@@ -9,12 +10,6 @@ class Admin
     protected $email;
     protected $password;
 
-    /**
-     * Admin constructor.
-     * @param $name
-     * @param $email
-     * @param $password
-     */
     public function __construct()
     {
         $this->name = '';
@@ -98,7 +93,7 @@ class Admin
     
     // trzy metody do obsługi przedmiotów
     
-    public function addItem()
+    public static function addItem()
     {
         $item = new Item();
         $item->setName($item);
@@ -116,19 +111,41 @@ class Admin
     
     //trzy metody do obsługi grup przedmiotów
     
-    public function addGroup()
+    public static function addGroup($connection, $name, $description)
     {
-        
+        $sql = "INSERT INTO groups (`groupName`, `groupDescriptiopn`) VALUES ('$name', '$description')";
+        $result = $connection->query($sql);
+
+        if (!$result) {
+            die ("error" . $connection->connect_error);
+        }
+
+        return true;
     }
     
-    public function removeGroup()
+    public static function modifyGroup($connection, $name, $description, $id)
     {
-        
+        $sql = "UPDATE groups SET groupName='$name', groupDescriptiopn='$description' WHERE id=$id";
+        $result = $connection->query($sql);
+
+        if(!$result) {
+            die ("Error");
+        }
+
+        header('Location: groupsOfProducts.php');
     }
     
-    public function modifyGroup()
+    public static function removeGroup($connection, $id)
     {
-        
+        $sql = "DELETE FROM groups WHERE id=$id";
+
+        $result = $connection->query($sql);
+
+        if (!$result) {
+            die ("Error");
+        }
+
+        header('Location: groupsOfProducts.php');
     }
 
 }

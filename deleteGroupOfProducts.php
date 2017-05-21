@@ -1,8 +1,8 @@
 <?php
 
 include_once 'connection.php';
-require_once 'src/User.php';
 include_once 'config.php';
+require_once 'autoload.php';
 
 session_start();
 
@@ -19,14 +19,6 @@ if ($_SERVER['REQUEST_METHOD'] === "GET") {
         
         $connection = new mysqli($host, $user, $password, $database);
         
-        $sql = "DELETE FROM groups WHERE id=$id";
-        
-        $result = $connection->query($sql);
-        
-        if (!$result) {
-            die ("Error");
-        }
-        
-        header('Location: groupsOfProducts.php');
+        Admin::removeGroup($connection, $id);
     }
 }

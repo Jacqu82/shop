@@ -23,4 +23,9 @@ $(document).ready(function () {
         }
     })
 
-})
+    $('#deleteItemInBasket').click(function() {
+        $('.productInCart').html('');
+    })
+
+
+});

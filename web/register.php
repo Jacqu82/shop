@@ -10,15 +10,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $password = $_POST['password'];
         $address = $_POST['address'];
         
-        
         $sql = "INSERT INTO users (`name`, `surname`, `email`, `password`, `address`) VALUES ('$name', '$surname', '$email', '$password', '$address')";
-        
-        //$sql = "SELECT * FROM user";
-        
+
         $ready = $connection->query($sql);
         
-        if (!$ready) {
-            die($connection->connect_error);
+        if ($ready) {
+            echo "Poprawnie utworzyłeś swoje konto na Aledrogo.pl!<br/>";
+            echo "<a href='loginForm.html'>Zaloguj się na swoje konto</a>";
+        } else {
+            echo "Wystąpił błąd podczas rejestracji, spróbuj jeszcze raz!";
+            die("Connection Error! " . $connection->connect_error);
         }
     }
 }

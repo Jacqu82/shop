@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 21, 2017 at 11:08 PM
+-- Generation Time: May 28, 2017 at 11:26 AM
 -- Server version: 5.7.18-0ubuntu0.16.04.1
 -- PHP Version: 7.0.15-0ubuntu0.16.04.4
 
@@ -105,6 +105,29 @@ INSERT INTO `item` (`id`, `name`, `price`, `description`, `availability`, `group
 (134, 'ASUS GL753VE 17,3', 99.00, 'SprzÄ™t dla gracza\r\nDuÅ¼y wyÅ›wietlacz\r\nNajnowszy procesor', 4, 10),
 (135, 'Apple iPhone 7 ', 79.00, 'Odporna obudowa\r\nDuÅ¼y wyÅ›wietlacz\r\nZadziała??', 54, 11),
 (137, 'Walman Sharp', 11.00, 'Elegancki', 11, 9);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `message`
+--
+
+CREATE TABLE `message` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `title` varchar(255) DEFAULT NULL,
+  `content` text,
+  `date` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `message`
+--
+
+INSERT INTO `message` (`id`, `user_id`, `title`, `content`, `date`) VALUES
+(10, 8, 'wiad1', 'tresc1', '17-05-28'),
+(11, 9, 'tytul3', 'tresc3', ''),
+(12, 8, 'wiad do jacka', 'hej hej', '17-05-28');
 
 -- --------------------------------------------------------
 
@@ -223,9 +246,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `surname`, `email`, `password`, `address`) VALUES
-(4, 'slawek', 'hhhh', 'slawek@o2.pl', 'slawek1', 'ff'),
-(5, 'basia', 'jar', 'asiia@op.pl', 'asia1', 'bedzin'),
-(7, 'igi', 'jar', 'ignas@op.pl', 'ignas1', 'igilandia');
+(8, 'jacek', 'kulka', 'kulka@kulka.pl', 'jacek1', 'ruda, czarny'),
+(9, 'slawek', 'lawka', 'lawka@lawka.pl', 'slawek1', 'dg krzynowki 13'),
+(10, 'michal', 'kichal', 'kichal@kichal.pl', 'michal1', 'katowice, rynek1');
 
 --
 -- Indexes for dumped tables
@@ -249,6 +272,13 @@ ALTER TABLE `groups`
 ALTER TABLE `item`
   ADD PRIMARY KEY (`id`),
   ADD KEY `group_id` (`group_id`);
+
+--
+-- Indexes for table `message`
+--
+ALTER TABLE `message`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_id`);
 
 --
 -- Indexes for table `orders`
@@ -292,6 +322,11 @@ ALTER TABLE `groups`
 ALTER TABLE `item`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=138;
 --
+-- AUTO_INCREMENT for table `message`
+--
+ALTER TABLE `message`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+--
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
@@ -305,7 +340,7 @@ ALTER TABLE `photos`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- Constraints for dumped tables
 --
@@ -315,6 +350,12 @@ ALTER TABLE `users`
 --
 ALTER TABLE `item`
   ADD CONSTRAINT `item_ibfk_1` FOREIGN KEY (`group_id`) REFERENCES `groups` (`id`);
+
+--
+-- Constraints for table `message`
+--
+ALTER TABLE `message`
+  ADD CONSTRAINT `message_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 
 --
 -- Constraints for table `orders`

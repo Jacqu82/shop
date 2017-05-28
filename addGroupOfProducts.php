@@ -34,6 +34,7 @@ echo "Hello " . $_SESSION['admin'] . " | " . "<a href='index.php'>Start</a>" . "
     </html>
 
 <?php
+
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
     if (isset($_POST['name']) && isset($_POST['description'])) {
 
@@ -52,7 +53,3 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         }
     }
 }
-
-
-
-?>

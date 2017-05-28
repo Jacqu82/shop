@@ -26,7 +26,8 @@ if (!isset($_SESSION['admin'])) {
     <ul>You are in admin panel. In thi section You can :
         <li><a href="groupsOfProducts.php">Add, remove or modify a group of items</a></li>
         <li><a href="itemPanel.php">Add, remove or modify an item</a></li>
-        <li><a href="">Send a message</a></li>
+        <li><a href="sendMessage.php">Send a message</a></li>
+        <li><a href="adminMessages.php">Show all messages</a></li>
     </ul>
 </div>
 </body>

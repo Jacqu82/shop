@@ -80,10 +80,10 @@ if (!isset($_SESSION['user'])) {
     <div class="container">
     <div class="row" style="border-bottom: solid">
         <div class="col-md-2 col-sm-3 col-xs-3 witaj row1">
-            <a href="logOut.php" class="btn btn-primary btn-block"><?php echo $_SESSION['user'];?></a>
+            <a href="web/logOut.php" class="btn btn-primary btn-block"><?php echo $_SESSION['user'];?></a>
         </div>
         <div class="col-md-2 col-sm-3 col-xs-3 rejestracja row1">
-            <a href="logOut.php" class="btn btn-primary btn-block">Wyloguj</a>
+            <a href="web/logOut.php" class="btn btn-primary btn-block">Wyloguj</a>
         </div>
         <div class="col-md-2 col-sm-3 col-xs-3 col-md-offset-6 col-sm-offset-3 koszyk row1">
             <a href="koszyk.php" class="btn btn-success btn-block">Koszyk</a>
@@ -99,7 +99,7 @@ if (!isset($_SESSION['user'])) {
         <div class="col-md-2 col-sm-3 col-xs-3 witaj row1">
             <div class="row rowing">
                 <div class="col-md-12 col-sm-12 col-xs-12 rejestracja1 row1 logo">
-                    <a href="logOut.php" class="btn btn-primary btn-block logo">Alledrogo</a>
+                    <a href="web/logOut.php" class="btn btn-primary btn-block logo">Alledrogo</a>
                 </div>
                 <?php  foreach ($result as $value) {
                     $groupId = $value['id'];

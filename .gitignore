@@ -2,3 +2,4 @@ vendor
 composer.phar
 config.php
 composer.lock
+.idea/

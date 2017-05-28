@@ -1,6 +1,6 @@
 <?php
 
-require_once 'connection.php';
+require_once '../connection.php';
 require_once 'autoload.php';
 
 session_start();
@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['admin'] = $admin->getName();
             var_dump($_SESSION);
             
-            header('Location: adminPanel.php');
+            header('Location: ../adminPanel.php');
         } else {
             die("Incorrect password!!!");
         }

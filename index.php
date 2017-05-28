@@ -22,10 +22,10 @@ if (!isset($_SESSION['user'])) {
     <div class="container">
         <div class="row" id="topMenu">
             <div class="col-md-2 col-sm-3 col-xs-4 witaj row1">
-                <a href="loginForm.html" class="btn btn-primary btn-block">Logowanie</a>
+                <a href="web/loginForm.html" class="btn btn-primary btn-block">Logowanie</a>
             </div>
             <div class="col-md-2 col-sm-3 col-xs-4 rejestracja row1">
-                <a href="#" class="btn btn-primary btn-block">Rejestracja</a>
+                <a href="web/registerForm.html" class="btn btn-primary btn-block">Rejestracja</a>
             </div>
             <div class="col-md-2 col-sm-3 col-xs-4 col-md-offset-6 col-sm-offset-3 koszyk row1">
                 <a href="koszyk.php" class="btn btn-success disabled btn-block">Koszyk</a>
@@ -46,7 +46,7 @@ if (!isset($_SESSION['user'])) {
                 <a href="userPanel.php" class="btn btn-primary btn-block"><?php echo $_SESSION['user']; ?></a>
             </div>
             <div class="col-md-2 col-sm-3 col-xs-3 rejestracja row1">
-                <a href="logOut.php" class="btn btn-primary btn-block">Wyloguj</a>
+                <a href="web/logOut.php" class="btn btn-primary btn-block">Wyloguj</a>
             </div>
             <div class="col-md-2 col-sm-3 col-xs-3 col-md-offset-6 col-sm-offset-3 koszyk row1">
                 <a href="koszyk.php" class="btn btn-success btn-block">Koszyk</a>

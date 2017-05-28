@@ -1,7 +1,7 @@
 <?php
 
 require_once 'connection.php';
-require_once 'login.php';
+require_once 'web/login.php';
 require_once 'config.php';
 require_once 'autoload.php';
 

@@ -22,19 +22,7 @@ if (!isset($_SESSION['user'])) {
     ?>
     <body>
     <div class="container">
-        <div class="row" id="topMenu">
-            <div class="col-md-2 col-sm-3 col-xs-3 witaj row1">
-                <a href="userPanel.php" class="btn btn-primary btn-block"><?php echo $_SESSION['user']; ?></a>
-            </div>
-            <div class="col-md-2 col-sm-3 col-xs-3 rejestracja row1">
-                <a href="web/logOut.php" class="btn btn-primary btn-block">Wyloguj</a>
-            </div>
-            <div class="col-md-2 col-sm-3 col-xs-3 col-md-offset-6 col-sm-offset-3 koszyk row1">
-                <a href="koszyk.php" class="btn btn-success btn-block">Koszyk</a>
-                <a></a>
-            </div>
-        </div>
-
+        <?php showLoggedUserOptions::showAllOptions($connection); ?>
         <div id="panel" class="row">
             <h1>ALLEDROGO - niepoważny sklep internetowy</h1>
         </div>

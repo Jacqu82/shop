@@ -87,9 +87,9 @@ class showProduct
     public static function showAllPhotos($host, $user, $password, $database, $id)
     {
         $result = self::getAllData($host, $user, $password, $database, $id);
-        $itemId = $result['name'];
-        var_dump($itemId);
+        $itemName = $result['name'];
         $paths = self::getAllPhotos($host, $user, $password, $database, $id);
+        $path = $paths[0];
 
         echo "
             <div class='col-md-8 tresc col-sm-8 col-xs-6'>
@@ -118,7 +118,7 @@ class showProduct
                         <h3>" . $result['availability'] . " szt.</h3>
                     </div>
                     <div class='col-md-12 col-sm-12 col-xs-12'>
-                        <a href='koszyk.php?name=$itemId' class='btn btn-success btn-block'>Do Koszyka</a>
+                        <a href='addItemToCart.php?name=$itemName&path=$path' class='btn btn-success btn-block'>Do Koszyka</a>
                     </div>
                 </div>
                 <div id='descriptionSpace' class='col-md-12 col-sm-12 col-xs-12'>

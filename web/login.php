@@ -21,8 +21,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             echo $user->getSurname() . "<br>";
             echo $user->getAddress() . "<br>";
             echo $user->getPassword();
-            
+
             $_SESSION['user'] = $user->getName();
+            $_SESSION['id'] = $user->getId();
+
             
             header('Location: ../index.php');
         } else {

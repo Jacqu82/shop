@@ -23,8 +23,11 @@ $(document).ready(function () {
         }
     })
 
-    $('#deleteItemInBasket').click(function() {
-        $('.productInCart').html('');
+    $('.deleteItemInBasket').click(function() {
+        console.log("hej");
+        $(this).parent().parent().html('');
+        //var url = "delete.php";
+        //window.location = url;
     })
 
 

@@ -123,5 +123,29 @@ class Message
 
     }
 
+    public static function getUnreadMessage(mysqli $connection, $id)
+    {
+        $sql = "SELECT status FROM message WHERE user_id=$id AND status=0";
+
+        $result = $connection->query($sql);
+
+        if (!$result) {
+            die("Błąd odczytu z bazy danych" . $connection->connect_errno);
+        }
+
+        $i = 0;
+
+        foreach($result as $value) {
+            $i++;
+        }
+
+        if ($i < 1) {
+            echo'';
+        } else {
+            echo $i;
+        }
+
+    }
+
 
 }

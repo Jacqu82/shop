@@ -23,19 +23,7 @@ session_start();
     ?>
     <body>
     <div class="container">
-        <div class="row">
-            <div class="col-md-2 col-sm-3 col-xs-3 witaj row1">
-                <a href="userPanel.php" class="btn btn-primary btn-block"><?php echo $_SESSION['user'];?></a>
-            </div>
-            <div class="col-md-2 col-sm-3 col-xs-3 rejestracja row1">
-                <a href="web/logOut.php" class="btn btn-primary btn-block">Wyloguj</a>
-            </div>
-            <div class="col-md-2 col-sm-3 col-xs-3 col-md-offset-6 col-sm-offset-3 koszyk row1">
-                <a href="koszyk.php" class="btn btn-success btn-block">Koszyk</a>
-                <a></a>
-            </div>
-        </div>
-
+            <?php showLoggedUserOptions::showAllOptions($connection); ?>
         <div id="panel" class="row">
             <div col-md-12 col-sm-12 col-xs-12>
                 <h1>ALLEDROGO - niepoważny sklep internetowy</h1>

@@ -64,13 +64,22 @@ class User
     {
         $this->password = $password;
     }
+
+    /**
+     * @param int $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
     static public function loadUserByName(mysqli $connection, $name)
     {
         $name = $connection->real_escape_string($name);
         $sql = "SELECT * FROM `users` WHERE `name` = '$name'";
         $result = $connection->query($sql);
         if (!$result) {
-            die("Error kurwa mać" . $connection->connect_error);
+            die("Błąd połączenia z bazą danych" . $connection->connect_error);
         }
         if ($result->num_rows == 1) {
             $userArray = $result->fetch_assoc();
@@ -80,6 +89,7 @@ class User
             $user->setEmail($userArray['email']);
             $user->setAddress($userArray['address']);
             $user->setPassword($userArray['password']);
+            $user->setId($userArray['id']);
             return $user;
         } else {
             return false;

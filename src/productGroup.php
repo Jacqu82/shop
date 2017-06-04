@@ -45,7 +45,7 @@ class productGroup
             echo "<a href='product.php?id=$id'><img id='wtf' class='img-responsive'  src='$path' style='border: solid 2px darkred'></a>";
             echo "</div>";
             echo "<div class='col-md-6 col-sm-12 col-xs-12 productPriceElement'>";
-            echo "<p>" . $price . "zł.</p><p>" . $availability . " szt.</p>" . "<a href='koszyk.php?id=$id' class='btn btn-primary btn-block'>Do Koszyka</a>";
+            echo "<p>" . $price . "zł.</p><p>" . $availability . " szt.</p>" . "<a href='addItemToCart.php?name=$name&path=$path' class='btn btn-primary btn-block'>Do Koszyka</a>";
             echo "</div>";
             echo "<div class='col-md-12 col-sm-12 col-xs-12 productBuyElement' style='margin-bottom: 65px'>";
             echo "<h3 style='border-bottom: 2px solid darkred'>" . $name . "</h3>";

@@ -45,7 +45,7 @@ class MessageDbQuery
 
     static public function send (mysqli $connection, $title, $content, $id, $date)
     {
-        $sql = "INSERT INTO message(user_id, title, content, date) VALUES ('$id', '$title', '$content', '$date')";
+        $sql = "INSERT INTO message(user_id, title, content, date, status) VALUES ('$id', '$title', '$content', '$date', 0)";
 
         $result = $connection->query($sql);
 

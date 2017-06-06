@@ -4,7 +4,7 @@ require_once 'autoload.php';
 
 session_start();
 
-//jeżeli ktoś wpisze z palca w przeglądarce userPanel.php to jeśli nie jest zalogowany zostanie wyrzucony na stronę głóœną.
+//jeżeli ktoś wpisze z palca w przeglądarce userPanel.php to jeśli nie jest zalogowany zostanie wyrzucony na stronę główną.
 
 if (!isset($_SESSION['user'])) {
     header('Location: index.php');
@@ -14,21 +14,27 @@ if (!isset($_SESSION['user'])) {
 
 <html>
 <head>
-    <meta charset="utf-8"/>
     <title>Shop</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="css/style.css?h=1" rel="stylesheet">
 </head>
 <body>
-<div id="container">
+<div class="container">
 
     <?php
-    echo "Hello " . $_SESSION['user'] . " | " . "<a href='index.php'>Start</a>" . " | " . "<a href='logOut.php'>wyloguj</a>";
+    //górny pasek z podstawowymi funkcjonalnościami użytkownika
+    echo "Witaj " . $_SESSION['user'] . " | " . "<a href='index.php'>Start</a>" . " | " . "<a href='web/logOut.php'>wyloguj</a>";
     ?>
     <hr>
-    <ul>You are in users panel. In thi section You can :
-        <li><a href="changeUserData.php">Change Your data</a></li>
-        <li><a href="">Show shopping history</a></li>
-        <li><a href="">Read messages</a></li>
-    </ul>
+    <div class="wrapper">
+        <ul><span>Jesteś w panelu użytkownika <br>Masz do wyboru następujące opcje:</span>
+            <li><a href="changeUserData.php">Zmień swoje dane</a></li>
+            <li><a href="">Pokaż historię zakupów</a></li>
+            <li><a href="">Skrznka odbiorcza</a></li>
+            <li><a href="payForProducts.php">Płatności</a></li>
+        </ul>
+    </div>
 </div>
 </body>
 </html>

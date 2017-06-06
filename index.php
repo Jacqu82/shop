@@ -41,7 +41,9 @@ if (!isset($_SESSION['user'])) {
     ?>
     <body>
     <div class="container">
-        <?php showLoggedUserOptions::showAllOptions($connection); ?>
+        <?php //wywołanie metody pokazującej górny pasek opcji
+        showLoggedUserOptions::showAllOptions($connection);
+        ?>
         <div id="panel" class="row">
             <h1>ALLEDROGO - niepoważny sklep internetowy</h1>
         </div>
@@ -52,7 +54,9 @@ if (!isset($_SESSION['user'])) {
                     <div class="col-md-12 col-sm-12 col-xs-12 rejestracja1 row1 logo">
                         <a href="index.php" class="btn btn-primary btn-block logo">Alledrogo</a>
                     </div>
-                    <?php photoGallery::showGroupName($host, $user, $password, $database) ?>
+                    <?php //wywołanie metody, która ma za zadanie wyświetlić wszystkie nazwy grup produktów
+                    photoGallery::showGroupName($connection)
+                    ?>
                 </div>
             </div>
             <div class="col-md-8 tresc col-sm-8 col-xs-6" id="mainContent">
@@ -113,32 +117,30 @@ if (!isset($_SESSION['user'])) {
 
                     </div>
                     <div id="productsCarousel" class="carousel slide" data-ride="carousel">
-                        <?php
-                        ?>
                         <div class="carousel-inner">
                             <div class="item active">
-                                <?php Carousel::getHTML($host, $user, $password, $database); ?>
+                                <?php //trzy razy wywoływana metoda, której celem jest wylosowanie produktów i wrzucenie ich do karuzeli
+                                Carousel::getHTML($connection); ?>
                             </div>
                             <div class="item">
-                                <?php Carousel::getHTML($host, $user, $password, $database); ?>
+                                <?php Carousel::getHTML($connection); ?>
                             </div>
                             <div class="item">
-                                <?php Carousel::getHTML($host, $user, $password, $database); ?>
+                                <?php Carousel::getHTML($connection); ?>
                             </div>
                         </div>
                     </div>
                     <div id="productsCarousel" class="carousel slide" data-ride="carousel">
-                        <?php
-                        ?>
                         <div class="carousel-inner">
                             <div class="item active">
-                                <?php Carousel::getHTML($host, $user, $password, $database); ?>
+                                <?php //trzy razy wywoływana metoda, której celem jest wylosowanie produktów i wrzucenie ich do karuzeli
+                                Carousel::getHTML($connection); ?>
                             </div>
                             <div class="item">
-                                <?php Carousel::getHTML($host, $user, $password, $database); ?>
+                                <?php Carousel::getHTML($connection); ?>
                             </div>
                             <div class="item">
-                                <?php Carousel::getHTML($host, $user, $password, $database); ?>
+                                <?php Carousel::getHTML($connection); ?>
                             </div>
                         </div>
                     </div>
@@ -157,5 +159,6 @@ if (!isset($_SESSION['user'])) {
     </body>
 <?php
 };
+$connection->close();
 ?>
 </html>

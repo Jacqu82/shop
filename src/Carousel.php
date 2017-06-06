@@ -1,18 +1,10 @@
 <?php
 
-/**
- * Created by PhpStorm.
- * User: sgr13
- * Date: 14.05.17
- * Time: 12:40
- */
 class Carousel
 {
-    public static function getItemData($host, $user, $password, $database)
+    public static function getItemData(mysqli $connection)
     {
         $sql = "SELECT * FROM item ORDER BY RAND() LIMIT 1 ";
-
-        $connection = new mysqli($host, $user, $password, $database);
 
         $result = $connection->query($sql);
 
@@ -23,11 +15,9 @@ class Carousel
         return $result;
     }
 
-    public static function getPhotoPath($host, $user, $password, $database, $id)
+    public static function getPhotoPath(mysqli $connection, $id)
     {
         $sql = "SELECT * FROM photos WHERE item_id = $id LIMIT 1";
-
-        $connection = new mysqli($host, $user, $password, $database);
 
         $result = $connection->query($sql);
 
@@ -38,9 +28,9 @@ class Carousel
         return $result;
     }
 
-    public static function parametersReceiver($host, $user, $password, $database)
+    public static function parametersReceiver(mysqli $connection)
     {
-        $result = self::getItemData($host, $user, $password, $database);
+        $result = self::getItemData($connection);
 
         foreach ($result as $value) {
             $id = $value['id'];
@@ -50,7 +40,7 @@ class Carousel
             $description = $value['description'];
         }
 
-        $result = self::getPhotoPath($host, $user, $password, $database, $id);
+        $result = self::getPhotoPath($connection, $id);
 
         foreach ($result as $value) {
             $path = $value['path'];
@@ -68,9 +58,9 @@ class Carousel
         return $array;
     }
 
-    public static function getHTML($host, $user, $password, $database)
+    public static function getHTML(mysqli $connection)
     {
-        $result = self::parametersReceiver($host, $user, $password, $database);
+        $result = self::parametersReceiver($connection);
 
         $id = ($result['id']);
 
@@ -79,13 +69,11 @@ class Carousel
                         <img id='wtf' class='img-responsive' src='" . $result['path'] . "'>
                     </a>
                     <div id='inner1'>
-                        <span style='padding-right: 10px'>Cena:</span>
-                        <span style='color: red; font-size: 110%'>" . $result['price'] . " zł." . "</span><br>
-                        <b><span style='font-size: 110%'>" . $result['name'] . "</span></b>
+                        <span id='priceCarousel'>Cena:</span>
+                        <span  id='amountCarousel'>" . $result['price'] . " zł." . "</span><br>
+                        <b><span id='carouselName'>" . $result['name'] . "</span></b>
                     </div>
                 </div>";
     }
 
 }
-
-

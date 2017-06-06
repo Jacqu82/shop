@@ -8,52 +8,60 @@ session_start();
 if (!isset($_SESSION['admin'])) {
     header('Location: index.php');
 }
-
-echo "Hello " . $_SESSION['admin'] . " | " . "<a href='index.php'>Start</a>" . " | " . "<a href='logOut.php'>wyloguj</a><hr>";
-
 ?>
-
     <html>
     <head>
-        <title>adding New Item</title>
+        <title>Shop</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="css/style.css?h=1" rel="stylesheet">
     </head>
+
     <body>
-    <form action="#" method="post" enctype="multipart/form-data">
-        Enter item name:<br>
-        <input type="text" name="name"/><br>
-        Select group of products or create <a href="addGroupOfProducts.php">new group:</a><br>
+    <div class="container">
+
         <?php
 
-        //wybieramy z listy rozwijalnej grupę produktów do której dodamy przedmiot
-
-        $result = photoGallery::getGallery($host, $user, $password, $database);
-
-        echo '<select name="selection">';
-
-        foreach ($result as $value) {
-            echo '<option value="' . $value['id'] . '">' . $value['groupName'] . '</option>';
-        }
-        echo '</select>';
+        echo "Witaj " . $_SESSION['admin'] . " | " . "<a href='index.php'>Start</a>" . " | " . "<a href='logOut.php'>wyloguj</a><hr>";
+        echo "<p><a href='itemPanel.php'><--Powrót</a></p>";
         ?>
-        <br>
-        Enter item description:<br>
-        <textarea rows='4' cols='50' name='description'></textarea><br>
-        Enter item price<br>
-        <input type="text" name="price"/><br>
-        Enter item availability:<br>
-        <input type="text" name="availability"/><br>
-        Add picture:<br>
-        <input type="file" name="file1"/><br>
-        Add picture:<br>
-        <input type="file" name="file2"/><br>
-        Add picture:<br>
-        <input type="file" name="file3"/><br>
-        Add picture:<br>
-        <input type="file" name="file4"/><br>
-        <input type="submit" value="Add"/>
-    </form>
+        <div class="itemShow">
+            <form action="#" method="post" enctype="multipart/form-data">
+                Podaj nazwę:<br>
+                <input type="text" name="name"/><br>
+                Wybierz grupę  lub stwórz <a href="addGroupOfProducts.php"><b>nową grupę:</b></a><br>
+                <?php
+
+                //wybieramy z listy rozwijalnej grupę produktów do której dodamy przedmiot
+
+                $result = photoGallery::getGallery($connection);
+
+                echo '<select name="selection">';
+
+                foreach ($result as $value) {
+                    echo '<option value="' . $value['id'] . '">' . $value['groupName'] . '</option>';
+                }
+                echo '</select>';
+                ?>
+                <br>
+                Opis:<br>
+                <textarea rows='4' cols='50' name='description'></textarea><br>
+                Cena:<br>
+                <input type="text" name="price"/><br>
+                Dostępność:<br>
+                <input type="text" name="availability"/><br>
+                Dodaj zdjęcie:<br>
+                <input type="file" name="file1"/><br>
+                Dodaj zdjęcie:<br>
+                <input type="file" name="file2"/><br>
+                Dodaj zdjęcie:<br>
+                <input type="file" name="file3"/><br>
+                Dodaj zdjęcie:<br>
+                <input type="file" name="file4"/><br>
+                <input type="submit" value="Dodaj"/>
+            </form>
+        </div>
+        </div>
     </body>
     </html>
 <?php
@@ -63,11 +71,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         //przypisujemy wszystkie dane z formularza do zmiennych
 
-        $name = $_POST['name'];
-        $selection = $_POST['selection'];
-        $description = $_POST['description'];
-        $price = $_POST['price'];
-        $availability = $_POST['availability'];
+        $name = mysqli_real_escape_string($connection, $_POST['name']);
+        $selection = mysqli_real_escape_string($connection, $_POST['selection']);
+        $description = mysqli_real_escape_string($connection, $_POST['description']);
+        $price = mysqli_real_escape_string($connection, $_POST['price']);
+        $availability = mysqli_real_escape_string($connection,$_POST['availability']);
 
         //tworzymy obiekt typu Item i ustawiamy setery zmiennymi otrzymanymiz formularza
 
@@ -78,8 +86,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $item->setGroup($selection);
         $item->setPrice($price);
 
-        $connection = new mysqli($host, $user, $password, $database);
-
         $item->save($connection);
 
         $id = $item->getId();
@@ -89,7 +95,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $path = "files/" . $id . $name;
         newItemCreation::newFolder($path);
 
-        //w ten dziwny sposób okreslam ile zdjęć zostało załadowanych - wartość tą wykoprzystam w pętli
+        //sposób okreslam ile zdjęć zostało załadowanych - wartość tą wykorzystam w pętli
 
         if ($_FILES['file2']['size'] == 0) {
             $flag = 1;
@@ -103,7 +109,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         for ($i = 0; $i < $flag; $i++) {
 
-            //strasznie rozbudowane, ale w każdym ifie sprawdzam z którym plikiem pracuję a następnie wyszukuje końcówki pliku
+            // sprawdzam z którym plikiem pracuję a następnie wyszukuje końcówki pliku
 
             if ($i == 0) {
                 $fileNo = 'file1';
@@ -127,7 +133,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $ending = $matches[0];
             }
 
-            //przy każdej iteracji resetuje zmiane sciezki dostepu do ustawien poczatkowych
+            var_dump($ending);
+
+            //przy każdej iteracji resetuje zmiane scieżki dostepu do ustawien poczatkowych
             $path = "files/" . $id . $name;
 
             //nastepnie zmieniam nazwe elementu na liczbe porzadkowa + nazwe przedmiotu + koncowka odpowiednia
@@ -143,3 +151,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header('Location: itemPanel.php');
     }
 }
+
+$connection->close();

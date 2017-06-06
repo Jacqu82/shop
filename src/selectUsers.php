@@ -1,22 +1,10 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: sgr13
- * Date: 25.05.17
- * Time: 22:23
- */
 
 class selectUsers
 {
-    public static function selectAllUsers (mysqli $connection)
+    public static function selectAllUsers(mysqli $connection)
     {
-        $sql = "SELECT * FROM users";
-
-        $result = $connection->query($sql);
-
-        if (!$result) {
-            die("Błąd połączenia z bazą danych" . $connection->connect_errno);
-        }
+        $result = self::selectUsersFromDb($connection);
 
         echo '<form action="#" method="post">';
         echo '<select name="selection">';
@@ -32,5 +20,18 @@ class selectUsers
         echo '<textarea name="content" cols="30" rows="5"></textarea>';
 
         echo '<br><br><input type="submit" value="Wyślij"></form>';
+    }
+
+    public static function selectUsersFromDb(mysqli $connection)
+    {
+        $sql = "SELECT * FROM users";
+
+        $result = $connection->query($sql);
+
+        if (!$result) {
+            die("Błąd połączenia z bazą danych" . $connection->connect_errno);
+        }
+
+        return $result;
     }
 }

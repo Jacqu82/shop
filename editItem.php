@@ -11,20 +11,37 @@ session_start();
 if (!isset($_SESSION['admin'])) {
     header('Location: index.php');
 }
+?>
 
-echo "Hello " . $_SESSION['admin'] . " | " . "<a href='index.php'>Start</a>" . " | " . "<a href='logOut.php'>wyloguj</a><hr>";
+    <html>
+    <head>
+        <title>Shop</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="css/style.css?h=1" rel="stylesheet">
+    </head>
+
+    <body>
+    <div class="container">
+
+<?php
+
+echo "Witaj " . $_SESSION['admin'] . " | " . "<a href='index.php'>Start</a>" . " | " . "<a href='web/logOut.php'>wyloguj</a><hr>";
+echo "<p><a href='itemPanel.php'><--Powrót</a></p>";
 
 // 2. Sprawdzamy czy udało się przesłać getem  informacje, a następnie na podstawie id odszukujemy nazwe przedmiotu i tworzymy obiekt
 
 if ($_SERVER['REQUEST_METHOD'] === "GET") {
     if (isset($_GET['id'])) {
         $id = $_GET['id'];
-        $result = showProduct::getItem($host, $user, $password, $database, $id);
+        //wykorzystujemy metodę, która wyciąga dane o przedmiocie o podanym id
+        $result = showProduct::getItem($connection, $id);
 
         foreach ($result as $value) {
             $name = $value['name'];
         }
 
+        //tworzymy obiekt na podstawie uzyskanej nazwy oraz przypisujemy zmiennym wartości
         $item = Item::loadItemByName($connection, $name);
 
         $oldName = $item->getName();
@@ -45,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === "GET") {
 
         echo "<p>Edit Photos</p>";
 
-        $result = showProduct::getPhotoPath($host, $user, $password, $database, $id);
+        $result = showProduct::getPhotoPath($connection, $id);
 
         foreach ($result as $value) {
             $tab[] = array($value);
@@ -59,37 +76,25 @@ if ($_SERVER['REQUEST_METHOD'] === "GET") {
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_FILES['file'])) {
+        //gdy zdjęcia były już wcześniej dodane do przedmiotu
         if (isset($_POST['path'])) {
             $first = substr($_SESSION['path'], -3, 3);
             $second = substr($_FILES['file']['name'], -3, 3);
 
-            if (substr($_SESSION['path'], -3, 3) == substr($_FILES['file']['name'], -3, 3)) {
-                $path = $_SESSION['path'];
-                $photoId = $_POST['photoId'];
-                $itemId = $_POST['itemId'];
+            $itemId = $_POST['itemId'];
+            $photoId = $_POST['photoId'];
+            $path = $_SESSION['path'];
+            unlink($path);
 
-                dbEdit::delete($connection, $photoId);
+            $path = str_replace($first, $second, $path);
 
-                move_uploaded_file($_FILES['file']['tmp_name'], $path);
+            move_uploaded_file($_FILES['file']['tmp_name'], $path);
 
-                dbEdit::insert($connection, $itemId, $path);
+            dbEdit::delete($connection, $photoId);
+            dbEdit::insert($connection, $itemId, $path);
 
-            } else {
-                $path = $_POST['path'];
-                $itemId = $_POST['itemId'];
-                $photoId = $_POST['photoId'];
-                $path = $_SESSION['path'];
-                unlink($path);
 
-                echo "rozne koncowki!";
-                $path = str_replace($first, $second, $path);
-
-                move_uploaded_file($_FILES['file']['tmp_name'], $path);
-
-                dbEdit::delete($connection, $photoId);
-                dbEdit::insert($connection, $itemId, $path);
-
-            }
+            //gdy nie było wcześniej dodanych  żadnych zdjęć do przedmiotu
         } else {
             $oldName = $_FILES['file']['name'];
             $number = $_POST['number'];
@@ -109,9 +114,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         }
     } else {
-        $description = $_POST['description'];
-        $price = $_POST['price'];
-        $availability = $_POST['availability'];
+        $description = mysqli_real_escape_string($connection, $_POST['description']);
+        $price = mysqli_real_escape_string($connection, $_POST['price']);
+        $availability = mysqli_real_escape_string($connection, $_POST['availability']);
         $oldName = $_SESSION['oldName'];
 
         $item = Item::loadItemByName($connection, $oldName);
@@ -125,4 +130,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header('Location: itemPanel.php');
     }
 }
+echo $connection->close();
+echo "</body></html>";
 

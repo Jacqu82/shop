@@ -13,42 +13,46 @@ if (!isset($_SESSION['admin'])) {
 
 <html>
 <head>
-    <meta charset="utf-8"/>
     <title>Shop</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="css/style.css?h=1" rel="stylesheet">
 </head>
 <body>
-<div id="container">
+<div class="container">
     <?php
-    echo "Hello " . $_SESSION['admin'] . " | " . "<a href='index.php'>Start</a>" . " | " . "<a href='logOut.php'>wyloguj</a>";
+    echo "Witaj " . $_SESSION['admin'] . " | " . "<a href='index.php'>Start</a>" . " | " . "<a href='web/logOut.php'>wyloguj</a>";
     ?>
     <hr>
-    <p>Wysyłanie wiadomości:</p>
+    <p><a href='itemPanel.php'><--Powrót</a></p>
+    <div class="wrapper">
+        <p>Wysyłanie wiadomości:</p>
 
-    <p>Wybierz odbiorcę:</p>
-    <?php
+        <p>Wybierz odbiorcę:</p>
+        <?php
 
-        $result = selectUsers::selectAllUsers($connection);
+            $result = selectUsers::selectAllUsers($connection);
 
-        if ($_SERVER['REQUEST_METHOD'] === "POST") {
+            if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
-            echo" hej";
-            if (isset ($_POST['title']) && isset ($_POST['content'])) {
+                echo" hej";
+                if (isset ($_POST['title']) && isset ($_POST['content'])) {
 
-                $title = $_POST['title'];
-                $content = $_POST['content'];
-                $id = $_POST['selection'];
+                    $title = $_POST['title'];
+                    $content = $_POST['content'];
+                    $id = $_POST['selection'];
 
-                $message = new Message();
+                    $message = new Message();
 
-                $message->setTitle($_POST['title']);
-                $message->setContent($_POST['content']);
-                $message->setReceiverId($_POST['selection']);
+                    $message->setTitle($_POST['title']);
+                    $message->setContent($_POST['content']);
+                    $message->setReceiverId($_POST['selection']);
 
-                $message->sendMessage($connection, $title, $content, $id);
-
+                    $message->sendMessage($connection, $title, $content, $id);
+                }
             }
-        }
-    ?>
+        ?>
+    </div>
 </div>
 </body>
 </html>

@@ -3,9 +3,9 @@
 class Message
 {
     protected $content;
-    
+
     protected $date;
-    
+
     protected $title;
 
     protected $receiverId;
@@ -74,7 +74,7 @@ class Message
         $this->receiverId = $receiverId;
     }
 
-    public static function showAllMessages (mysqli $connection)
+    public static function showAllMessages(mysqli $connection)
     {
         $result = MessageDbQuery::selectAllFromUsersAndMessage($connection);
 
@@ -89,7 +89,7 @@ class Message
             if (isset($value['id'])) {
                 $id = $value['id'];
                 echo "<tr>";
-                echo "<td>" . $value['date'] . "</td><td>" . $value['surname'] . " " . $value['name'] .  "</td><td>" . $value['title'] . "</td>";
+                echo "<td>" . $value['date'] . "</td><td>" . $value['surname'] . " " . $value['name'] . "</td><td>" . $value['title'] . "</td>";
                 echo "<td><a href='showAdminMessage.php?id=$id&i=1'>Pokaż</a></td>";
                 echo "<td><a href='showAdminMessage.php?id=$id&i=0'>Usuń</a></td>";
             }
@@ -99,12 +99,12 @@ class Message
         echo "</div>";
     }
 
-    public static function deleteMessage (mysqli $connection, $id)
+    public static function deleteMessage(mysqli $connection, $id)
     {
         $result = MessageDbQuery::deleteMessage($connection, $id);
     }
 
-    public static function showMessage (mysqli $connection, $id)
+    public static function showMessage(mysqli $connection, $id)
     {
         $result = MessageDbQuery::selectFromUsersAndMessageById($connection, $id);
 
@@ -135,17 +135,14 @@ class Message
 
         $i = 0;
 
-        foreach($result as $value) {
+        foreach ($result as $value) {
             $i++;
         }
 
         if ($i < 1) {
-            echo'';
+            echo '';
         } else {
             echo $i;
         }
-
     }
-
-
 }

@@ -5,7 +5,7 @@ require_once 'autoload.php';
 
 session_start();
 ?>
-<html>
+<html xmlns="http://www.w3.org/1999/html">
 <head lang="pl">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-COMPATIBLE" content="IE=edge">
@@ -18,17 +18,21 @@ session_start();
         src="https://code.jquery.com/jquery-3.1.1.min.js"
         integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
         crossorigin="anonymous"></script>
-    <script src="js/style.js?s3=213237" type="text/javascript"></script>
+    <script src="js/style.js?s3=2132317" type="text/javascript"></script>
+    <script src="js/jquery.cookie.js" type="text/javascript"></script>
 
 </head>
 <?php
+//sprawdzenie czy użytkownik jest zalogowany
 if (!isset($_SESSION['user'])) {
     header("location:index.php");
 } else {
     ?>
     <body>
     <div class="container">
-        <?php showLoggedUserOptions::showAllOptions($connection); ?>
+        <?php //wywołanie metody pokazującej górny pasek opcji
+        showLoggedUserOptions::showAllOptions($connection);
+        ?>
         <div id="panel" class="row">
             <div col-md-12 col-sm-12 col-xs-12>
                 <h1>ALLEDROGO - niepoważny sklep internetowy</h1>
@@ -41,12 +45,16 @@ if (!isset($_SESSION['user'])) {
                     <div class="col-md-12 col-sm-12 col-xs-12 rejestracja1 row1 logo">
                         <a href="index.php" class="btn btn-primary btn-block logo">Alledrogo</a>
                     </div>
-                    <?php photoGallery::showGroupName($host, $user, $password, $database) ?>
+                    <?php //wywołanie metody, która ma za zadanie wyświetlić wszystkie nazwy grup produktów
+                    photoGallery::showGroupName($connection)
+                    ?>
                 </div>
             </div>
 
             <div class="col-md-8 tresc col-sm-6 col-xs-6 productInCart" id="mainContent">
-                <?php showItemInCart::showItem($connection); ?>
+                <?php //wywołanie metody, która pokazuje wszystkie przedmioty dodane do koszyka
+                showItemInCart::showItem($connection);
+                ?>
             </div>
 
             <div class="col-md-2 col-sm-2 col-xs-3 witaj row1">
@@ -58,32 +66,32 @@ if (!isset($_SESSION['user'])) {
 
                     </div>
                     <div id="productsCarousel" class="carousel slide" data-ride="carousel">
-                        <?php
+                        <?php //trzy razy wywoływana metoda, której celem jest wylosowanie produktów i wrzucenie ich do karuzeli
                         ?>
                         <div class="carousel-inner">
                             <div class="item active">
-                                <?php Carousel::getHTML($host, $user, $password, $database); ?>
+                                <?php Carousel::getHTML($connection); ?>
                             </div>
                             <div class="item">
-                                <?php Carousel::getHTML($host, $user, $password, $database); ?>
+                                <?php Carousel::getHTML($connection); ?>
                             </div>
                             <div class="item">
-                                <?php Carousel::getHTML($host, $user, $password, $database); ?>
+                                <?php Carousel::getHTML($connection); ?>
                             </div>
                         </div>
                     </div>
                     <div id="productsCarousel" class="carousel slide" data-ride="carousel">
-                        <?php
+                        <?php //trzy razy wywoływana metoda, której celem jest wylosowanie produktów i wrzucenie ich do karuzeli
                         ?>
                         <div class="carousel-inner">
                             <div class="item active">
-                                <?php Carousel::getHTML($host, $user, $password, $database); ?>
+                                <?php Carousel::getHTML($connection); ?>
                             </div>
                             <div class="item">
-                                <?php Carousel::getHTML($host, $user, $password, $database); ?>
+                                <?php Carousel::getHTML($connection); ?>
                             </div>
                             <div class="item">
-                                <?php Carousel::getHTML($host, $user, $password, $database); ?>
+                                <?php Carousel::getHTML($connection); ?>
                             </div>
                         </div>
                     </div>
@@ -102,5 +110,6 @@ if (!isset($_SESSION['user'])) {
     </body>
 <?php
 };
+$connection->close();
 ?>
 </html>

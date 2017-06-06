@@ -9,14 +9,12 @@ if (!isset($_SESSION['user'])) {
     header('Location: index.php');
 }
 
-echo "Hello " . $_SESSION['user'] . " | " . "<a href='index.php'>Start</a>" . " | " . "<a href='logOut.php'>wyloguj</a><hr>";
+echo "Witaj " . $_SESSION['user'] . " | " . "<a href='index.php'>Start</a>" . " | " . "<a href='logOut.php'>wyloguj</a><hr>";
 
 if ($_SERVER['REQUEST_METHOD'] === "GET") {
     if (isset($_GET['id'])) {
 
         $id = $_GET['id'];
-
-        var_dump($id);
 
         $sql = "DELETE FROM cart WHERE `item_id`=$id";
 

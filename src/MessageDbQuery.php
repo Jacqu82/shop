@@ -52,6 +52,6 @@ class MessageDbQuery
         if (!$result) {
             die ("Błąd połączenia z bazą danych" . $connection->connect_errno);
         }
-        return $result;
+        header('Location: adminMessages.php');
     }
 }

@@ -4,32 +4,36 @@ include_once 'connection.php';
 include_once 'config.php';
 require_once 'autoload.php';
 
-
 session_start();
 
 if (!isset($_SESSION['admin'])) {
     header('Location: index.php');
 }
-
-echo "Hello " . $_SESSION['admin'] . " | " . "<a href='index.php'>Start</a>" . " | " . "<a href='logOut.php'>wyloguj</a><hr>";
-
 ?>
-
     <html>
     <head>
-        <title>adding Group of Products</title>
+        <title>Shop</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="css/style.css?h=1" rel="stylesheet">
     </head>
     <body>
-    <form action="addGroupOfProducts.php" method="post">
-        Enter group name:<br>
-        <input type="text" name="name"/><br>
-        Enter group description:<br>
-        <textarea type="text" name="description" rows="5" cols="40"></textarea>
-        <br>
-        <input type="submit" value="Add"/>
-    </form>
+    <div class="container">
+
+<?php
+echo "Witaj " . $_SESSION['admin'] . " | " . "<a href='index.php'>Start</a>" . " | " . "<a href='web/logOut.php'>wyloguj</a><hr>";
+echo "<p><a href='groupsOfProducts.php'><--Powrót</a></p>";
+?>
+    <div class="wrapper">
+        <form action="addGroupOfProducts.php" method="post">
+            <p>Wprowadź nazwę grupy</p>
+            <input type="text" name="name"/><br>
+            <p>Wprowadź opis grupy</p>
+            <textarea type="text" name="description" rows="5" cols="40"></textarea>
+            <br>
+            <input type="submit" value="Add"/>
+        </form>
+    </div>
     </body>
     </html>
 
@@ -38,16 +42,18 @@ echo "Hello " . $_SESSION['admin'] . " | " . "<a href='index.php'>Start</a>" . "
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
     if (isset($_POST['name']) && isset($_POST['description'])) {
 
-        $name = $_POST['name'];
-        $description = $_POST['description'];
+        $name = mysqli_real_escape_string($connection, $_POST['name']);
+        $description = mysqli_real_escape_string($connection, $_POST['description']);
 
-        $connection = new mysqli($host, $user, $password, $database);
+        //wywołujemy metodę addGrouo klasy Admin w celu dodania grupy produktów do bazy danych
         $group = Admin::addGroup($connection, $name, $description);
 
         if ($group) {
-            echo "A new group of products <b>" . $name . "</b> has been added<br>";
-            echo "<a href='adminPanel.php'>Return to admin panel</a><br>";
-            echo "<a href='groupsOfProducts.php'>Return to Group of products options</a><br>";
+            echo "<div class='wrapper'>";
+            echo "Dodano nową grupę produktów.</br><b>" . $name . "</b><br><br>";
+            echo "<a href='adminPanel.php'>Panel administratora</a><br>";
+            echo "<a href='groupsOfProducts.php'>Grupy produktów</a><br>";
+            echo "</div>";
         } else {
             die("Błąd dodawania grupy do bazy danych!" . $connection->errno);
         }

@@ -43,10 +43,4 @@ class Order
         $this->statusId = $statusId;
         return $this;
     }
-
-    public function showAll()
-    {
-
-    }
-
 }

@@ -5,7 +5,6 @@ include_once 'Item.php';
 
 class Admin
 {
-
     protected $name;
     protected $email;
     protected $password;
@@ -97,16 +96,6 @@ class Admin
     {
         $item = new Item();
         $item->setName($item);
-    }
-    
-    public function removeItem()
-    {
-        
-    }
-    
-    public function modifyItem()
-    {
-        
     }
     
     //trzy metody do obsługi grup przedmiotów

@@ -17,15 +17,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
         
         if ($password == $user->getPassword()) {
-            echo $user->getName() . "<br>";
-            echo $user->getSurname() . "<br>";
-            echo $user->getAddress() . "<br>";
-            echo $user->getPassword();
 
             $_SESSION['user'] = $user->getName();
             $_SESSION['id'] = $user->getId();
 
-            
             header('Location: ../index.php');
         } else {
             die("Incorrect password!!!");

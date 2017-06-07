@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: sgr13
- * Date: 17.05.17
- * Time: 20:43
- */
 
 include_once 'Item.php';
 
@@ -32,7 +26,7 @@ class newItemCreation
         echo "<input name='price' type='text'  value= " . $price . "><br><br>";
         echo "Edit the availability for the <b>" . $name . " </b>item.<br>";
         echo "<input name='availability' type='text'  value= " . $availability . "><br><br>";
-        echo "<input type='hidden' name='oldName' value=" . $name  . ">";
+        echo "<input type='hidden' name='oldName' value=" . $name . ">";
         echo "<input type='submit' value='change'/>";
         echo "</form>";
         echo "<hr>";
@@ -49,13 +43,12 @@ class newItemCreation
                 echo "<form action='#' method='post' enctype='multipart/form-data'>";
 
                 $id = $item->getId();
-                $fileNo = ($i + 1);
-                $name = 'file' . $i + 1;
                 $path = $tab[$i][0]['path'];
                 $_SESSION['path'] = $path;
                 $photoId = $tab[$i][0]['id'];
                 $itemId = $tab[$i][0]['item_id'];
 
+                echo "<div class='photoBox'>";
                 echo "<br>Zdjęcie nr " . ($i + 1) . "<br>";
                 echo "<img src='" . $path . "' height='120' width='120'><br>";
                 echo "Change | <a href='deletePhoto.php?photo_id=$photoId&id=$id'>Delete</a><br>";
@@ -64,8 +57,7 @@ class newItemCreation
                 echo "<input type='hidden' name='photoId' value=$photoId>";
                 echo "<input type='hidden' name='itemId' value=$itemId>";
                 echo "<input type='submit' value='Add'/>";
-                echo "</form>";
-
+                echo "</form></div>";
 
                 //7. Jesli nie to uruchomi się ten else
             } else {
@@ -82,10 +74,7 @@ class newItemCreation
                 echo "<input type='hidden' name='fileNo' value=$fileNo>";
                 echo "<input type='submit' value='Add'/>";
                 echo "</form>";
-
             }
         }
     }
-
-
 }

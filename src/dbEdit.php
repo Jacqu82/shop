@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: sgr13
- * Date: 17.05.17
- * Time: 23:19
- */
 
 class dbEdit
 {

@@ -24,89 +24,82 @@ if (!isset($_SESSION['user'])) {
 </head>
 
 <body>
-<div id="container">
+<div class="container">
     <?php
-    echo "Hello " . $_SESSION['user'] . " | " . "<a href='index.php'>Start</a>" . " | " . "<a href='logOut.php'>wyloguj</a>";
+    echo "Witaj " . $_SESSION['user'] . " | " . "<a href='index.php'>Start</a>" . " | " . "<a href='web/logOut.php'>wyloguj</a>";
     ?>
     <hr>
-    <p>Change Your personal data:</p>
+        <div class="backLink"><a href="userPanel.php"><--Powrót</a></div>
+        <div class="wrapper">
+        <p>Zmień swoje dane:</p>
 
-    <div id='changeName'>
-        <?php
+        <div id='changeName'>
+            <?php
 
-        //paskudnie to wygląda ale zdaje egzamin - przycisk pokazuje/ukrywa formularz do zmiany danych
+            //przycisk pokazuje/ukrywa formularz do zmiany danych
 
-        $name = $_SESSION['user'];
-        $user = User::loadUserByName($connection, $name);
+            $name = $_SESSION['user'];
+            $user = User::loadUserByName($connection, $name);
 
-        echo "Name: " . "<br><b>" . $user->getName() . "</b> &nbsp &nbsp" . "<input class='button' type='button' value='Change'/><br>";
-        echo "<form action='#' method='post'><input type='text' name='name'/><input type='submit' value='Confirm'/></form>";
+            echo "Imię: " . "<br><b>" . $user->getName() . "</b> &nbsp &nbsp" . "<input class='button' type='button' value='Change'/><br>";
+            echo "<form action='#' method='post'><input type='text' name='name'/><input type='submit' value='Confirm'/></form>";
 
-        echo "Surname: " . "<br><b>" . $user->getSurname() . "</b>&nbsp &nbsp" . "<input class='button' type='button' value='Change'/><br>";
-        echo "<form action='#' method='post'><input type='text' name='surname'/><input type='submit' value='Confirm'/></form>";
+            echo "Nazwisko: " . "<br><b>" . $user->getSurname() . "</b>&nbsp &nbsp" . "<input class='button' type='button' value='Change'/><br>";
+            echo "<form action='#' method='post'><input type='text' name='surname'/><input type='submit' value='Confirm'/></form>";
 
-        echo "E-mail: " . "<br><b>" . $user->getEmail() . "</b>&nbsp &nbsp" . "<input class='button' type='button' value='Change'/><br>";
-        echo "<form action='#' method='post'><input type='text' name='mail'/><input type='submit' value='Confirm'/></form>";
+            echo "E-mail: " . "<br><b>" . $user->getEmail() . "</b>&nbsp &nbsp" . "<input class='button' type='button' value='Change'/><br>";
+            echo "<form action='#' method='post'><input type='text' name='mail'/><input type='submit' value='Confirm'/></form>";
 
-        echo "Password: " . "<br><b>" . $user->getPassword() . "</b>&nbsp &nbsp" . "<input class='button' type='button' value='Change'/><br>";
-        echo "<form action='#' method='post'><input type='text' name='password'/><input type='submit' value='Confirm'/></form>";
+            echo "Hasło: " . "<br><b>" . $user->getPassword() . "</b>&nbsp &nbsp" . "<input class='button' type='button' value='Change'/><br>";
+            echo "<form action='#' method='post'><input type='text' name='password'/><input type='submit' value='Confirm'/></form>";
 
-        echo "Address: " . "<br><b>" . $user->getAddress() . "</b>&nbsp &nbsp" . "<input class='button' type='button' value='Change'/><br>";
-        echo "<form action='#' method='post'><input type='text' name='address'/><input type='submit' value='Confirm'/></form>";
+            echo "Adres: " . "<br><b>" . $user->getAddress() . "</b>&nbsp &nbsp" . "<input class='button' type='button' value='Change'/><br>";
+            echo "<form action='#' method='post'><input type='text' name='address'/><input type='submit' value='Confirm'/></form>";
 
-        //pewnie da się to zrobic lepiej ale ja wpadłem na taki pomysł aktualizowania danych w bazie
-        //po zaktualizowaniu danych w bazie zmieniam również dane aktualnie zalogowanego usera
+            //po zaktualizowaniu danych w bazie zmieniam również dane aktualnie zalogowanego usera
 
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $mail = $user->getEmail();
-            if (isset($_POST['name'])) {
-                $name = $_POST['name'];
-                $sql = "UPDATE users SET name='$name' WHERE email='$mail'";
-                $user->setName($name);
-                $_SESSION['user'] = $user->getName();
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $mail = $user->getEmail();
+                if (isset($_POST['name'])) {
+                    $name = $_POST['name'];
+                    $sql = "UPDATE users SET name='$name' WHERE email='$mail'";
+                    $user->setName($name);
+                    $_SESSION['user'] = $user->getName();
 
-            } else if (isset ($_POST['surname'])) {
-                $surname = $_POST['surname'];
-                $sql = "UPDATE users SET surname='$surname' WHERE email='$mail'";
-                $user->setSurname($surname);
+                } else if (isset ($_POST['surname'])) {
+                    $surname = $_POST['surname'];
+                    $sql = "UPDATE users SET surname='$surname' WHERE email='$mail'";
+                    $user->setSurname($surname);
 
-            } else if (isset($_POST['mail'])) {
-                $maill = $_POST['mail'];
-                $sql = "UPDATE users SET email='$maill' WHERE email='$mail'";
-                $user->setEmail($maill);
+                } else if (isset($_POST['mail'])) {
+                    $maill = $_POST['mail'];
+                    $sql = "UPDATE users SET email='$maill' WHERE email='$mail'";
+                    $user->setEmail($maill);
 
-            } else if (isset($_POST['password'])) {
-                $password = $_POST['password'];
-                $sql = "UPDATE users SET password='$password' WHERE email='$mail'";
-                $user->setPassword($password);
+                } else if (isset($_POST['password'])) {
+                    $password = $_POST['password'];
+                    $sql = "UPDATE users SET password='$password' WHERE email='$mail'";
+                    $user->setPassword($password);
 
-            } else {
-                $address = $_POST['address'];
-                $sql = "UPDATE users SET address='$address' WHERE email='$mail'";
-                $user->setAddress($address);
+                } else {
+                    $address = $_POST['address'];
+                    $sql = "UPDATE users SET address='$address' WHERE email='$mail'";
+                    $user->setAddress($address);
+                }
+
+                $ready = $connection->query($sql);
+
+                if (!$ready) {
+                    die("Bład zapisu w bazie danych");
+                }
+
+                //tutaj przycisk do odświeżenia, tak żeby przekonać się czy dane zaktualizowały się.
+
+                echo "Udało Ci się zmienić dane<br>";
+                echo "<a href='changeUserData.php'>Odśwież</a>";
             }
-
-            //nie mam pojęcia dlaczego, ale nie mog ę się połączyć w tym miejscu za pomocą require_once z connection.php
-            //dlatego wprowadziłem takie rozwiązanie, gdyby CI się udało wpaść na jakieś rozwiązanie to byłoby super
-
-            $host = 'localhost';
-            $usser = 'root';
-            $password = 'coderslab';
-            $database = 'shop';
-
-            $connection = new mysqli($host, $usser, $password, $database);
-            $ready = $connection->query($sql);
-
-            if (!$ready) {
-                die("Bład zapisu w bazie danych");
-            }
-
-            //tutaj przycisk do odświeżenia, tak żeby przekonać się czy dane zaktualizowały się.
-
-            echo "Udało Ci się zmienić dane<br>";
-            echo "<a href='changeUserData.php'>Odśwież</a>";
-        }
-        ?>
+            ?>
+        </div>
     </div>
 
 </div>

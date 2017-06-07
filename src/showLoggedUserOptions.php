@@ -2,12 +2,6 @@
 
 require_once 'autoload.php';
 
-/**
- * Created by PhpStorm.
- * User: sgr13
- * Date: 29.05.17
- * Time: 23:09
- */
 class showLoggedUserOptions
 {
     static public function showAllOptions($connection)

@@ -140,7 +140,7 @@ class Message
         }
 
         if ($i < 1) {
-            echo '';
+            echo '0';
         } else {
             echo $i;
         }

@@ -30,9 +30,9 @@ class searchAndFilter
         <div class="col-md-2"></div>
         ';
     }
-
-    public static function search()
-    {
-        $sql = 'SELECT * FROM item WHERE name LIKE "%%"';
-    }
+//
+//    public static function search()
+//    {
+//        $sql = 'SELECT * FROM item WHERE name LIKE "%%"';
+//    }
 }

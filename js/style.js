@@ -32,12 +32,8 @@ $(document).ready(function () {
     //usuwanie całego wiersza w koszyk.php - usunięcie elementu z koszyka
 
     $('.deleteItemInBasket').click(function() {
-        console.log("hej");
         $(this).parent().parent().html('');
-        //var url = "delete.php";
-        //window.location = url;
     })
-
 
     // określam user_id którego będe potrzebował przy zapisywaniu zamówienia do bazy danych, dane przesyłane jako GET
     var userId = $('#userId').attr('userId');
@@ -82,7 +78,5 @@ $(document).ready(function () {
 
         $('#buttonPay').parent().attr('href', 'order.php?sum=' + totalSum + '&userId=' + userId + sing + '&i=' + i);
     })
-
-    $
 
 });

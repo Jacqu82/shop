@@ -76,7 +76,6 @@ if (!isset($_SESSION['user'])) {
                             die ("Błąd zapisu do bazy danych" . $connection->connect_errno);
                         }
 
-
                     }
                 }
             }

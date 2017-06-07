@@ -1,41 +1,50 @@
 <?php
 
 include_once 'connection.php';
-require_once 'src/User.php';
 include_once 'config.php';
+require_once 'autoload.php';
 
 session_start();
 
+//sprawdzenie czy użytkownik jest zalogowany
 if (!isset($_SESSION['admin'])) {
-    header('Location: index.php');      
+    header('Location: index.php');
 }
+?>
+    <html>
+    <head>
+        <title>Shop</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="css/style.css?h=1" rel="stylesheet">
+    </head>
 
-echo "Hello " . $_SESSION['admin'] . " | " . "<a href='index.php'>Start</a>" . " | " . "<a href='logOut.php'>wyloguj</a><hr>";
-echo "<p><a href='addGroupOfProducts.php'>Add new group of items</a></p>";
+    <body>
+    <div class="container">
 
-$sql = "SELECT * FROM groups";
+<?php
+echo "Witaj " . $_SESSION['admin'] . " | " . "<a href='index.php'>Start</a>" . " | " . "<a href='logOut.php'>wyloguj</a><hr>";
+echo "<p><a href='adminPanel.php'><--Powrót</a></p>";
+echo "<p><a href='addGroupOfProducts.php'>Dodaj nową grupę produktów</a></p>";
 
-$connection = new mysqli($host, $user, $password, $database);
+// wykorzystanie metody która wybiera wszystkie grupy produktów z bazy danych
+$result = photoGallery::getGallery($connection);
 
-$result = $connection->query($sql);
-
-if(!$result) {
-    die("Error" . $connection->connect_error);
-}
-
-echo "<table border=1 cellpadding=5>";
+//wyświetlenie tabeli ze wszystkimi grupami produktów
+echo "<div class='tableShow'>";
+echo "<table>";
 echo "<tr>";
-echo "<th>id</th><th>group name</th><th>group description</th><th>edit</th><th>delete</th>";
+echo "<th>id</th><th>Nazwa</th><th>Opis</th><th>Edytuj</th><th>Usuń</th>";
 echo "</tr>";
 foreach ($result as $value) {
     $id = $value['id'];
     echo "<tr>";
     echo "<td>" . $value['id'] . "</td><td>" . $value['groupName'] . "</td><td>" . $value['groupDescriptiopn'] . "</td>";
-    echo "<td><a href='editGroupOfProducts.php?id=$id'>Edit</a></td>";
-    echo "<td><a href='deleteGroupOfProducts.php?id=$id'>Delete</a></td></tr>";
+    echo "<td><a href='editGroupOfProducts.php?id=$id'>Edytuj</a></td>";
+    echo "<td><a href='deleteGroupOfProducts.php?id=$id'>Usuń</a></td></tr>";
 }
-
-echo "</table>";
+$connection->close();
+echo "</table></div></body></html>";
 
 
 

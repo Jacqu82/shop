@@ -1,37 +1,39 @@
 <?php
 
 include_once 'connection.php';
-require_once 'src/User.php';
+require_once 'autoload.php';
 
 session_start();
 
-//jeżeli ktoś wpisze z palca w przeglądarce adminPanel.php to jeśli nie jest zalogowany zostanie wyrzucony na stronę głóœną.
+//jeżeli ktoś wpisze z palca w przeglądarce adminPanel.php to jeśli nie jest zalogowany zostanie przeniesiony na stronę główną.
 
 if (!isset($_SESSION['admin'])) {
-    header('Location: index.php');      
+    header('Location: index.php');
 }
-
 ?>
+<html>
+<head>
+    <title>Shop</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="css/style.css?h=1" rel="stylesheet">
+</head>
 
- <html>
-        <head>
-            <meta charset="utf-8"/>
-            <title>Shop</title>
-        </head>
-
-        <body>
-            <div id="container">
-                
-
-                <?php
-                echo "Hello " . $_SESSION['admin'] . " | " . "<a href='index.php'>Start</a>" . " | " . "<a href='logOut.php'>wyloguj</a>";
-                ?>
-                <hr>
-                <ul>You are in admin panel. In thi section You can :
-                    <li><a href="groupsOfProducts.php">Add, remove or modify a group of items</a></li>
-                    <li><a href="itemPanel.php">Add, remove or modify an item</a> </li>
-                    <li><a href="">Send a message</a></li>
-                </ul>
-            </div>
-        </body>
-    </html>
+<body>
+<div class="container">
+    <?php
+    echo "Witaj " . $_SESSION['admin'] . " | " . "<a href='index.php'>Start</a>" . " | " . "<a href='web/logOut.php'>wyloguj</a>";
+    ?>
+    <hr>
+    <div class="wrapper">
+        <ul>Jesteś w panelu administratora <br>Masz do wyboru następujące opcje:
+            <li><a href="groupsOfProducts.php">Dodaj, usuń lub modyfikuj grupę przedmiotów.</a></li>
+            <li><a href="itemPanel.php">Dodaj, usuń lub modyfikuj przedmiot</a></li>
+            <li><a href="deleteUser.php">Usuń użytkownika</a></li>
+            <li><a href="sendMessage.php">Wyślij wiadomość</a></li>
+            <li><a href="adminMessages.php">Pokaż wysłane wiadomości</a></li>
+        </ul>
+    </div>
+</div>
+</body>
+</html>

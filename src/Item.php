@@ -1,5 +1,7 @@
 <?php
 
+include_once 'newItemCreation.php';
+
 class Item
 {
 
@@ -145,5 +147,4 @@ class Item
             }
         }
     }
-
 }

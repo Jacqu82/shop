@@ -8,6 +8,7 @@ class Admin
     protected $name;
     protected $email;
     protected $password;
+    protected $id;
 
     public function __construct()
     {
@@ -30,6 +31,22 @@ class Admin
     public function setName($name)
     {
         $this->name = $name;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param mixed $email
+     */
+    private function setId($id)
+    {
+        $this->id = $id;
     }
 
     /**
@@ -61,11 +78,11 @@ class Admin
     {
         return $this->password;
     }
-    
+
     static public function loadAdminByName(mysqli $connection, $name)
-    {   
+    {
         $name = $connection->real_escape_string($name);
-        
+
         $sql = "SELECT * FROM `admins` WHERE `adminName` = '$name'";
 
         $result = $connection->query($sql);
@@ -73,18 +90,48 @@ class Admin
         if (!$result) {
             die("Error " . $connection->connect_error);
         }
-        
+
         if ($result->num_rows == 1) {
             $adminArray = $result->fetch_assoc();
 
             $admin = new Admin();
-            
+
             $admin->setName($adminArray['adminName']);
             $admin->setEmail($adminArray['adminMail']);
             $admin->setPassword($adminArray['adminPassword']);
-            
+            $admin->setId($adminArray['id']);
+
             return $admin;
-            
+
+        } else {
+            return false;
+        }
+    }
+
+    static public function loadAdminById(mysqli $connection, $id)
+    {
+        $id = $connection->real_escape_string($id);
+
+        $sql = "SELECT * FROM `admins` WHERE `id` = $id";
+
+        $result = $connection->query($sql);
+
+        if (!$result) {
+            die("Error " . $connection->connect_error);
+        }
+
+        if ($result->num_rows == 1) {
+            $adminArray = $result->fetch_assoc();
+
+            $admin = new Admin();
+
+            $admin->setName($adminArray['adminName']);
+            $admin->setEmail($adminArray['adminMail']);
+            $admin->setPassword($adminArray['adminPassword']);
+            $admin->setId($id);
+
+            return $admin;
+
         } else {
             return false;
         }

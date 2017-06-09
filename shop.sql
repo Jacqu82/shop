@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Czas generowania: 09 Cze 2017, 12:41
+-- Czas generowania: 09 Cze 2017, 23:37
 -- Wersja serwera: 5.7.18-0ubuntu0.16.04.1
 -- Wersja PHP: 7.0.15-0ubuntu0.16.04.4
 
@@ -38,7 +38,8 @@ CREATE TABLE `admins` (
 --
 
 INSERT INTO `admins` (`id`, `adminName`, `adminPassword`, `adminMail`) VALUES
-(1, 'slawek', 'slawek1', 'jajarzab@op.pl');
+(1, 'slawek', 'slawek1', 'jajarzab@op.pl'),
+(2, 'jacek', 'jacek1', 'jacek82@o2.pl');
 
 -- --------------------------------------------------------
 
@@ -100,10 +101,10 @@ CREATE TABLE `item` (
 INSERT INTO `item` (`id`, `name`, `price`, `description`, `availability`, `group_id`) VALUES
 (115, 'Amica FK3214DFXIo', 77.00, 'Bardzo oszczedna A+++\r\n120 l. pojemnosci\r\nDwa kolory: grafi i biel.\r\nBia?a', 214, 8),
 (116, 'Bosch KGV39XL20E', 79.00, 'Bardzo wydajna\r\nKlasa A+\r\nDobra relacja cena/jakosc', 10, 8),
-(117, 'LG OLED55B6J', 99.00, '55 cali w technologii OLED\r\nFunkcjonalny pilot\r\nSmart TV', -1, 9),
+(117, 'LG OLED55B6J', 99.00, '55 cali w technologii OLED\r\nFunkcjonalny pilot\r\nSmart TV', -2, 9),
 (118, 'Sony KDL-40WD655', 49.00, '40\'\r\nBardzo ostry obraz\r\nNowoczesny pilot', -1, 9),
 (120, 'Samsung Galaxy A5 2016', 79.00, 'Duzy wyswietlacz\r\nEkran dotykowy\r\nAndroid', 14, 11),
-(121, 'Huawei P8 Lite', 49.00, 'Bardzo korzystna cena\r\nOdporny na uszkodzenia\r\nPRzedluzona Gwarancja', 14, 11),
+(121, 'Huawei P8 Lite', 49.00, 'Bardzo korzystna cena\r\nOdporny na uszkodzenia\r\nPRzedluzona Gwarancja', 13, 11),
 (122, 'LG G6', 89.00, 'Nowoczesny design\r\nCzarny chrom\r\nElegancki', 3, 11),
 (123, 'Nikon D3300', 79.00, 'Zoom 24x\r\nKarta pamieci w zestawie\r\nDluga gwarancja', 1, 12),
 (124, 'Canon EOS 1200D ', 59.00, 'Niska Cena\r\nZoom x 16\r\nGwarancja 5 lat', 4, 12),
@@ -116,7 +117,7 @@ INSERT INTO `item` (`id`, `name`, `price`, `description`, `availability`, `group
 (132, 'LG 49LH630V', 69.00, 'Wysoka jakoÅ›c obrazu\r\nSmart TV\r\nNiska cena', 9, 8),
 (133, 'Apple Macbook Air 13', 99.00, 'Krystaliczny obraz\r\nSzybki procesor\r\nDysk SSD', 3, 10),
 (134, 'ASUS GL753VE 17,3', 99.00, 'SprzÄ™t dla gracza\r\nDuÅ¼y wyÅ›wietlacz\r\nNajnowszy procesor', 2, 10),
-(135, 'Apple iPhone 7 ', 79.00, 'Odporna obudowa\r\nDuÅ¼y wyÅ›wietlacz\r\nZadziała??', 53, 11);
+(135, 'Apple iPhone 7 ', 79.00, 'Odporna obudowa\r\nDuÅ¼y wyÅ›wietlacz\r\nZadziała??', 52, 11);
 
 -- --------------------------------------------------------
 
@@ -143,7 +144,8 @@ INSERT INTO `message` (`id`, `adminId`, `receiverId`, `messageTitle`, `messageCo
 (16, 1, 8, 'Huraaa', 'W końcu działa!!!', '2017-06-09 12:00:25', 0),
 (17, 1, 9, 'Witam!', 'Proponuję wnieść opłatę za zakupione przedmioty ponieważ zostanie Pan usunięty z naszego sklepu!\r\npozdrawiam', '2017-06-09 12:09:22', 0),
 (18, 1, 9, 'tytuł', 'wiadomośćć', '2017-06-09 12:27:19', 0),
-(19, 1, 9, 'Aukcja nr...', 'Towar wysłany, dziękujemy za zakupy w naszym sklepie.\r\n\r\npozdrawiam', '2017-06-09 12:37:57', 0);
+(19, 1, 9, 'Aukcja nr...', 'Towar wysłany, dziękujemy za zakupy w naszym sklepie.\r\n\r\npozdrawiam', '2017-06-09 12:37:57', 0),
+(21, 2, 10, 'Promocje', 'Mamy dla Ciebie nowe promocje na lato.', '2017-06-09 21:59:34', 0);
 
 -- --------------------------------------------------------
 
@@ -189,7 +191,10 @@ INSERT INTO `orders` (`id`, `user_id`, `amount`, `date`, `status`) VALUES
 (24, 9, 148, '17-06-07', 0),
 (25, 9, 245, '17-06-07', 0),
 (26, 9, 245, '17-06-07', 0),
-(27, 9, 245, '17-06-07', 0);
+(27, 9, 245, '17-06-07', 0),
+(28, 8, 227, '17-06-09', 1),
+(29, 8, 227, '17-06-09', 1),
+(30, 8, 227, '17-06-09', 1);
 
 -- --------------------------------------------------------
 
@@ -292,8 +297,10 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `surname`, `email`, `password`, `address`) VALUES
-(8, 'jacek', 'kulka', 'kulka@kulka.pl', 'jacek1', 'ruda, czarny'),
-(9, 'slawek', 'jot', 'lawka@lawka.pl', 'slawek1', 'olkusz');
+(8, 'jacek', 'placek', 'kulka@kulka.pl', 'jacek1', 'Schwarzwald'),
+(9, 'slawek', 'jot', 'lawka@lawka.pl', 'slawek1', 'olkusz'),
+(10, 'Marian', 'Paździoch', 'marian55@wp.pl', 'marian', 'Wrocław, Centrum'),
+(14, 'jacek1', 'jaca', 'jaca55@wp.pl', 'jaca', 'efvgregrf');
 
 --
 -- Indeksy dla zrzutów tabel
@@ -363,12 +370,12 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT dla tabeli `admins`
 --
 ALTER TABLE `admins`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT dla tabeli `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT dla tabeli `groups`
 --
@@ -383,12 +390,12 @@ ALTER TABLE `item`
 -- AUTO_INCREMENT dla tabeli `message`
 --
 ALTER TABLE `message`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 --
 -- AUTO_INCREMENT dla tabeli `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 --
 -- AUTO_INCREMENT dla tabeli `photos`
 --
@@ -398,7 +405,7 @@ ALTER TABLE `photos`
 -- AUTO_INCREMENT dla tabeli `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 --
 -- Ograniczenia dla zrzutów tabel
 --

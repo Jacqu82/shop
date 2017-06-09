@@ -10,7 +10,7 @@ class selectUsers
         echo '<select name="receiverId">';
 
         foreach ($result as $value) {
-            echo '<option value="' . $value['id'] . '">' . $value['surname'] . ' ' . $value['name'] . '</option>';
+            echo '<option value="' . $value['id'] . '">' . $value['name'] . ' ' . $value['surname'] . '</option>';
         }
 
         echo '</select><br><br>';

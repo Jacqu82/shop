@@ -50,27 +50,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="wrapper">
         <?php
         $receive = Message::loadAllReceivedMessagesByUserId($connection, $_SESSION['id']);
-        echo "<h3>Skrzynka odbiorcza:</h3>";
-        foreach ($receive as $row) {
-            echo "Od " . $row['admin'] . "<br/>";
-            if ($row['status'] == 0) {
-                echo "<form method='POST'>";
-                echo "<b>" . $row['title'] . "<br/>" . $row['content'] . "<br/>" . $row['date'] . "</b><br/>
+        if ($receive->num_rows > 0) {
+            echo "<h3>Skrzynka odbiorcza:</h3>";
+            foreach ($receive as $row) {
+                echo "Od " . $row['admin'] . "<br/>";
+                if ($row['status'] == 0) {
+                    echo "<form method='POST'>";
+                    echo "<b>" . $row['title'] . "<br/>" . $row['content'] . "<br/>" . $row['date'] . "</b><br/>
                             <input type='submit'  name='set_message_as_read' value='Oznacz jako przeczytaną' class='btn btn-success' />
                             <input type='hidden' name='message_id' value='" . $row['id'] . " '>
                             <input type=\"submit\" class=\"btn btn-primary\" name=\"delete_messege\" value=\"Usuń wiadomość\"/>
                             <input type='hidden' name='message_id' value='" . $row['id'] . " '>
                         </form>";
-            } else {
-                echo "<form method='POST'>";
-                echo $row['title'] . "<br/>" . $row['content'] . "<br/>" . $row['date'] . "<br/>
+                } else {
+                    echo "<form method='POST'>";
+                    echo $row['title'] . "<br/>" . $row['content'] . "<br/>" . $row['date'] . "<br/>
                             <input type='submit'  name='set_message_as_unread' value='Oznacz jako nie przeczytaną' class='btn btn-success' />
                             <input type='hidden' name='message_id' value='" . $row['id'] . " '>
                             <input type=\"submit\" class=\"btn btn-primary\" name=\"delete_messege\" value=\"Usuń wiadomość\"/>
                             <input type='hidden' name='message_id' value='" . $row['id'] . " '>
                         </form>";
+                }
+                echo "<hr/>";
             }
-            echo "<hr/>";
+        } else {
+            echo "<h3>Nie masz żadnych wiadomości!</h3>";
         }
         ?>
     </div>

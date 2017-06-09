@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.4deb1+deb.cihar.com~xenial.1
+-- version 4.6.6deb1+deb.cihar.com~xenial.2
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jun 07, 2017 at 11:12 PM
--- Server version: 5.7.18-0ubuntu0.16.04.1
--- PHP Version: 7.0.15-0ubuntu0.16.04.4
+-- Czas generowania: 09 Cze 2017, 12:41
+-- Wersja serwera: 5.7.18-0ubuntu0.16.04.1
+-- Wersja PHP: 7.0.15-0ubuntu0.16.04.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,13 +17,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `shop`
+-- Baza danych: `shop`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `admins`
+-- Struktura tabeli dla tabeli `admins`
 --
 
 CREATE TABLE `admins` (
@@ -34,7 +34,7 @@ CREATE TABLE `admins` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `admins`
+-- Zrzut danych tabeli `admins`
 --
 
 INSERT INTO `admins` (`id`, `adminName`, `adminPassword`, `adminMail`) VALUES
@@ -43,7 +43,7 @@ INSERT INTO `admins` (`id`, `adminName`, `adminPassword`, `adminMail`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `cart`
+-- Struktura tabeli dla tabeli `cart`
 --
 
 CREATE TABLE `cart` (
@@ -53,17 +53,10 @@ CREATE TABLE `cart` (
   `item_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Dumping data for table `cart`
---
-
-INSERT INTO `cart` (`id`, `path`, `user_id`, `item_id`) VALUES
-(9, 'files/131131Yamaha HTR-20671/1_Yamaha HTR-2067.jpg', 9, 131);
-
 -- --------------------------------------------------------
 
 --
--- Table structure for table `groups`
+-- Struktura tabeli dla tabeli `groups`
 --
 
 CREATE TABLE `groups` (
@@ -73,7 +66,7 @@ CREATE TABLE `groups` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `groups`
+-- Zrzut danych tabeli `groups`
 --
 
 INSERT INTO `groups` (`id`, `groupName`, `groupDescriptiopn`) VALUES
@@ -88,7 +81,7 @@ INSERT INTO `groups` (`id`, `groupName`, `groupDescriptiopn`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `item`
+-- Struktura tabeli dla tabeli `item`
 --
 
 CREATE TABLE `item` (
@@ -101,14 +94,14 @@ CREATE TABLE `item` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `item`
+-- Zrzut danych tabeli `item`
 --
 
 INSERT INTO `item` (`id`, `name`, `price`, `description`, `availability`, `group_id`) VALUES
-(115, 'Amica FK3214DFXIo', 77.00, 'Bardzo oszczedna A+++\r\n120 l. pojemnosci\r\nDwa kolory: grafi i biel.\r\nBia?a', 215, 8),
+(115, 'Amica FK3214DFXIo', 77.00, 'Bardzo oszczedna A+++\r\n120 l. pojemnosci\r\nDwa kolory: grafi i biel.\r\nBia?a', 214, 8),
 (116, 'Bosch KGV39XL20E', 79.00, 'Bardzo wydajna\r\nKlasa A+\r\nDobra relacja cena/jakosc', 10, 8),
-(117, 'LG OLED55B6J', 99.00, '55 cali w technologii OLED\r\nFunkcjonalny pilot\r\nSmart TV', 1, 9),
-(118, 'Sony KDL-40WD655', 49.00, '40\'\r\nBardzo ostry obraz\r\nNowoczesny pilot', 0, 9),
+(117, 'LG OLED55B6J', 99.00, '55 cali w technologii OLED\r\nFunkcjonalny pilot\r\nSmart TV', -1, 9),
+(118, 'Sony KDL-40WD655', 49.00, '40\'\r\nBardzo ostry obraz\r\nNowoczesny pilot', -1, 9),
 (120, 'Samsung Galaxy A5 2016', 79.00, 'Duzy wyswietlacz\r\nEkran dotykowy\r\nAndroid', 14, 11),
 (121, 'Huawei P8 Lite', 49.00, 'Bardzo korzystna cena\r\nOdporny na uszkodzenia\r\nPRzedluzona Gwarancja', 14, 11),
 (122, 'LG G6', 89.00, 'Nowoczesny design\r\nCzarny chrom\r\nElegancki', 3, 11),
@@ -116,48 +109,46 @@ INSERT INTO `item` (`id`, `name`, `price`, `description`, `availability`, `group
 (124, 'Canon EOS 1200D ', 59.00, 'Niska Cena\r\nZoom x 16\r\nGwarancja 5 lat', 4, 12),
 (125, 'Mass Effect Andromeda', 49.00, 'Najnowsza czÄ™Å›Ä‡\r\nDodatkowo DLC\r\nNajwyzsze oceny', 18, 13),
 (127, 'Diablo III', 19.00, 'Ostatnia czesc\r\nKlasyka RPG Action\r\nSuper cena', 4, 13),
-(128, 'Amica ZWM 668 IED', 79.00, 'Nowoczesna Zmywarka\r\nRewelacyjna cena\r\nOszczÄ™dna', 12, 8),
+(128, 'Amica ZWM 668 IED', 79.00, 'Nowoczesna Zmywarka\r\nRewelacyjna cena\r\nOszczÄ™dna', 10, 8),
 (129, 'Zelmer Jupiter', 49.00, 'Cicha praca\r\nKabel 5m.\r\nKilka koÅ„cÃ³wek', 10, 8),
 (130, 'Philips Azur Performer', 28.00, 'Nowoczesny Design\r\nNiska Cena', 10, 8),
-(131, '131Yamaha HTR-20671', 69.00, 'Wysoka jako?? d?wi?ku\r\nNowoczesny design', 2, 9),
+(131, '131Yamaha HTR-20671', 69.00, 'Wysoka jako?? d?wi?ku\r\nNowoczesny design', 1, 9),
 (132, 'LG 49LH630V', 69.00, 'Wysoka jakoÅ›c obrazu\r\nSmart TV\r\nNiska cena', 9, 8),
-(133, 'Apple Macbook Air 13', 99.00, 'Krystaliczny obraz\r\nSzybki procesor\r\nDysk SSD', 10, 10),
+(133, 'Apple Macbook Air 13', 99.00, 'Krystaliczny obraz\r\nSzybki procesor\r\nDysk SSD', 3, 10),
 (134, 'ASUS GL753VE 17,3', 99.00, 'SprzÄ™t dla gracza\r\nDuÅ¼y wyÅ›wietlacz\r\nNajnowszy procesor', 2, 10),
-(135, 'Apple iPhone 7 ', 79.00, 'Odporna obudowa\r\nDuÅ¼y wyÅ›wietlacz\r\nZadziała??', 54, 11);
+(135, 'Apple iPhone 7 ', 79.00, 'Odporna obudowa\r\nDuÅ¼y wyÅ›wietlacz\r\nZadziała??', 53, 11);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `message`
+-- Struktura tabeli dla tabeli `message`
 --
 
 CREATE TABLE `message` (
   `id` int(11) NOT NULL,
-  `user_id` int(11) DEFAULT NULL,
-  `title` varchar(255) DEFAULT NULL,
-  `content` text,
-  `date` varchar(255) DEFAULT NULL,
-  `status` int(11) NOT NULL
+  `adminId` int(11) NOT NULL,
+  `receiverId` int(11) NOT NULL,
+  `messageTitle` varchar(100) NOT NULL,
+  `messageContent` varchar(140) NOT NULL,
+  `creationDate` datetime NOT NULL,
+  `messageStatus` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `message`
+-- Zrzut danych tabeli `message`
 --
 
-INSERT INTO `message` (`id`, `user_id`, `title`, `content`, `date`, `status`) VALUES
-(10, 8, 'wiad1', 'tresc1', '17-05-28', 0),
-(12, 8, 'wiad do jacka', 'hej hej', '17-05-28', 0),
-(14, 8, 'hej', 'hejeje', '17-05-29', 0),
-(15, 8, 'kolejnas', 'taaak', '17-05-29', 0),
-(16, 8, 'osdtatania', 'nieee', '17-05-29', 0),
-(17, 8, 'rr', 'ff', '17-06-04', 0),
-(18, 8, 'trataa', 'sddxss', '17-06-07', 0),
-(19, 9, 'hej', 'hejehejehej', '17-06-07', 0);
+INSERT INTO `message` (`id`, `adminId`, `receiverId`, `messageTitle`, `messageContent`, `creationDate`, `messageStatus`) VALUES
+(2, 1, 8, 'Tytuł wiadomościxxx', 'treść wiadomościxxxx', '2017-06-06 00:00:00', 0),
+(16, 1, 8, 'Huraaa', 'W końcu działa!!!', '2017-06-09 12:00:25', 0),
+(17, 1, 9, 'Witam!', 'Proponuję wnieść opłatę za zakupione przedmioty ponieważ zostanie Pan usunięty z naszego sklepu!\r\npozdrawiam', '2017-06-09 12:09:22', 0),
+(18, 1, 9, 'tytuł', 'wiadomośćć', '2017-06-09 12:27:19', 0),
+(19, 1, 9, 'Aukcja nr...', 'Towar wysłany, dziękujemy za zakupy w naszym sklepie.\r\n\r\npozdrawiam', '2017-06-09 12:37:57', 0);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `orders`
+-- Struktura tabeli dla tabeli `orders`
 --
 
 CREATE TABLE `orders` (
@@ -169,7 +160,7 @@ CREATE TABLE `orders` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `orders`
+-- Zrzut danych tabeli `orders`
 --
 
 INSERT INTO `orders` (`id`, `user_id`, `amount`, `date`, `status`) VALUES
@@ -188,12 +179,22 @@ INSERT INTO `orders` (`id`, `user_id`, `amount`, `date`, `status`) VALUES
 (14, 9, 305, '17-06-07', 0),
 (15, 9, 247, '17-06-07', 1),
 (16, 9, 247, '17-06-07', 1),
-(17, 9, 245, '17-06-07', 1);
+(17, 9, 245, '17-06-07', 1),
+(18, 9, 653, '17-06-07', 1),
+(19, 9, 653, '17-06-07', 0),
+(20, 9, 277, '17-06-07', 0),
+(21, 9, 277, '17-06-07', 0),
+(22, 9, 277, '17-06-07', 0),
+(23, 9, 148, '17-06-07', 0),
+(24, 9, 148, '17-06-07', 0),
+(25, 9, 245, '17-06-07', 0),
+(26, 9, 245, '17-06-07', 0),
+(27, 9, 245, '17-06-07', 0);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `photos`
+-- Struktura tabeli dla tabeli `photos`
 --
 
 CREATE TABLE `photos` (
@@ -203,7 +204,7 @@ CREATE TABLE `photos` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `photos`
+-- Zrzut danych tabeli `photos`
 --
 
 INSERT INTO `photos` (`id`, `item_id`, `path`) VALUES
@@ -274,7 +275,7 @@ INSERT INTO `photos` (`id`, `item_id`, `path`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+-- Struktura tabeli dla tabeli `users`
 --
 
 CREATE TABLE `users` (
@@ -287,7 +288,7 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `users`
+-- Zrzut danych tabeli `users`
 --
 
 INSERT INTO `users` (`id`, `name`, `surname`, `email`, `password`, `address`) VALUES
@@ -295,7 +296,7 @@ INSERT INTO `users` (`id`, `name`, `surname`, `email`, `password`, `address`) VA
 (9, 'slawek', 'jot', 'lawka@lawka.pl', 'slawek1', 'olkusz');
 
 --
--- Indexes for dumped tables
+-- Indeksy dla zrzutów tabel
 --
 
 --
@@ -330,7 +331,8 @@ ALTER TABLE `item`
 --
 ALTER TABLE `message`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `user_id` (`user_id`);
+  ADD KEY `adminId` (`adminId`),
+  ADD KEY `receiverId` (`receiverId`);
 
 --
 -- Indexes for table `orders`
@@ -358,76 +360,77 @@ ALTER TABLE `users`
 --
 
 --
--- AUTO_INCREMENT for table `admins`
+-- AUTO_INCREMENT dla tabeli `admins`
 --
 ALTER TABLE `admins`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
--- AUTO_INCREMENT for table `cart`
+-- AUTO_INCREMENT dla tabeli `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT for table `groups`
+-- AUTO_INCREMENT dla tabeli `groups`
 --
 ALTER TABLE `groups`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 --
--- AUTO_INCREMENT for table `item`
+-- AUTO_INCREMENT dla tabeli `item`
 --
 ALTER TABLE `item`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=136;
 --
--- AUTO_INCREMENT for table `message`
+-- AUTO_INCREMENT dla tabeli `message`
 --
 ALTER TABLE `message`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 --
--- AUTO_INCREMENT for table `orders`
+-- AUTO_INCREMENT dla tabeli `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 --
--- AUTO_INCREMENT for table `photos`
+-- AUTO_INCREMENT dla tabeli `photos`
 --
 ALTER TABLE `photos`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=468;
 --
--- AUTO_INCREMENT for table `users`
+-- AUTO_INCREMENT dla tabeli `users`
 --
 ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
--- Constraints for dumped tables
+-- Ograniczenia dla zrzutów tabel
 --
 
 --
--- Constraints for table `cart`
+-- Ograniczenia dla tabeli `cart`
 --
 ALTER TABLE `cart`
   ADD CONSTRAINT `cart_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
   ADD CONSTRAINT `cart_ibfk_2` FOREIGN KEY (`item_id`) REFERENCES `item` (`id`);
 
 --
--- Constraints for table `item`
+-- Ograniczenia dla tabeli `item`
 --
 ALTER TABLE `item`
   ADD CONSTRAINT `item_ibfk_1` FOREIGN KEY (`group_id`) REFERENCES `groups` (`id`);
 
 --
--- Constraints for table `message`
+-- Ograniczenia dla tabeli `message`
 --
 ALTER TABLE `message`
-  ADD CONSTRAINT `message_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+  ADD CONSTRAINT `message_ibfk_1` FOREIGN KEY (`adminId`) REFERENCES `admins` (`id`),
+  ADD CONSTRAINT `message_ibfk_2` FOREIGN KEY (`receiverId`) REFERENCES `users` (`id`);
 
 --
--- Constraints for table `orders`
+-- Ograniczenia dla tabeli `orders`
 --
 ALTER TABLE `orders`
   ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 
 --
--- Constraints for table `photos`
+-- Ograniczenia dla tabeli `photos`
 --
 ALTER TABLE `photos`
   ADD CONSTRAINT `photos_ibfk_1` FOREIGN KEY (`item_id`) REFERENCES `item` (`id`);

@@ -21,7 +21,7 @@ if (!isset($_SESSION['admin'])) {
 <body>
 <div class="container">
     <?php
-    echo "Witaj " . $_SESSION['admin'] . " | " . "<a href='index.php'>Start</a>" . " | " . "<a href='web/logOut.php'>wyloguj</a>";
+    echo "Witaj " . $_SESSION['adminName'] . " | " . "<a href='index.php'>Start</a>" . " | " . "<a href='web/logOut.php'>wyloguj</a>";
     ?>
     <hr>
     <p><a href='itemPanel.php'><--Powrót</a></p>
@@ -33,26 +33,38 @@ if (!isset($_SESSION['admin'])) {
 
             $result = selectUsers::selectAllUsers($connection);
 
-            if ($_SERVER['REQUEST_METHOD'] === "POST") {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            if (isset($_POST['receiverId']) && isset($_POST['messageTitle']) && isset($_POST['messageContent'])) {
+                $receiverId = $_POST['receiverId'];
+                $messageTitle = $_POST['messageTitle'];
+                $messageContent = $_POST['messageContent'];
 
-                echo" hej";
-                if (isset ($_POST['title']) && isset ($_POST['content'])) {
-
-                    $title = $_POST['title'];
-                    $content = $_POST['content'];
-                    $id = $_POST['selection'];
-
-                    $message = new Message();
-
-                    $message->setTitle($_POST['title']);
-                    $message->setContent($_POST['content']);
-                    $message->setReceiverId($_POST['selection']);
-
-                    $message->sendMessage($connection, $title, $content, $id);
+                $message = new Message();
+                $message->setAdminId($_SESSION['admin']);
+                $message->setReceiverId($receiverId);
+                $message->setMessageTitle($messageTitle);
+                $message->setMessageContent($messageContent);
+                $message->setCreationDate();
+                $message->setMessageStatus($connection, $message->getId(), 0);
+                $message->saveToDB($connection);
+                $send = Message::loadLastSendMessageByUserId($connection, $_SESSION['admin']);
+                foreach ($send as $value) {
+                    echo '<div class="flash-message alert alert-success alert-dismissible" role="alert">
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                      <strong>Wysłałeś wiadomość do ' . $value["name"] . '</strong>
+                    </div>';
                 }
             }
+        }
         ?>
     </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"
+        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+        crossorigin="anonymous"></script>
+<script src="js/bootstrap.js"></script>
+<script src="js/style.js"></script>
 </body>
 </html>

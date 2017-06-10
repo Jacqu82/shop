@@ -24,7 +24,7 @@ if (!isset($_SESSION['admin'])) {
     echo "Witaj " . $_SESSION['adminName'] . " | " . "<a href='index.php'>Start</a>" . " | " . "<a href='web/logOut.php'>wyloguj</a>";
     ?>
     <hr>
-    <p><a href='itemPanel.php'><--Powrót</a></p>
+    <p><a href='adminPanel.php'><--Powrót</a></p>
     <div class="wrapper">
         <p>Wysyłanie wiadomości:</p>
 
@@ -61,9 +61,7 @@ if (!isset($_SESSION['admin'])) {
         ?>
     </div>
 </div>
-<script src="https://code.jquery.com/jquery-3.1.1.min.js"
-        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
-        crossorigin="anonymous"></script>
+<script src="js/jquery.js"></script>
 <script src="js/bootstrap.js"></script>
 <script src="js/style.js"></script>
 </body>

@@ -22,7 +22,7 @@ if (!isset($_SESSION['admin'])) {
     <div class="container">
     <?php
 
-    echo "Witaj " . $_SESSION['admin'] . " | " . "<a href='index.php'>Start</a>" . " | " . "<a href='web/logOut.php'>wyloguj</a><hr>";
+    echo "Witaj " . $_SESSION['adminName'] . " | " . "<a href='index.php'>Start</a>" . " | " . "<a href='web/logOut.php'>wyloguj</a><hr>";
     echo "<p><a href='adminPanel.php'><--Powrót</a></p>";
     echo "<div class='wrapper'>";
 
@@ -40,7 +40,7 @@ if (!isset($_SESSION['admin'])) {
         if (isset($_POST['userSelection'])) {
             $id = $_POST['userSelection'];
 
-            $sql = "DELETE FROM message WHERE user_id='$id'";
+            $sql = "DELETE FROM message WHERE receiverId='$id'";
             $result = $connection->query($sql);
             if (!$result) {
                 die ("Błąd połączenia z bazą danych message" . $connection->connect_error);

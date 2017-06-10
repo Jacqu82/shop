@@ -64,17 +64,20 @@ if (!isset($_SESSION['user'])) {
                             die ("Błąd zapisu do bazy danych" . $connection->connect_errno);
                         }
 
-                        $date = date('y-m-d');
-                        $status = 0;
+                        if ($i == $_GET['i'] - 1) {
+                            $date = date('d-m-y');
+                            $status = 0;
 
-                        //zapisuje do tabeli z zamowieniami szczegółhy danego zamówienia
-                        $sql = "INSERT INTO orders(user_id, amount, date, status) VALUES ('$userId', '$sum', '$date', '$status' )";
+                            //zapisuje do tabeli z zamowieniami szczegółhy danego zamówienia
+                            $sql = "INSERT INTO orders(user_id, amount, date, status) VALUES ('$userId', '$sum', '$date', '$status' )";
 
-                        $result = $connection->query($sql);
+                            $result = $connection->query($sql);
 
-                        if (!$result) {
-                            die ("Błąd zapisu do bazy danych" . $connection->connect_errno);
+                            if (!$result) {
+                                die ("Błąd zapisu do bazy danych" . $connection->connect_errno);
+                            }
                         }
+
 
                     }
                 }

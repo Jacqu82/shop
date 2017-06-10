@@ -1,10 +1,9 @@
-<!DOCTYPE HTML>
 <?php
 include_once 'connection.php';
 require_once 'autoload.php';
 
-session_start();
 ?>
+<!DOCTYPE HTML>
 <html>
 <head lang="pl">
     <meta charset="UTF-8">
@@ -15,34 +14,11 @@ session_start();
     <link href="css/bootstrap.css" rel="stylesheet">
     <link href="css/style.css?h=1" rel="stylesheet">
 </head>
-<?php
-if (!isset($_SESSION['user'])) {
-    ?>
-    <body>
-    <div class="container">
-        <div class="row" id="topMenu">
-            <div class="col-md-2 col-sm-3 col-xs-4 witaj row1">
-                <a href="web/loginForm.html" class="btn btn-primary btn-block">Logowanie</a>
-            </div>
-            <div class="col-md-2 col-sm-3 col-xs-4 rejestracja row1">
-                <a href="web/registerForm.html" class="btn btn-primary btn-block">Rejestracja</a>
-            </div>
-            <div class="col-md-2 col-sm-3 col-xs-4 col-md-offset-6 col-sm-offset-3 koszyk row1">
-                <a href="koszyk.php" class="btn btn-success disabled btn-block">Koszyk</a>
-            </div>
-        </div>
-
-    </div>
-    <script src="js/jquery.js"></script>
-    <script src="js/bootstrap.js"></script>
-    </body>
-<?php
-} else {
-    ?>
-    <body>
+<body>
     <div class="container">
         <?php //wywołanie metody pokazującej górny pasek opcji
-        showLoggedUserOptions::showAllOptions($connection);
+
+        showLoggedUserOptions::showAllOptionsIndex($connection);
         ?>
         <div id="panel" class="row">
             <h1>ALLEDROGO - niepoważny sklep internetowy</h1>
@@ -158,7 +134,7 @@ if (!isset($_SESSION['user'])) {
     <script src="js/style.js"></script>
     </body>
 <?php
-};
+
 $connection->close();
 ?>
 </html>

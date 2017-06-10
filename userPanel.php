@@ -30,7 +30,7 @@ if (!isset($_SESSION['user'])) {
     <div class="wrapper">
         <ul><span>Jesteś w panelu użytkownika <br>Masz do wyboru następujące opcje:</span>
             <li><a href="changeUserData.php">Zmień swoje dane</a></li>
-            <li><a href="">Pokaż historię zakupów</a></li>
+            <li><a href="shopHistory.php">Pokaż historię zakupów</a></li>
             <li><a href="userMessages.php">Skrznka odbiorcza</a></li>
             <li><a href="payForProducts.php">Płatności</a></li>
         </ul>

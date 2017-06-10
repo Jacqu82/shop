@@ -2,6 +2,7 @@
 
 require_once 'autoload.php';
 
+
 class showLoggedUserOptions
 {
     static public function showAllOptions($connection)

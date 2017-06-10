@@ -1,4 +1,5 @@
 <?php
+
 require_once 'connection.php';
 require_once 'autoload.php';
 
@@ -62,3 +63,5 @@ foreach ($result as $value) {
 }
 
 echo "</table>";
+
+

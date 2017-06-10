@@ -75,5 +75,4 @@ class Carousel
                     </div>
                 </div>";
     }
-
 }

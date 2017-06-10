@@ -43,5 +43,7 @@ foreach ($result as $value) {
     echo "<td><a href='editGroupOfProducts.php?id=$id'>Edytuj</a></td>";
     echo "<td><a href='deleteGroupOfProducts.php?id=$id'>Usuń</a></td></tr>";
 }
-$connection->close();
+
 echo "</table></div></body></html>";
+
+$connection->close();

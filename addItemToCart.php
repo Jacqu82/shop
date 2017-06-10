@@ -32,8 +32,6 @@ if ($_SERVER['REQUEST_METHOD'] === "GET") {
         if (!$result) {
             die ("Błąd zapisu do bazy danych - Cart" . $connection->connect_errno);
         }
-
         header("Location: koszyk.php");
-
     }
 }

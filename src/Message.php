@@ -1,142 +1,5 @@
 <?php
 
-//class Message
-//{
-//    protected $content;
-//
-//    protected $date;
-//
-//    protected $title;
-//
-//    protected $receiverId;
-//
-//    protected $senderId;
-//
-//
-//    public function getSenderId()
-//    {
-//        return $this->senderId;
-//    }
-//
-//    public function setSenderId($senderId)
-//    {
-//        $this->senderId = $senderId;
-//    }
-//
-//    public function getContent()
-//    {
-//        return $this->content;
-//    }
-//
-//    public function setContent($content)
-//    {
-//        $this->content = $content;
-//    }
-//
-//    public function getDate()
-//    {
-//        return $this->date;
-//    }
-//
-//    public function setDate($date)
-//    {
-//        $this->date = $date;
-//    }
-//
-//    public function getTitle()
-//    {
-//        return $this->title;
-//    }
-//
-//    public function setTitle($title)
-//    {
-//        $this->title = $title;
-//    }
-//
-//    public function getReceiverId()
-//    {
-//        return $this->receiverId;
-//    }
-//
-//    public function setReceiverId($receiverId)
-//    {
-//        $this->receiverId = $receiverId;
-//    }
-//
-//    public static function showAllMessages(mysqli $connection)
-//    {
-//        $result = MessageDbQuery::selectAllFromUsersAndMessage($connection);
-//
-//        echo "<div style='margin-left: 350px; margin-right: auto; margin-top: 50px' >";
-//        echo "<p>Sortowanie wg.:</p>";
-//
-//        echo "<table border=1 cellpadding=5>";
-//        echo "<tr>";
-//        echo "<th>Date</th><th>User name</th><th>Title</th><th></th>";
-//        echo "</tr>";
-//        foreach ($result as $value) {
-//            if (isset($value['id'])) {
-//                $id = $value['id'];
-//                echo "<tr>";
-//                echo "<td>" . $value['date'] . "</td><td>" . $value['surname'] . " " . $value['name'] . "</td><td>" . $value['title'] . "</td>";
-//                echo "<td><a href='showAdminMessage.php?id=$id&i=1'>Pokaż</a></td>";
-//                echo "<td><a href='showAdminMessage.php?id=$id&i=0'>Usuń</a></td>";
-//            }
-//
-//        }
-//        echo "</table>";
-//        echo "</div>";
-//    }
-//
-//    public static function deleteMessage(mysqli $connection, $id)
-//    {
-//        $result = MessageDbQuery::deleteMessage($connection, $id);
-//    }
-//
-//    public static function showMessage(mysqli $connection, $id)
-//    {
-//        $result = MessageDbQuery::selectFromUsersAndMessageById($connection, $id);
-//
-//        foreach ($result as $value) {
-//            echo "Tytuł: " . $value['title'] . "<br>";
-//            echo "Data: " . $value['date'] . "<br>";
-//            echo "Odbiorca: " . $value['surname'] . $value['name'] . "<br>";
-//            echo "Treść: <b>" . $value['content'] . "</b>";
-//        }
-//    }
-//
-//    public function sendMessage(mysqli $connection, $title, $content, $id)
-//    {
-//        $date = date('y-m-d');
-//        MessageDbQuery::send($connection, $title, $content, $id, $date);
-//
-//    }
-//
-//    public static function getUnreadMessage(mysqli $connection, $id)
-//    {
-//        $sql = "SELECT status FROM message WHERE user_id=$id AND status=0";
-//
-//        $result = $connection->query($sql);
-//
-//        if (!$result) {
-//            die("Błąd odczytu z bazy danych" . $connection->connect_errno);
-//        }
-//
-//        $i = 0;
-//
-//        foreach ($result as $value) {
-//            $i++;
-//        }
-//
-//        if ($i < 1) {
-//            echo '0';
-//        } else {
-//            echo $i;
-//        }
-//    }
-//}
-
-
 class Message
 {
     private $id;
@@ -311,7 +174,7 @@ class Message
             die("Connection Error" . $connection->error);
         }
 
-        $arrResult =[];
+        $arrResult = [];
         while ($row = $result->fetch_assoc()) {
             $arrResult[] = $row;
         }
@@ -336,7 +199,7 @@ class Message
     static public function loadAllReceivedMessagesByUserId(mysqli $connection, $userId)
     {
         $sql = /** @lang text */
-        "SELECT 
+            "SELECT 
             message.id as id,
             message.messageTitle as title,
             message.messageContent as content,
@@ -425,7 +288,6 @@ class Message
             echo $i;
         }
     }
-
 
     public function deleteMessage(mysqli $connection)
     {

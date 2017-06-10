@@ -1,4 +1,5 @@
 <?php
+
 require_once 'connection.php';
 require_once 'autoload.php';
 
@@ -31,7 +32,7 @@ if (!isset($_SESSION['admin'])) {
         <p>Wybierz odbiorcę:</p>
         <?php
 
-            $result = selectUsers::selectAllUsers($connection);
+        $result = selectUsers::selectAllUsers($connection);
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if (isset($_POST['receiverId']) && isset($_POST['messageTitle']) && isset($_POST['messageContent'])) {

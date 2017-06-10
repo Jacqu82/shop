@@ -20,20 +20,20 @@ if (!isset($_SESSION['admin'])) {
     <body>
     <div class="container">
 
-<?php
-echo "Witaj " . $_SESSION['admin'] . " | " . "<a href='index.php'>Start</a>" . " | " . "<a href='web/logOut.php'>wyloguj</a><hr>";
-echo "<p><a href='groupsOfProducts.php'><--Powrót</a></p>";
-?>
-    <div class="wrapper">
-        <form action="addGroupOfProducts.php" method="post">
-            <p>Wprowadź nazwę grupy</p>
-            <input type="text" name="name"/><br>
-            <p>Wprowadź opis grupy</p>
-            <textarea type="text" name="description" rows="5" cols="40"></textarea>
-            <br>
-            <input type="submit" value="Add"/>
-        </form>
-    </div>
+        <?php
+        echo "Witaj " . $_SESSION['admin'] . " | " . "<a href='index.php'>Start</a>" . " | " . "<a href='web/logOut.php'>wyloguj</a><hr>";
+        echo "<p><a href='groupsOfProducts.php'><--Powrót</a></p>";
+        ?>
+        <div class="wrapper">
+            <form action="addGroupOfProducts.php" method="post">
+                <p>Wprowadź nazwę grupy</p>
+                <input type="text" name="name"/><br>
+                <p>Wprowadź opis grupy</p>
+                <textarea type="text" name="description" rows="5" cols="40"></textarea>
+                <br>
+                <input type="submit" value="Add"/>
+            </form>
+        </div>
     </body>
     </html>
 

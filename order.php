@@ -21,14 +21,16 @@ if (!isset($_SESSION['user'])) {
 <body>
 <div class="container">
     <?php
+
     echo "Witaj " . $_SESSION['user'] . " | " . "<a href='index.php'>Start</a>" . " | " . "<a href='web/logOut.php'>wyloguj</a>";
+
     ?>
     <hr>
     <p><a href='koszyk.php'><--Powrót</a></p>
-
     <div class='wrapper'>
         <span>Kwota do zapłaty:</span>
         <?php
+
         if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             if (isset($_GET['sum'])) {
                 //zapisanie łącznej kwoty zamówienia i id użytkownika, który złożył zamówienie
@@ -77,8 +79,6 @@ if (!isset($_SESSION['user'])) {
                                 die ("Błąd zapisu do bazy danych" . $connection->connect_errno);
                             }
                         }
-
-
                     }
                 }
             }

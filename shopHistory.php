@@ -63,5 +63,3 @@ foreach ($result as $value) {
 }
 
 echo "</table>";
-
-

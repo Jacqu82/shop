@@ -12,11 +12,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $password = $_POST['password'];
 
         $admin = Admin::loadAdminByName($connection, $name);
-        
+
         if ($admin == false) {
             die("Incorrect admin name");
         }
-        
+
         if ($password == $admin->getPassword()) {
 
             $_SESSION['admin'] = $admin->getId();
@@ -26,7 +26,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } else {
             die("Incorrect password!!!");
         }
-        
     }
 }
-

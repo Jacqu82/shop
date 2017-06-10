@@ -23,7 +23,7 @@ if (!isset($_SESSION['admin'])) {
 <body>
 <div class="container">
     <?php
-    echo "Witaj " . $_SESSION['adminName'] . " | " . "<a href='index.php'>Start</a>" . " | " . "<a href='web/logOut.php'>wyloguj</a>";
+    echo "Witaj " . $_SESSION['adminName'] . " | " . "<a href='web/logOut.php'>wyloguj</a>";
     ?>
     <hr>
     <div class="wrapper">

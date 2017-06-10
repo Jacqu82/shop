@@ -15,15 +15,12 @@ if ($_SERVER['REQUEST_METHOD'] === "GET") {
     if (isset($_GET['id'])) {
 
         $id = $_GET['id'];
-
         $sql = "DELETE FROM cart WHERE `item_id`=$id";
-
         $result = $connection->query($sql);
 
         if (!$result) {
             die ("Błąd połączenia z bazą danych" . $connection->connect_errno);
         }
-
         header('Location: koszyk.php');
     }
 }

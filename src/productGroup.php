@@ -17,7 +17,7 @@ class productGroup
         return $result;
     }
 
-     public static function showProductGroup($groupId,mysqli $connection, $selection, $orderSelection)
+    public static function showProductGroup($groupId, mysqli $connection, $selection, $orderSelection)
     {
         $result = self::selectGroup($groupId, $connection, $selection, $orderSelection);
 

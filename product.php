@@ -1,10 +1,12 @@
-<!DOCTYPE HTML>
 <?php
+
 include_once 'connection.php';
 require_once 'autoload.php';
 
 session_start();
+
 ?>
+<!DOCTYPE HTML>
 <html>
 <head lang="pl">
     <meta charset="UTF-8">
@@ -58,7 +60,6 @@ if (!isset($_SESSION['user'])) {
                         <div id="line">
                             <a href="#" class="btn btn-primary btn-block logo">Bestsellers</a>
                         </div>
-
                     </div>
                     <div id="productsCarousel" class="carousel slide" data-ride="carousel">
                         <?php //trzy razy wywoływana metoda, której celem jest wylosowanie produktów i wrzucenie ich do karuzeli
@@ -92,19 +93,18 @@ if (!isset($_SESSION['user'])) {
                     </div>
                 </div>
             </div>
-
         </div>
         <div class="row foot">
             <h1>Stopka naszej strony internetowej</h1>
         </div>
-
     </div>
     <script src="js/jquery.js"></script>
     <script src="js/bootstrap.js"></script>
     <script src="js/style.js"></script>
     </body>
 <?php
-};
+}
 $connection->close();
+
 ?>
 </html>

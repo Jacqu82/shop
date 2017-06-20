@@ -21,18 +21,16 @@ if (!isset($_SESSION['user'])) {
     <body>
     <div class="container">
 <?php //uaktualnienie statusu płatności z "nieuregulowany" na "uregulowany"
-    if ($_SERVER['REQUEST_METHOD'] === "GET") {
-        if (isset($_GET['id'])) {
-            $id = $_GET['id'];
+if ($_SERVER['REQUEST_METHOD'] === "GET") {
+    if (isset($_GET['id'])) {
+        $id = $_GET['id'];
 
-            $sql = "UPDATE orders SET status=1 WHERE id=$id";
+        $sql = "UPDATE orders SET status=1 WHERE id=$id";
+        $result = $connection->query($sql);
 
-            $result = $connection->query($sql);
-
-            if (!$result) {
-                die("Błąd zapisu w bazie danych" . $connection->connect_errno);
-            }
-
-            header("Location: payForProducts.php");
+        if (!$result) {
+            die("Błąd zapisu w bazie danych" . $connection->connect_errno);
         }
+        header("Location: payForProducts.php");
     }
+}

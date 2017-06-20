@@ -29,7 +29,7 @@ if (!isset($_SESSION['admin'])) {
             <form action="#" method="post" enctype="multipart/form-data">
                 Podaj nazwę:<br>
                 <input type="text" name="name"/><br>
-                Wybierz grupę  lub stwórz <a href="addGroupOfProducts.php"><b>nową grupę:</b></a><br>
+                Wybierz grupę lub stwórz <a href="addGroupOfProducts.php"><b>nową grupę:</b></a><br>
                 <?php
 
                 //wybieramy z listy rozwijalnej grupę produktów do której dodamy przedmiot
@@ -61,7 +61,7 @@ if (!isset($_SESSION['admin'])) {
                 <input type="submit" value="Dodaj"/>
             </form>
         </div>
-        </div>
+    </div>
     </body>
     </html>
 <?php
@@ -75,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $selection = mysqli_real_escape_string($connection, $_POST['selection']);
         $description = mysqli_real_escape_string($connection, $_POST['description']);
         $price = mysqli_real_escape_string($connection, $_POST['price']);
-        $availability = mysqli_real_escape_string($connection,$_POST['availability']);
+        $availability = mysqli_real_escape_string($connection, $_POST['availability']);
 
         //tworzymy obiekt typu Item i ustawiamy setery zmiennymi otrzymanymiz formularza
 

@@ -23,7 +23,7 @@ if (!isset($_SESSION['admin'])) {
     <div class="container">
 
 <?php
-echo "Witaj " . $_SESSION['admin'] . " | " . "<a href='index.php'>Start</a>" . " | " . "<a href='logOut.php'>wyloguj</a><hr>";
+echo "Witaj " . $_SESSION['adminName'] . " | " . "<a href='index.php'>Start</a>" . " | " . "<a href='logOut.php'>wyloguj</a><hr>";
 echo "<p><a href='adminPanel.php'><--Powrót</a></p>";
 echo "<p><a href='addGroupOfProducts.php'>Dodaj nową grupę produktów</a></p>";
 
@@ -43,11 +43,7 @@ foreach ($result as $value) {
     echo "<td><a href='editGroupOfProducts.php?id=$id'>Edytuj</a></td>";
     echo "<td><a href='deleteGroupOfProducts.php?id=$id'>Usuń</a></td></tr>";
 }
-$connection->close();
+
 echo "</table></div></body></html>";
 
-
-
-
-
-
+$connection->close();

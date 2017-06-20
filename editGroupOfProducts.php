@@ -23,7 +23,7 @@ if (!isset($_SESSION['admin'])) {
 <div class="container">
     <?php
 
-    echo "Witaj " . $_SESSION['admin'] . " | " . "<a href='index.php'>Start</a>" . " | " . "<a href='logOut.php'>wyloguj</a><hr>";
+    echo "Witaj " . $_SESSION['adminName'] . " | " . "<a href='index.php'>Start</a>" . " | " . "<a href='logOut.php'>wyloguj</a><hr>";
     echo "<p><a href='groupsOfProducts.php'><--Powrót</a></p>";
 
     if ($_SERVER['REQUEST_METHOD'] === "GET") {

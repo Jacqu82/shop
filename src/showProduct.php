@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: sgr13
- * Date: 17.05.17
- * Time: 06:39
- */
 
 require_once 'Carousel.php';
 
@@ -76,7 +70,6 @@ class showProduct
                 $paths[$i] = $paths[$i - 1];
             }
         }
-
         return $paths;
     }
 

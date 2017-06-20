@@ -1,4 +1,5 @@
 <?php
+
 function __autoload($className)
 {
     $filename = "src/" . $className . ".php";

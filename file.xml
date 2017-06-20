@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<mysqldump xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <database name="shop">
+        <table_structure name="users">
+            <field Field="id" Type="int(11) unsigned" Null="NO" Key="PRI" Extra="auto_increment" Comment=""/>
+            <field Field="name" Type="varchar(255)" Null="NO" Key="" Default="" Extra="" Comment=""/>
+            <field Field="surname" Type="varchar(255)" Null="NO" Key="" Default="" Extra="" Comment=""/>
+            <field Field="email" Type="varchar(255)" Null="NO" Key="" Default="" Extra="" Comment=""/>
+            <field Field="password" Type="varchar(255)" Null="NO" Key="" Default="" Extra="" Comment=""/>
+            <field Field="address" Type="varchar(255)" Null="NO" Key="" Default="" Extra="" Comment=""/>
+            <key Table="users" Non_unique="0" Key_name="PRIMARY" Seq_in_index="1" Column_name="id" Collation="A"
+                 Cardinality="1" Null="" Index_type="BTREE" Comment="" Index_comment=""/>
+            <!--<options Name="user" Engine="InnoDB" Version="10" Row_format="Compact" Rows="1" Avg_row_length="16384" Data_length="16384" Max_data_length="0" Index_length="0" Data_free="4194304" Auto_increment="2" Create_time="2017-03-05 15:49:51" Collation="utf8_general_ci" Create_options="" Comment="" />-->
+        </table_structure>
+        <table_data name="users">
+            <row>
+                <field name="id">8</field>
+                <field name="name">jacek</field>
+                <field name="surname">placek</field>
+                <field name="email">kulka@kulka.pl</field>
+                <field name="password">jacek1</field>
+                <field name="address">Schwarzwald</field>
+            </row>
+            <row>
+                <field name="id">9</field>
+                <field name="name">slawek</field>
+                <field name="surname">jot</field>
+                <field name="email">lawka@lawka.pl</field>
+                <field name="password">slawek1</field>
+                <field name="address">olkusz</field>
+            </row>
+            <row>
+                <field name="id">10</field>
+                <field name="name">Marian</field>
+                <field name="surname">Paździoch</field>
+                <field name="email">marian55@wp.pl</field>
+                <field name="password">marian</field>
+                <field name="address">Wrocław, Centrum</field>
+            </row>
+        </table_data>
+    </database>
+</mysqldump>

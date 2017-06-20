@@ -99,7 +99,7 @@ class Item
             $itemArray = $result->fetch_assoc();
 
             $item = new Item();
-            
+
             $item->setName($itemArray['name']);
             $item->setDescription($itemArray['description']);
             $item->setPrice($itemArray['price']);

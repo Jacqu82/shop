@@ -22,20 +22,15 @@ if ($_SERVER['REQUEST_METHOD'] === "GET") {
         $connection = new mysqli($host, $user, $password, $database);
         
         $sql = "SELECT * FROM photos WHERE `id` = $photoId";
-        
         $result = $connection->query($sql);
         
         foreach ($result as $value) {
             $path = $value['path'];
         }
-        
-        var_dump($path);
-        
-        
+
         unlink($path);
         
         $sql = "DELETE FROM photos WHERE `id`=$photoId";
-        
         $connection->query($sql);
 
         header("Location: editItem.php?id=" . $id);

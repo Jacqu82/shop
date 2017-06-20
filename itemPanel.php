@@ -18,11 +18,10 @@ if (!isset($_SESSION['admin'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="css/style.css?h=1" rel="stylesheet">
 </head>
-
 <body>
 <div class="container">
     <?php
-    echo "Witaj " . $_SESSION['admin'] . " | " . "<a href='index.php'>Start</a>" . " | " . "<a href='web/logOut.php'>wyloguj</a><hr>";
+    echo "Witaj " . $_SESSION['adminName'] . " | " . "<a href='index.php'>Start</a>" . " | " . "<a href='web/logOut.php'>wyloguj</a><hr>";
     echo "<p><a href='adminPanel.php'><--Powrót</a></p>";
     echo "<div class='wrapper'>";
     echo "<p><a href='addNewItem.php'>Dodaj nowy przedmiot</a></p>";
@@ -50,7 +49,7 @@ if (!isset($_SESSION['admin'])) {
 
             //jeśli wybralismy wszystko wysyłamy zapytanie wybierające wszystkie rekordy
             if ($selection == 'all') {
-                $sql = "SELECT * from groups g RIGHT JOIN item i ON i.group_id = g.id";
+                $sql = "SELECT * FROM groups g RIGHT JOIN item i ON i.group_id = g.id";
             } else {
                 //w tym przypadku wybieramy rekordy odpowiadajace warunkowi - nazwie grupy
                 $sql = "SELECT * from groups g RIGHT JOIN item i ON i.group_id = g.id WHERE groupName='$selection'";

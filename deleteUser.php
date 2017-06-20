@@ -20,52 +20,52 @@ if (!isset($_SESSION['admin'])) {
 
     <body>
     <div class="container">
-    <?php
+<?php
 
-    echo "Witaj " . $_SESSION['admin'] . " | " . "<a href='index.php'>Start</a>" . " | " . "<a href='web/logOut.php'>wyloguj</a><hr>";
-    echo "<p><a href='adminPanel.php'><--Powrót</a></p>";
-    echo "<div class='wrapper'>";
+echo "Witaj " . $_SESSION['adminName'] . " | " . "<a href='index.php'>Start</a>" . " | " . "<a href='web/logOut.php'>wyloguj</a><hr>";
+echo "<p><a href='adminPanel.php'><--Powrót</a></p>";
+echo "<div class='wrapper'>";
 
-    $result = selectUsers::selectUsersFromDb($connection);
-    echo "<p>Wybierz użytkownika,<br> którego chcesz usunąć:</p>";
-    echo "<form method='post' action='#'>";
-    echo "<select name='userSelection'>";
-    foreach($result as $value) {
-        echo "<option value='" .$value['id'] . "'>" . $value['name'] . $value['surname'] . "</option>";
-    }
-    echo "<input type='submit' value='Usuń'>";
-    echo "</form>";
+$result = selectUsers::selectUsersFromDb($connection);
+echo "<p>Wybierz użytkownika,<br> którego chcesz usunąć:</p>";
+echo "<form method='post' action='#'>";
+echo "<select name='userSelection'>";
+foreach ($result as $value) {
+    echo "<option value='" . $value['id'] . "'>" . $value['name'] . $value['surname'] . "</option>";
+}
+echo "<input type='submit' value='Usuń'>";
+echo "</form>";
 
-    if ($_SERVER['REQUEST_METHOD'] === "POST") {
-        if (isset($_POST['userSelection'])) {
-            $id = $_POST['userSelection'];
+if ($_SERVER['REQUEST_METHOD'] === "POST") {
+    if (isset($_POST['userSelection'])) {
+        $id = $_POST['userSelection'];
 
-            $sql = "DELETE FROM message WHERE user_id='$id'";
-            $result = $connection->query($sql);
-            if (!$result) {
-                die ("Błąd połączenia z bazą danych message" . $connection->connect_error);
-            }
-
-            $sql = "DELETE FROM orders WHERE user_id='$id'";
-            $result = $connection->query($sql);
-            if (!$result) {
-                die ("Błąd połączenia z bazą danych orders" . $connection->connect_errno);
-            }
-
-            $sql = "DELETE FROM cart WHERE user_id='$id'";
-            $result = $connection->query($sql);
-            if (!$result) {
-                die ("Błąd połączenia z bazą danych cart" . $connection->connect_errno);
-            }
-
-            $sql = "DELETE FROM users WHERE id='$id'";
-            $result = $connection->query($sql);
-            if (!$result) {
-                die ("Błąd połączenia z bazą danych cart" . $connection->connect_errno);
-            }
-
-            echo "Udało Ci się usunąć użytkownika.";
-
+        $sql = "DELETE FROM message WHERE receiverId='$id'";
+        $result = $connection->query($sql);
+        if (!$result) {
+            die ("Błąd połączenia z bazą danych message" . $connection->connect_error);
         }
+
+        $sql = "DELETE FROM orders WHERE user_id='$id'";
+        $result = $connection->query($sql);
+        if (!$result) {
+            die ("Błąd połączenia z bazą danych orders" . $connection->connect_errno);
+        }
+
+        $sql = "DELETE FROM cart WHERE user_id='$id'";
+        $result = $connection->query($sql);
+        if (!$result) {
+            die ("Błąd połączenia z bazą danych cart" . $connection->connect_errno);
+        }
+
+        $sql = "DELETE FROM users WHERE id='$id'";
+        $result = $connection->query($sql);
+        if (!$result) {
+            die ("Błąd połączenia z bazą danych cart" . $connection->connect_errno);
+        }
+
+        echo "Udało Ci się usunąć użytkownika.";
+
     }
+}
 echo "</div></div></body></html>";

@@ -16,9 +16,9 @@ if (!isset($_SESSION['user'])) {
     <meta charset="utf-8"/>
     <title>Shop</title>
     <script
-        src="https://code.jquery.com/jquery-3.1.1.min.js"
-        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
-        crossorigin="anonymous"></script>
+            src="https://code.jquery.com/jquery-3.1.1.min.js"
+            integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+            crossorigin="anonymous"></script>
     <script src="js/style.js?s3=213237" type="text/javascript"></script>
     <link href="css/style.css" type="text/css" rel="stylesheet"/>
 </head>
@@ -29,8 +29,8 @@ if (!isset($_SESSION['user'])) {
     echo "Witaj " . $_SESSION['user'] . " | " . "<a href='index.php'>Start</a>" . " | " . "<a href='web/logOut.php'>wyloguj</a>";
     ?>
     <hr>
-        <div class="backLink"><a href="userPanel.php"><--Powrót</a></div>
-        <div class="wrapper">
+    <div class="backLink"><a href="userPanel.php"><--Powrót</a></div>
+    <div class="wrapper">
         <p>Zmień swoje dane:</p>
 
         <div id='changeName'>

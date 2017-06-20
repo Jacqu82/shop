@@ -14,7 +14,7 @@ class Message
     public function __construct()
     {
         $this->id = -1;
-        $this->sadminId = '';
+        $this->adminId = '';
         $this->receiverId = '';
         $this->messageTitle = '';
         $this->messageContent = '';

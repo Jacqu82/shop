@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if ($user == false) {
             echo '<p style="color: red">Niepoprawny login lub hasło!</p>';
-            echo '<a href="login.php">Zaloguj się ponownie</a>';
+            echo '<a href="loginForm.html">Zaloguj się ponownie</a>';
             exit;
         }
 
@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         } else {
             echo '<p style="color: red">Niepoprawny login lub hasło!</p>';
-            echo '<a href="login.php">Zaloguj się ponownie</a>';
+            echo '<a href="loginForm.html">Zaloguj się ponownie</a>';
             exit;
         }
     }

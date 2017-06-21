@@ -38,7 +38,7 @@ class showItemInCart
             </div>
         <div class="col-md-2 part">
             <br/>
-            <a href="deleteItemFromCart.php?id=' . $id . '"><button class="btn-danger deleteItemInBasket">Usuń</button></a>
+            <a href="../deleteItemFromCart.php?id=' . $id . '"><button class="btn-danger deleteItemInBasket">Usuń</button></a>
         </div>
     </div>';
             $sum += $value['price'];
@@ -48,7 +48,7 @@ class showItemInCart
         echo "<div class='col-md-12' style='color: #ffffff; border-top: solid white 1px; margin-bottom: 10px'>";
         echo "<div class='col-md-8' style=''>Łączna kwota wynosi: </div>";
         echo "<div class='col-md-2' id='sum'>$sum</div>";
-        echo "<div class='col-md-2'><a href='order.php?sum=$sum&userId=$userId" . $sing . "&i=" . $i . "'><button class='btn-info' id='buttonPay'>Zapłać</button> </a> </div>";
+        echo "<div class='col-md-2'><a href='../order.php?sum=$sum&userId=$userId" . $sing . "&i=" . $i . "'><button class='btn-info' id='buttonPay'>Zapłać</button> </a> </div>";
         echo "</div>";
     }
 }

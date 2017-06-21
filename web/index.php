@@ -2,24 +2,21 @@
 
 include_once 'connection.php';
 require_once 'autoload.php';
+require_once '../layout/Layout.php'
 
 ?>
 <!DOCTYPE HTML>
 <html>
-<head lang="pl">
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-COMPATIBLE" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale = 1">
 
-    <title>Alledrogo-niepoważny sklep</title>
-    <link href="css/bootstrap.css" rel="stylesheet">
-    <link href="css/style.css?h=1" rel="stylesheet">
-</head>
+<?php //metoda wysiwetlająca część Head strony
+Layout::showHead();
+?>
+
 <body>
 <div class="container">
     <?php //wywołanie metody pokazującej górny pasek opcji
 
-    showLoggedUserOptions::showAllOptionsIndex($connection);
+    Layout::showAllOptionsIndex($connection);
     ?>
     <div id="panel" class="row">
         <h1>ALLEDROGO - niepoważny sklep internetowy</h1>
@@ -30,8 +27,8 @@ require_once 'autoload.php';
                 <div class="col-md-12 col-sm-12 col-xs-12 rejestracja1 row1 logo">
                     <a href="index.php" class="btn btn-primary btn-block logo">Alledrogo</a>
                 </div>
-                <?php //wywołanie metody, która ma za zadanie wyświetlić wszystkie nazwy grup produktów
-                photoGallery::showGroupName($connection)
+                <?php //wywołanie metody, która ma za zadanie wyświetlić wszystkie nazwy grup produktów(lewy side bar)
+                Layout::showGroupName($connection)
                 ?>
             </div>
         </div>
@@ -125,13 +122,11 @@ require_once 'autoload.php';
         <h1>Stopka naszej strony internetowej</h1>
     </div>
 </div>
-<script src="js/jquery.js"></script>
-<script src="js/bootstrap.js"></script>
-<script src="js/style.js"></script>
+<script src="../js/jquery.js"></script>
+<script src="../js/bootstrap.js"></script>
+<script src="../js/style.js"></script>
 </body>
 <?php
-
 $connection->close();
-
 ?>
 </html>

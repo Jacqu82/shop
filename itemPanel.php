@@ -3,6 +3,7 @@
 include_once 'connection.php';
 include_once 'config.php';
 require_once 'autoload.php';
+require_once 'layout/Layout.php';
 
 session_start();
 //sprawdzenie czy admin jest zalogowany
@@ -21,7 +22,7 @@ if (!isset($_SESSION['admin'])) {
 <body>
 <div class="container">
     <?php
-    echo "Witaj " . $_SESSION['adminName'] . " | " . "<a href='index.php'>Start</a>" . " | " . "<a href='web/logOut.php'>wyloguj</a><hr>";
+    Layout::AdminTopBar();
     echo "<p><a href='adminPanel.php'><--Powrót</a></p>";
     echo "<div class='wrapper'>";
     echo "<p><a href='addNewItem.php'>Dodaj nowy przedmiot</a></p>";

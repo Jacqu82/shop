@@ -2,6 +2,7 @@
 
 require_once 'connection.php';
 require_once 'autoload.php';
+require_once 'layout/Layout.php';
 
 session_start();
 //
@@ -22,7 +23,7 @@ if (!isset($_SESSION['user'])) {
 <body>
 <div class="container">
 <?php
-echo "Witaj " . $_SESSION['user'] . " | " . "<a href='index.php'>Start</a>" . " | " . "<a href='web/logOut.php'>wyloguj</a>";
+Layout::UserTopBar();
 ?>
     <hr>
     <p><a href='userPanel.php'><--Powrót</a></p>

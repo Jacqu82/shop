@@ -3,6 +3,7 @@
 include_once 'connection.php';
 require_once 'autoload.php';
 include_once 'config.php';
+require_once 'layout/Layout.php';
 
 // 1. Tak jak wszędzie sprawdzamy czy użytkownik jest zalogowany, jeśli tak wyświetlamy pasek powitalny
 
@@ -25,8 +26,7 @@ if (!isset($_SESSION['admin'])) {
     <div class="container">
 
 <?php
-
-echo "Witaj " . $_SESSION['admin'] . " | " . "<a href='index.php'>Start</a>" . " | " . "<a href='web/logOut.php'>wyloguj</a><hr>";
+Layout::AdminTopBar();
 echo "<p><a href='itemPanel.php'><--Powrót</a></p>";
 
 // 2. Sprawdzamy czy udało się przesłać getem  informacje, a następnie na podstawie id odszukujemy nazwe przedmiotu i tworzymy obiekt

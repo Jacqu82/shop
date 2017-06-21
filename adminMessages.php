@@ -3,6 +3,7 @@
 include_once 'connection.php';
 include_once 'config.php';
 require_once 'autoload.php';
+require_once 'layout/Layout.php';
 
 session_start();
 
@@ -22,7 +23,7 @@ if (!isset($_SESSION['admin'])) {
 <div class="container">
 
     <?php
-    echo "Hello " . $_SESSION['adminName'] . " | " . "<a href='index.php'>Start</a>" . " | " . "<a href='web/logOut.php'>wyloguj</a><hr>";
+    Layout::AdminTopBar();
     echo "<p><a href='adminPanel.php'><--Powrót</a></p>";
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {

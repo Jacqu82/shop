@@ -4,6 +4,7 @@ require_once 'connection.php';
 require_once 'web/login.php';
 require_once 'config.php';
 require_once 'autoload.php';
+require_once 'layout/Layout.php';
 
 if (!isset($_SESSION['user'])) {
     header('Location: index.php');
@@ -26,7 +27,7 @@ if (!isset($_SESSION['user'])) {
 <body>
 <div class="container">
     <?php
-    echo "Witaj " . $_SESSION['user'] . " | " . "<a href='index.php'>Start</a>" . " | " . "<a href='web/logOut.php'>wyloguj</a>";
+    Layout::UserTopBar();
     ?>
     <hr>
     <div class="backLink"><a href="userPanel.php"><--Powrót</a></div>

@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['user'] = $user->getName();
             $_SESSION['id'] = $user->getId();
 
-            header('Location: ../index.php');
+            header('Location: index.php');
 
         } else {
             echo '<p style="color: red">Niepoprawny login lub hasło!</p>';

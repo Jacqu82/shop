@@ -21,7 +21,7 @@ if (!isset($_SESSION['admin'])) {
     <div class="container">
 
         <?php
-        echo "Witaj " . $_SESSION['admin'] . " | " . "<a href='index.php'>Start</a>" . " | " . "<a href='web/logOut.php'>wyloguj</a><hr>";
+        Layout::AdminTopBar();
         echo "<p><a href='groupsOfProducts.php'><--Powrót</a></p>";
         ?>
         <div class="wrapper">

@@ -2,6 +2,7 @@
 
 require_once 'connection.php';
 require_once 'autoload.php';
+require_once 'layout/Layout.php';
 
 session_start();
 
@@ -43,8 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <?php
     //górny pasek z podstawowymi funkcjonalnościami użytkownika
-    echo "Witaj " . $_SESSION['user'] . " | " . "<a href='index.php'>Start</a>" . " | " . "<a href='web/logOut.php'>wyloguj</a>";
-
+    Layout::UserTopBar();
     ?>
     <hr>
     <div class="wrapper">

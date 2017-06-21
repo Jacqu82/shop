@@ -43,7 +43,7 @@ class Carousel
         $result = self::getPhotoPath($connection, $id);
 
         foreach ($result as $value) {
-            $path = $value['path'];
+            $path = '../' . $value['path'];
         }
 
         $array = [

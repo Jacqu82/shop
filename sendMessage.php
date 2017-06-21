@@ -2,6 +2,7 @@
 
 require_once 'connection.php';
 require_once 'autoload.php';
+require_once 'layout/Layout.php';
 
 session_start();
 //
@@ -22,7 +23,7 @@ if (!isset($_SESSION['admin'])) {
 <body>
 <div class="container">
     <?php
-    echo "Witaj " . $_SESSION['adminName'] . " | " . "<a href='index.php'>Start</a>" . " | " . "<a href='web/logOut.php'>wyloguj</a>";
+    Layout::AdminTopBar();
     ?>
     <hr>
     <p><a href='adminPanel.php'><--Powrót</a></p>

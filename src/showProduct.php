@@ -61,7 +61,7 @@ class showProduct
         $i = 0;
 
         foreach ($result as $value) {
-            $paths[$i] = $value['path'];
+            $paths[$i] = '../' . $value['path'];
             $i++;
         }
 
@@ -107,7 +107,7 @@ class showProduct
                         <h3>" . $result['availability'] . " szt.</h3>
                     </div>
                     <div class='col-md-12 col-sm-12 col-xs-12'>
-                        <a href='addItemToCart.php?name=$itemName&path=$path' class='btn btn-success btn-block'>Do Koszyka</a>
+                        <a href='../addItemToCart.php?name=$itemName&path=$path' class='btn btn-success btn-block'>Do Koszyka</a>
                     </div>
                 </div>
                 <div id='descriptionSpace' class='col-md-12 col-sm-12 col-xs-12'>

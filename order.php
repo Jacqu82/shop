@@ -1,6 +1,7 @@
 <?php
 require_once 'connection.php';
 require_once 'autoload.php';
+require_once 'layout/Layout.php';
 
 session_start();
 //
@@ -22,11 +23,10 @@ if (!isset($_SESSION['user'])) {
 <div class="container">
     <?php
 
-    echo "Witaj " . $_SESSION['user'] . " | " . "<a href='index.php'>Start</a>" . " | " . "<a href='web/logOut.php'>wyloguj</a>";
-
+    Layout::UserTopBar();
     ?>
     <hr>
-    <p><a href='koszyk.php'><--Powrót</a></p>
+    <p><a href='web/koszyk.php'><--Powrót</a></p>
     <div class='wrapper'>
         <span>Kwota do zapłaty:</span>
         <?php

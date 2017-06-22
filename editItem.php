@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === "GET") {
     if (isset($_GET['id'])) {
         $id = $_GET['id'];
         //wykorzystujemy metodę, która wyciąga dane o przedmiocie o podanym id
-        $result = showProduct::getItem($connection, $id);
+        $result = SqlQueries::getItem($connection, $id);
 
         foreach ($result as $value) {
             $name = $value['name'];
@@ -62,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === "GET") {
 
         echo "<p>Edit Photos</p>";
 
-        $result = showProduct::getPhotoPath($connection, $id);
+        $result = SqlQueries::getPhotoPath($connection, $id);
 
         foreach ($result as $value) {
             $tab[] = array($value);
@@ -90,8 +90,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             move_uploaded_file($_FILES['file']['tmp_name'], $path);
 
-            dbEdit::delete($connection, $photoId);
-            dbEdit::insert($connection, $itemId, $path);
+            SqlQueries::delete($connection, $photoId);
+            SqlQueries::insert($connection, $itemId, $path);
 
 
             //gdy nie było wcześniej dodanych  żadnych zdjęć do przedmiotu
@@ -110,7 +110,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             move_uploaded_file($_FILES['file']['tmp_name'], $path);
 
-            dbEdit::insert($connection, $number, $path);
+            SqlQueries::insert($connection, $number, $path);
 
         }
     } else {

@@ -1,6 +1,7 @@
 <?php
 
-include_once 'newItemCreation.php';
+require_once 'newItemCreation.php';
+require_once 'SqlQueries.php';
 
 class Item
 {
@@ -146,5 +147,97 @@ class Item
                 die("Error: item not saved: " . $connection->error);
             }
         }
+    }
+
+    public static function parametersReceiver(mysqli $connection)
+    {
+        $result = SqlQueries::getItemDataLimitOne($connection);
+
+        foreach ($result as $value) {
+            $id = $value['id'];
+            $name = $value['name'];
+            $price = $value['price'];
+            $availability = $value['availability'];
+            $description = $value['description'];
+        }
+
+        $result = SqlQueries::getPhotoPathLimitOne($connection, $id);
+
+        foreach ($result as $value) {
+            $path = '../' . $value['path'];
+        }
+
+        $array = [
+            'id' => $id,
+            'path' => $path,
+            'name' => $name,
+            'price' => $price,
+            'availability' => $availability,
+            'description' => $description
+        ];
+
+        return $array;
+    }
+
+    public function deleteItem(mysqli $connection)
+    {
+        $id = $this->id;
+
+        $sql = "DELETE FROM photos WHERE `item_id`=$id";
+        $connection->query($sql);
+
+        $sql = "DELETE FROM cart WHERE `item_id`=$id";
+        $connection->query($sql);
+
+        $sql = "DELETE FROM item WHERE id=$id";
+        $result = $connection->query($sql);
+
+        if ($result) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static function getAllData(mysqli $connection, $id)
+    {
+        $result = SqlQueries::getItem($connection, $id);
+
+        foreach ($result as $value) {
+            $name = $value['name'];
+            $price = $value['price'];
+            $description = $value['description'];
+            $availability = $value['availability'];
+        }
+
+        $array = [
+            'id' => $id,
+            'name' => $name,
+            'price' => $price,
+            'availability' => $availability,
+            'description' => $description
+        ];
+
+        return $array;
+    }
+
+    public static function getAllPhotos(mysqli $connection, $id)
+    {
+        $result = SqlQueries::getPhotoPath($connection, $id);
+
+        $paths = [0 => '', 1 => '', 2 => '', 3 => ''];
+        $i = 0;
+
+        foreach ($result as $value) {
+            $paths[$i] = '../' . $value['path'];
+            $i++;
+        }
+
+        for ($i = 0; $i != 4; $i++) {
+            if ($paths[$i] == '') {
+                $paths[$i] = $paths[$i - 1];
+            }
+        }
+        return $paths;
     }
 }

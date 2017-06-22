@@ -33,7 +33,7 @@ if (!isset($_SESSION['admin'])) {
         <p>Wybierz odbiorcę:</p>
         <?php
 
-        $result = selectUsers::selectAllUsers($connection);
+        $result = Layout::selectAllUsers($connection);
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if (isset($_POST['receiverId']) && isset($_POST['messageTitle']) && isset($_POST['messageContent'])) {
@@ -49,7 +49,9 @@ if (!isset($_SESSION['admin'])) {
                 $message->setCreationDate();
                 $message->setMessageStatus($connection, $message->getId(), 0);
                 $message->saveToDB($connection);
+
                 $send = Message::loadLastSendMessageByUserId($connection, $_SESSION['admin']);
+
                 foreach ($send as $value) {
                     echo '<div class="flash-message alert alert-success alert-dismissible" role="alert">
                       <button type="button" class="close" data-dismiss="alert" aria-label="Close">

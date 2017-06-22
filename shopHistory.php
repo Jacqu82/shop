@@ -59,7 +59,7 @@ foreach ($result as $value) {
     if ($status == 'Zapłacono') {
         echo "</td><td>--------</td></tr>";
     } else {
-        echo "</td><td><a href='payment.php?id=$id'>Zapłać</a>" . "</td></tr>";
+        echo "</td><td><a href='payForProducts.php?id=$id'>Zapłać</a>" . "</td></tr>";
     }
 }
 

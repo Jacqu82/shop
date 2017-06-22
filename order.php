@@ -50,34 +50,16 @@ if (!isset($_SESSION['user'])) {
                         $id = $_GET['id' . $i];
 
                         //uaktualniam ilośc produktu- odejmuje od ilości bazowej ilośc zakupionego towaru
-                        $sql = "UPDATE item SET availability = availability - $quantity WHERE id=$id";
-
-                        $result = $connection->query($sql);
-
-                        if (!$result) {
-                            die ("Błąd zapisu do bazy danych" . $connection->connect_errno);
-                        }
+                        SqlQueries::setAvailability($connection, $quantity, $id);
                         //kasuje zawartośc koszyka - zakup został już dokonany
-                        $sql = "DELETE from cart WHERE user_id=$userId";
-
-                        $result = $connection->query($sql);
-
-                        if (!$result) {
-                            die ("Błąd zapisu do bazy danych" . $connection->connect_errno);
-                        }
+                        SqlQueries::clearCart($connection, $userId);
 
                         if ($i == $_GET['i'] - 1) {
                             $date = date('d-m-y');
                             $status = 0;
 
-                            //zapisuje do tabeli z zamowieniami szczegółhy danego zamówienia
-                            $sql = "INSERT INTO orders(user_id, amount, date, status) VALUES ('$userId', '$sum', '$date', '$status' )";
-
-                            $result = $connection->query($sql);
-
-                            if (!$result) {
-                                die ("Błąd zapisu do bazy danych" . $connection->connect_errno);
-                            }
+                            $order = new Order();
+                            $order->saveToDB($connection, $userId, $sum, $date, $status);
                         }
                     }
                 }

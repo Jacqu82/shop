@@ -14,23 +14,15 @@ if (!isset($_SESSION['admin'])) {
 Layout::AdminTopBar();
 
 if ($_SERVER['REQUEST_METHOD'] === "GET") {
-    if (isset($_GET['id'])) {
+    if (isset($_GET['id']) || isset($_GET['name'])) {
 
-        $id = $_GET['id'];
-        $sql = "DELETE FROM photos WHERE `item_id`=$id";
-        $connection->query($sql);
+        $name = $_GET['name'];
 
-        $sql = "DELETE FROM cart WHERE `item_id`=$id";
-        $connection->query($sql);
+        $item = Item::loadItemByName($connection, $name);
 
-        $sql = "DELETE FROM orders WHERE `item_id`=$id";
-        $connection->query($sql);
 
-        $sql = "DELETE FROM item WHERE id=$id";
-        $result = $connection->query($sql);
-
-        if (!$result) {
-            die ("Error");
+        if (!$item->deleteItem($connection)) {
+            die ("Błąd usuwania przedmiotu z bazy danych");
         }
         header('Location: itemPanel.php');
     }

@@ -28,7 +28,7 @@ Layout::AdminTopBar();
 echo "<p><a href='adminPanel.php'><--Powrót</a></p>";
 echo "<div class='wrapper'>";
 
-$result = selectUsers::selectUsersFromDb($connection);
+$result = SqlQueries::selectUsersFromDb($connection);
 echo "<p>Wybierz użytkownika,<br> którego chcesz usunąć:</p>";
 echo "<form method='post' action='#'>";
 echo "<select name='userSelection'>";

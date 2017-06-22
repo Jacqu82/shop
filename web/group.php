@@ -30,8 +30,8 @@ if (!isset($_SESSION['user'])) {
             <div class="col-md-12 col-sm-12 col-xs-12 searchAndFilter">
                 <?php
                 //wywołanie metod które wyświetlają formularze - wyszukiwania i filtrów
-                searchAndFilter::searchShow();
-                searchAndFilter::filterShow();
+                Layout::searchShow();
+                Layout::filterShow();
                 //przypisanie zmiennej selection domyslnej wartości jako pusty string
                 $selection = '';
                 //domyslne sortowanie po nazwie, poprzez przypisanie stringa 'name' do zmiennej orderSelection
@@ -93,13 +93,13 @@ if (!isset($_SESSION['user'])) {
                         ?>
                         <div class="carousel-inner">
                             <div class="item active">
-                                <?php Carousel::getHTML($connection); ?>
+                                <?php Layout::getHTML($connection) ; ?>
                             </div>
                             <div class="item">
-                                <?php Carousel::getHTML($connection); ?>
+                                <?php Layout::getHTML($connection) ; ?>
                             </div>
                             <div class="item">
-                                <?php Carousel::getHTML($connection); ?>
+                                <?php Layout::getHTML($connection) ; ?>
                             </div>
                         </div>
                     </div>
@@ -108,13 +108,13 @@ if (!isset($_SESSION['user'])) {
                         ?>
                         <div class="carousel-inner">
                             <div class="item active">
-                                <?php Carousel::getHTML($connection); ?>
+                                <?php Layout::getHTML($connection) ; ?>
                             </div>
                             <div class="item">
-                                <?php Carousel::getHTML($connection); ?>
+                                <?php Layout::getHTML($connection) ; ?>
                             </div>
                             <div class="item">
-                                <?php Carousel::getHTML($connection); ?>
+                                <?php Layout::getHTML($connection) ; ?>
                             </div>
                         </div>
                     </div>

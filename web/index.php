@@ -91,13 +91,13 @@ Layout::showHead();
                     <div class="carousel-inner">
                         <div class="item active">
                             <?php //trzy razy wywoływana metoda, której celem jest wylosowanie produktów i wrzucenie ich do karuzeli
-                            Carousel::getHTML($connection); ?>
+                            Layout::getHTML($connection) ?>
                         </div>
                         <div class="item">
-                            <?php Carousel::getHTML($connection); ?>
+                            <?php Layout::getHTML($connection) ; ?>
                         </div>
                         <div class="item">
-                            <?php Carousel::getHTML($connection); ?>
+                            <?php Layout::getHTML($connection) ; ?>
                         </div>
                     </div>
                 </div>
@@ -105,13 +105,13 @@ Layout::showHead();
                     <div class="carousel-inner">
                         <div class="item active">
                             <?php //trzy razy wywoływana metoda, której celem jest wylosowanie produktów i wrzucenie ich do karuzeli
-                            Carousel::getHTML($connection); ?>
+                            Layout::getHTML($connection) ?>
                         </div>
                         <div class="item">
-                            <?php Carousel::getHTML($connection); ?>
+                            <?php Layout::getHTML($connection) ; ?>
                         </div>
                         <div class="item">
-                            <?php Carousel::getHTML($connection); ?>
+                            <?php Layout::getHTML($connection) ; ?>
                         </div>
                     </div>
                 </div>

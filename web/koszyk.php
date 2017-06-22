@@ -23,7 +23,7 @@ if (!isset($_SESSION['user'])) {
     <body>
     <div class="container">
         <?php //wywołanie metody pokazującej górny pasek opcji
-        showLoggedUserOptions::showAllOptions($connection);
+        Layout::showAllOptionsIndex($connection);
         ?>
         <div id="panel" class="row">
             <div col-md-12 col-sm-12 col-xs-12>
@@ -35,7 +35,7 @@ if (!isset($_SESSION['user'])) {
             <div class="col-md-2 col-sm-2 col-xs-3 witaj row1">
                 <div class="row rowing">
                     <div class="col-md-12 col-sm-12 col-xs-12 rejestracja1 row1 logo">
-                        <a href="web/index.php" class="btn btn-primary btn-block logo">Alledrogo</a>
+                        <a href="index.php" class="btn btn-primary btn-block logo">Alledrogo</a>
                     </div>
                     <?php //wywołanie metody, która ma za zadanie wyświetlić wszystkie nazwy grup produktów(lewy side bar)
                     Layout::showGroupName($connection)
@@ -44,7 +44,7 @@ if (!isset($_SESSION['user'])) {
             </div>
             <div class="col-md-8 tresc col-sm-6 col-xs-6 productInCart" id="mainContent">
                 <?php //wywołanie metody, która pokazuje wszystkie przedmioty dodane do koszyka
-                showItemInCart::showItem($connection);
+                Layout::showItem($connection);
                 ?>
             </div>
             <div class="col-md-2 col-sm-2 col-xs-3 witaj row1">
@@ -59,13 +59,13 @@ if (!isset($_SESSION['user'])) {
                         ?>
                         <div class="carousel-inner">
                             <div class="item active">
-                                <?php Carousel::getHTML($connection); ?>
+                                <?php Layout::getHTML($connection) ; ?>
                             </div>
                             <div class="item">
-                                <?php Carousel::getHTML($connection); ?>
+                                <?php Layout::getHTML($connection) ; ?>
                             </div>
                             <div class="item">
-                                <?php Carousel::getHTML($connection); ?>
+                                <?php Layout::getHTML($connection) ; ?>
                             </div>
                         </div>
                     </div>
@@ -74,13 +74,13 @@ if (!isset($_SESSION['user'])) {
                         ?>
                         <div class="carousel-inner">
                             <div class="item active">
-                                <?php Carousel::getHTML($connection); ?>
+                                <?php Layout::getHTML($connection) ; ?>
                             </div>
                             <div class="item">
-                                <?php Carousel::getHTML($connection); ?>
+                                <?php Layout::getHTML($connection) ; ?>
                             </div>
                             <div class="item">
-                                <?php Carousel::getHTML($connection); ?>
+                                <?php Layout::getHTML($connection) ; ?>
                             </div>
                         </div>
                     </div>

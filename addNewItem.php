@@ -34,7 +34,7 @@ if (!isset($_SESSION['admin'])) {
 
                 //wybieramy z listy rozwijalnej grupę produktów do której dodamy przedmiot
 
-                $result = photoGallery::getGallery($connection);
+                $result = SqlQueries::getGallery($connection);
 
                 echo '<select name="selection">';
 
@@ -133,8 +133,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $ending = $matches[0];
             }
 
-            var_dump($ending);
-
             //przy każdej iteracji resetuje zmiane scieżki dostepu do ustawien poczatkowych
             $path = "files/" . $id . $name;
 
@@ -143,7 +141,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_FILES[$i]['name'] = $i + 1 . "_" . $name . $ending;
             $path = $path . "/" . $_FILES[$i]['name'];
 
-            dbEdit::insert($connection, $id, $path);
+            SqlQueries::insert($connection, $id, $path);
 
             move_uploaded_file($_FILES[$fileNo]['tmp_name'], $path);
         }

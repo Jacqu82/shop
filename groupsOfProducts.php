@@ -29,7 +29,7 @@ echo "<p><a href='adminPanel.php'><--Powrót</a></p>";
 echo "<p><a href='addGroupOfProducts.php'>Dodaj nową grupę produktów</a></p>";
 
 // wykorzystanie metody która wybiera wszystkie grupy produktów z bazy danych
-$result = photoGallery::getGallery($connection);
+$result = SqlQueries::getGallery($connection);
 
 //wyświetlenie tabeli ze wszystkimi grupami produktów
 echo "<div class='tableShow'>";

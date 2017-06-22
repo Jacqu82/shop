@@ -46,9 +46,10 @@ if (!isset($_SESSION['user'])) {
             <?php
             if ($_SERVER['REQUEST_METHOD'] === "GET") {
                 $id = $_GET['id'];
+                $id = intval($id);
             }
             //metoda wyświetlająca całą zawartośc produktu - zdjęcia,miniaturki,opis,cena,dostępnośc.
-            showProduct::showAllPhotos($connection, $id);
+            Layout::showProductDetail($connection, $id);
             ?>
 
             <div class="col-md-2 col-sm-2 col-xs-3 witaj row1">
@@ -63,13 +64,13 @@ if (!isset($_SESSION['user'])) {
                         ?>
                         <div class="carousel-inner">
                             <div class="item active">
-                                <?php Carousel::getHTML($connection); ?>
+                                <?php Layout::getHTML($connection) ; ?>
                             </div>
                             <div class="item">
-                                <?php Carousel::getHTML($connection); ?>
+                                <?php Layout::getHTML($connection) ; ?>
                             </div>
                             <div class="item">
-                                <?php Carousel::getHTML($connection); ?>
+                                <?php Layout::getHTML($connection) ; ?>
                             </div>
                         </div>
                     </div>
@@ -78,13 +79,13 @@ if (!isset($_SESSION['user'])) {
                         ?>
                         <div class="carousel-inner">
                             <div class="item active">
-                                <?php Carousel::getHTML($connection); ?>
+                                <?php Layout::getHTML($connection) ; ?>
                             </div>
                             <div class="item">
-                                <?php Carousel::getHTML($connection); ?>
+                                <?php Layout::getHTML($connection) ; ?>
                             </div>
                             <div class="item">
-                                <?php Carousel::getHTML($connection); ?>
+                                <?php Layout::getHTML($connection) ; ?>
                             </div>
                         </div>
                     </div>

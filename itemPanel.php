@@ -28,7 +28,7 @@ if (!isset($_SESSION['admin'])) {
     echo "<p><a href='addNewItem.php'>Dodaj nowy przedmiot</a></p>";
     echo "<p>Pokaż wszystkie przedmioty:</p>";
     //wywołanie metody, która pokazuje wszystkie grupy produktów
-    $result = photoGallery::getGallery($connection);
+    $result = SqlQueries::getGallery($connection);
 
     //Wyświetlenie SELECTa w którym wybieramy interesującą nas grupę przedmiotów
     echo '<form action="#" method="post">';
@@ -69,11 +69,12 @@ if (!isset($_SESSION['admin'])) {
             echo "</tr>";
             foreach ($result as $value) {
                 $id = $value['id'];
+                $name = $value['name'];
                 echo "<tr>";
                 echo "<td>" . $value['name'] . "</td><td>" . $value['groupName'] . "</td><td>" . $value['description'] . "</td>";
                 echo "<td>" . $value['availability'] . "</td><td>" . $value['price'] . "</td>";
                 echo "<td><a href='editItem.php?id=$id'>Edytuj</a></td>";
-                echo "<td><a href='deleteItem.php?id=$id'>Usuń</a></td></tr>";
+                echo "<td><a href='deleteItem.php?name=$name'>Usuń</a></td></tr>";
             }
 
             echo "</table>";

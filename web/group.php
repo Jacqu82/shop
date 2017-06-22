@@ -77,7 +77,7 @@ if (!isset($_SESSION['user'])) {
                     // nie uruchomi się if z GET-em, dlatego wykorzystujemy id zapisane w sesji
                     $groupId = $_SESSION['groupId'];
                     //uruchamiamy metodę , która wyciąga odpowiednie dane i je wyświetla
-                    productGroup::showProductGroup($groupId, $connection, $selection, $orderSelection)
+                    Layout::showProductGroup($groupId, $connection, $selection, $orderSelection)
                     ?>
                 </div>
             </div>

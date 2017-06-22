@@ -186,7 +186,7 @@ class Layout
             </div>";
     }
 
-    public static function showItemIn(mysqli $connection)
+    public static function showItem(mysqli $connection)
     {
         $result = SqlQueries::getItemInCart($connection);
         $sum = 0;

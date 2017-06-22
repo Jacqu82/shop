@@ -8,7 +8,7 @@ require_once 'layout/Layout.php';
 session_start();
 
 if (!isset($_SESSION['admin'])) {
-    header('Location: index.php');
+    header('Location: web/index.php');
 }
 ?>
 <html>
@@ -28,7 +28,7 @@ if (!isset($_SESSION['admin'])) {
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (isset($_POST['delete_messege']) && isset($_POST['message_id'])) {
-            $messageId = $_POST['message_id'];
+            $messageId = mysqli_real_escape_string($connection, $_POST['message_id']);
             $message = Message::loadMessageById($connection, $messageId);
             $message->deleteMessage($connection);
         }

@@ -46,7 +46,7 @@ if (!isset($_SESSION['admin'])) {
 
     if ($_SERVER['REQUEST_METHOD'] === "POST") {
         if (isset($_POST['selection'])) {
-            $selection = $_POST['selection'];
+            $selection = mysqli_real_escape_string($connection, $_POST['selection']);
 
             //jeśli wybralismy wszystko wysyłamy zapytanie wybierające wszystkie rekordy
             if ($selection == 'all') {

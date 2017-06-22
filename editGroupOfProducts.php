@@ -30,6 +30,7 @@ if (!isset($_SESSION['admin'])) {
         if (isset($_GET['id'])) {
 
             $id = $_GET['id'];
+            $id = intval($id);
 
             $sql = "SELECT * FROM groups WHERE id=$id";
             $result = $connection->query($sql);

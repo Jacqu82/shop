@@ -95,6 +95,8 @@ class Order
 
     public static function loadOrderById(mysqli $connection, $id)
     {
+        $id = $connection->real_escape_string($id);
+
         $sql = "SELECT * FROM orders WHERE id=$id";
         $result = $connection->query($sql);
         if (!$result) {

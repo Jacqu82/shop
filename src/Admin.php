@@ -126,8 +126,11 @@ class Admin
     
     //trzy metody do obsługi grup przedmiotów
     
-    public static function addGroup($connection, $name, $description)
+    public static function addGroup(mysqli $connection, $name, $description)
     {
+        $name = $connection->real_escape_string($name);
+        $description = $connection->real_escape_string($description);
+
         $sql = "INSERT INTO groups (`groupName`, `groupDescriptiopn`) VALUES ('$name', '$description')";
         $result = $connection->query($sql);
 
@@ -138,8 +141,12 @@ class Admin
         return true;
     }
     
-    public static function modifyGroup($connection, $name, $description, $id)
+    public static function modifyGroup(mysqli $connection, $name, $description, $id)
     {
+        $name = $connection->real_escape_string($name);
+        $description = $connection->real_escape_string($description);
+        $id = $connection->real_escape_string($id);
+
         $sql = "UPDATE groups SET groupName='$name', groupDescriptiopn='$description' WHERE id=$id";
         $result = $connection->query($sql);
 
@@ -150,8 +157,10 @@ class Admin
         header('Location: groupsOfProducts.php');
     }
     
-    public static function removeGroup($connection, $id)
+    public static function removeGroup(mysqli $connection, $id)
     {
+        $id = $connection->real_escape_string($id);
+
         $sql = "DELETE FROM groups WHERE id=$id";
 
         $result = $connection->query($sql);

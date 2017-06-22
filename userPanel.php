@@ -9,7 +9,7 @@ session_start();
 //jeżeli ktoś wpisze z palca w przeglądarce userPanel.php to jeśli nie jest zalogowany zostanie wyrzucony na stronę główną.
 
 if (!isset($_SESSION['user'])) {
-    header('Location: index.php');
+    header('Location: web/index.php');
 }
 
 ?>

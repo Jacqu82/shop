@@ -34,6 +34,7 @@ echo "<p><a href='itemPanel.php'><--Powrót</a></p>";
 if ($_SERVER['REQUEST_METHOD'] === "GET") {
     if (isset($_GET['id'])) {
         $id = $_GET['id'];
+        $id = intval($id);
         //wykorzystujemy metodę, która wyciąga dane o przedmiocie o podanym id
         $result = SqlQueries::getItem($connection, $id);
 
@@ -81,8 +82,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $first = substr($_SESSION['path'], -3, 3);
             $second = substr($_FILES['file']['name'], -3, 3);
 
-            $itemId = $_POST['itemId'];
-            $photoId = $_POST['photoId'];
+            $itemId = mysqli_real_escape_string($connection, $_POST['itemId']);
+            $photoId = mysqli_real_escape_string($connection, $_POST['photoId']);
             $path = $_SESSION['path'];
             unlink($path);
 
@@ -97,7 +98,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             //gdy nie było wcześniej dodanych  żadnych zdjęć do przedmiotu
         } else {
             $oldName = $_FILES['file']['name'];
-            $number = $_POST['number'];
+            $number = mysqli_real_escape_string($connection, $_POST['number']);
             $itemName = $_SESSION['name'];
             $fileNo = $_POST['fileNo'];
             $ending = substr($oldName, -3, 3);

@@ -9,7 +9,7 @@ session_start();
 ////jeżeli ktoś wpisze z palca w przeglądarce userPanel.php to jeśli nie jest zalogowany zostanie wyrzucony na stronę głóœną.
 //
 if (!isset($_SESSION['admin'])) {
-    header('Location: index.php');
+    header('Location: web/index.php');
 }
 ?>
 
@@ -27,6 +27,7 @@ if (!isset($_SESSION['admin'])) {
     ?>
     <hr>
     <p><a href='adminPanel.php'><--Powrót</a></p>
+
     <div class="wrapper">
         <p>Wysyłanie wiadomości:</p>
 
@@ -37,9 +38,9 @@ if (!isset($_SESSION['admin'])) {
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if (isset($_POST['receiverId']) && isset($_POST['messageTitle']) && isset($_POST['messageContent'])) {
-                $receiverId = $_POST['receiverId'];
-                $messageTitle = $_POST['messageTitle'];
-                $messageContent = $_POST['messageContent'];
+                $receiverId = mysqli_real_escape_string($connection, $_POST['receiverId']);
+                $messageTitle = mysqli_real_escape_string($connection, $_POST['messageTitle']);
+                $messageContent = mysqli_real_escape_string($connection, $_POST['messageContent']);
 
                 $message = new Message();
                 $message->setAdminId($_SESSION['admin']);

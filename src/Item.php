@@ -88,6 +88,8 @@ class Item
 
     static public function loadItemByName(mysqli $connection, $name)
     {
+        $name = $connection->real_escape_string($name);
+
         $sql = "SELECT * FROM `item` WHERE `name` = '$name'";
         $result = $connection->query($sql);
 
@@ -182,6 +184,7 @@ class Item
     public function deleteItem(mysqli $connection)
     {
         $id = $this->id;
+        $id = intval($id);
 
         $sql = "DELETE FROM photos WHERE `item_id`=$id";
         $connection->query($sql);

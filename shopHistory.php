@@ -29,16 +29,6 @@ Layout::UserTopBar();
     <p><a href='userPanel.php'><--Powrót</a></p>
 <?php
 
-$userId = $_SESSION['id'];
-
-$sql = "SELECT * FROM orders WHERE user_id=$userId";
-
-$result = $connection->query($sql);
-
-if (!$result) {
-    die ("Błąd połączenia z bazą danych" . $connection->errno);
-}
-
 //tabela wyświetlajaca wszystkie zamówienia i ich status oraz datę złożenia
 echo "<table>";
 echo "<tr>";

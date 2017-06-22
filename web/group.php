@@ -39,11 +39,11 @@ if (!isset($_SESSION['user'])) {
                 if ($_SERVER['REQUEST_METHOD'] === "POST") {
                     //jeśli POST-em przesłane zostały dane odnosnie wyszukiwania to uruchomi się ten if
                     if (isset($_POST['search'])) {
-                        $selection = $_POST['search'];
+                        $selection = mysqli_real_escape_string($connection, $_POST['search']);
                     }
                     //jesli POST z filtrem - uruchomi się ten filtr
                     if (isset($_POST['filter'])) {
-                        $orderSelection = $_POST['filter'];
+                        $orderSelection = mysqli_real_escape_string($connection, $_POST['filter']);
                     }
                 }
                 ?>
@@ -67,6 +67,7 @@ if (!isset($_SESSION['user'])) {
                     if (isset($_GET['groupId'])) {
                         //przy wyborze grupy produktów przypisujemy id tej grupy do zmiennej oraz zapisujemy w sesji
                         $groupId = $_GET['groupId'];
+                        $groupId = intval($groupId);
                         $_SESSION['groupId'] = $groupId;
                     }
                 }

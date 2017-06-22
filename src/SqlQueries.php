@@ -171,4 +171,17 @@ class SqlQueries
         }
     }
 
+    public  static function showAllOrdersByUserId(mysqli $connection)
+    {
+        $userId = $_SESSION['id'];
+
+        $sql = "SELECT * FROM orders WHERE user_id=$userId";
+
+        $result = $connection->query($sql);
+
+        if (!$result) {
+            die ("Błąd połączenia z bazą danych" . $connection->errno);
+        }
+    }
+
 }

@@ -7,7 +7,7 @@ require_once 'layout/Layout.php';
 session_start();
 
 if (!isset($_SESSION['user'])) {
-    header('Location: index.php');
+    header('Location: web/index.php');
 }
 
 Layout::UserTopBar();
@@ -16,6 +16,8 @@ if ($_SERVER['REQUEST_METHOD'] === "GET") {
     if (isset($_GET['id'])) {
 
         $id = $_GET['id'];
+        $id = intval($id);
+
         $sql = "DELETE FROM cart WHERE `item_id`=$id";
         $result = $connection->query($sql);
 

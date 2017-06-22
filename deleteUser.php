@@ -8,7 +8,7 @@ require_once 'layout/Layout.php';
 session_start();
 
 if (!isset($_SESSION['admin'])) {
-    header('Location: index.php');
+    header('Location: web/index.php');
 }
 ?>
     <html>
@@ -29,6 +29,7 @@ echo "<p><a href='adminPanel.php'><--Powrót</a></p>";
 echo "<div class='wrapper'>";
 
 $result = SqlQueries::selectUsersFromDb($connection);
+
 echo "<p>Wybierz użytkownika,<br> którego chcesz usunąć:</p>";
 echo "<form method='post' action='#'>";
 echo "<select name='userSelection'>";
@@ -40,7 +41,7 @@ echo "</form>";
 
 if ($_SERVER['REQUEST_METHOD'] === "POST") {
     if (isset($_POST['userSelection'])) {
-        $id = $_POST['userSelection'];
+        $id = mysqli_real_escape_string($connection, $_POST['userSelection']);
 
         $sql = "DELETE FROM message WHERE receiverId='$id'";
         $result = $connection->query($sql);

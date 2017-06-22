@@ -8,7 +8,7 @@ require_once 'layout/Layout.php';
 session_start();
 
 if (!isset($_SESSION['admin'])) {
-    header('Location: index.php');      
+    header('Location: web/index.php');
 }
 
 Layout::AdminTopBar();
@@ -17,7 +17,9 @@ if ($_SERVER['REQUEST_METHOD'] === "GET") {
     if (isset($_GET['photo_id']) && isset($_GET['id'])) {
         
         $id = $_GET['id'];
+        $id = intval($id);
         $photoId = $_GET['photo_id'];
+        $photoId = intval($photoId);
         
         $connection = new mysqli($host, $user, $password, $database);
         

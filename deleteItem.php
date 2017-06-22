@@ -8,7 +8,7 @@ require_once 'layout/Layout.php';
 session_start();
 
 if (!isset($_SESSION['admin'])) {
-    header('Location: index.php');
+    header('Location: web/index.php');
 }
 
 Layout::AdminTopBar();
@@ -17,9 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === "GET") {
     if (isset($_GET['id']) || isset($_GET['name'])) {
 
         $name = $_GET['name'];
-
         $item = Item::loadItemByName($connection, $name);
-
 
         if (!$item->deleteItem($connection)) {
             die ("Błąd usuwania przedmiotu z bazy danych");

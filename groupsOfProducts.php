@@ -9,7 +9,7 @@ session_start();
 
 //sprawdzenie czy użytkownik jest zalogowany
 if (!isset($_SESSION['admin'])) {
-    header('Location: index.php');
+    header('Location: web/index.php');
 }
 ?>
     <html>

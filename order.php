@@ -27,6 +27,7 @@ if (!isset($_SESSION['user'])) {
     ?>
     <hr>
     <p><a href='web/koszyk.php'><--Powrót</a></p>
+
     <div class='wrapper'>
         <span>Kwota do zapłaty:</span>
         <?php
@@ -36,6 +37,7 @@ if (!isset($_SESSION['user'])) {
                 //zapisanie łącznej kwoty zamówienia i id użytkownika, który złożył zamówienie
                 $sum = $_GET['sum'];
                 $userId = $_GET['userId'];
+                $userId = intval($userId);
 
                 echo "<span id='sumInPayment' sum='$sum'>" . $sum . "zł.</span><br>";
                 echo "<a href='payForProducts.php'>Zapłać</a>";
@@ -47,7 +49,9 @@ if (!isset($_SESSION['user'])) {
                     } else {
                         //przy każdej iteracji pobieram dane GET-em a następnie uaktualniam bazę danych
                         $quantity = $_GET['quantity' . $i];
+                        $quantity = intval($quantity);
                         $id = $_GET['id' . $i];
+                        $id = intval($id);
 
                         //uaktualniam ilośc produktu- odejmuje od ilości bazowej ilośc zakupionego towaru
                         SqlQueries::setAvailability($connection, $quantity, $id);

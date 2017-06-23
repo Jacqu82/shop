@@ -2,13 +2,14 @@
 
 require_once 'connection.php';
 require_once 'autoload.php';
+require_once 'layout/Layout.php';
 
 session_start();
 //
 ////jeżeli ktoś wpisze z palca w przeglądarce userPanel.php to jeśli nie jest zalogowany zostanie wyrzucony na stronę głóœną.
 //
 if (!isset($_SESSION['admin'])) {
-    header('Location: index.php');
+    header('Location: web/index.php');
 }
 ?>
 
@@ -22,23 +23,24 @@ if (!isset($_SESSION['admin'])) {
 <body>
 <div class="container">
     <?php
-    echo "Witaj " . $_SESSION['adminName'] . " | " . "<a href='index.php'>Start</a>" . " | " . "<a href='web/logOut.php'>wyloguj</a>";
+    Layout::AdminTopBar();
     ?>
     <hr>
     <p><a href='adminPanel.php'><--Powrót</a></p>
+
     <div class="wrapper">
         <p>Wysyłanie wiadomości:</p>
 
         <p>Wybierz odbiorcę:</p>
         <?php
 
-        $result = selectUsers::selectAllUsers($connection);
+        $result = Layout::selectAllUsers($connection);
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if (isset($_POST['receiverId']) && isset($_POST['messageTitle']) && isset($_POST['messageContent'])) {
-                $receiverId = $_POST['receiverId'];
-                $messageTitle = $_POST['messageTitle'];
-                $messageContent = $_POST['messageContent'];
+                $receiverId = mysqli_real_escape_string($connection, $_POST['receiverId']);
+                $messageTitle = mysqli_real_escape_string($connection, $_POST['messageTitle']);
+                $messageContent = mysqli_real_escape_string($connection, $_POST['messageContent']);
 
                 $message = new Message();
                 $message->setAdminId($_SESSION['admin']);
@@ -48,7 +50,9 @@ if (!isset($_SESSION['admin'])) {
                 $message->setCreationDate();
                 $message->setMessageStatus($connection, $message->getId(), 0);
                 $message->saveToDB($connection);
+
                 $send = Message::loadLastSendMessageByUserId($connection, $_SESSION['admin']);
+
                 foreach ($send as $value) {
                     echo '<div class="flash-message alert alert-success alert-dismissible" role="alert">
                       <button type="button" class="close" data-dismiss="alert" aria-label="Close">

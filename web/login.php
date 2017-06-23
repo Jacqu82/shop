@@ -7,8 +7,8 @@ session_start();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['name']) && isset($_POST['password'])) {
-        $name = $_POST['name'];
-        $password = $_POST['password'];
+        $name = mysqli_real_escape_string($connection, $_POST['name']);
+        $password = mysqli_real_escape_string($connection, $_POST['password']);
 
         $user = User::loadUserByName($connection, $name);
 
@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['user'] = $user->getName();
             $_SESSION['id'] = $user->getId();
 
-            header('Location: ../index.php');
+            header('Location: index.php');
 
         } else {
             echo '<p style="color: red">Niepoprawny login lub hasło!</p>';

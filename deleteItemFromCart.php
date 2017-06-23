@@ -2,25 +2,28 @@
 include_once 'connection.php';
 include_once 'config.php';
 require_once 'autoload.php';
+require_once 'layout/Layout.php';
 
 session_start();
 
 if (!isset($_SESSION['user'])) {
-    header('Location: index.php');
+    header('Location: web/index.php');
 }
 
-echo "Witaj " . $_SESSION['user'] . " | " . "<a href='index.php'>Start</a>" . " | " . "<a href='logOut.php'>wyloguj</a><hr>";
+Layout::UserTopBar();
 
 if ($_SERVER['REQUEST_METHOD'] === "GET") {
     if (isset($_GET['id'])) {
 
         $id = $_GET['id'];
+        $id = intval($id);
+
         $sql = "DELETE FROM cart WHERE `item_id`=$id";
         $result = $connection->query($sql);
 
         if (!$result) {
             die ("Błąd połączenia z bazą danych" . $connection->connect_errno);
         }
-        header('Location: koszyk.php');
+        header('Location: web/koszyk.php');
     }
 }

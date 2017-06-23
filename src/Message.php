@@ -130,6 +130,8 @@ class Message
 
     static public function loadAllSendMessagesByUserId(mysqli $connection, $userId)
     {
+        $userId = $connection->real_escape_string($userId);
+
         $sql = /** @lang text */
             "SELECT user.username,
             message.id,
@@ -151,6 +153,8 @@ class Message
 
     static public function loadAllSendMessagesByAdminId(mysqli $connection, $adminId)
     {
+        $adminId = $connection->real_escape_string($adminId);
+
         $sql = /** @lang text */
             "SELECT 
             message.id as id,
@@ -185,6 +189,9 @@ class Message
 
     static public function setMessageStatus(mysqli $connection, $messageId, $status)
     {
+        $messageId = $connection->real_escape_string($messageId);
+        $status = $connection->real_escape_string($status);
+
         $sql = /** @lang text */
             "UPDATE message SET messageStatus = '$status' WHERE id = $messageId";
 
@@ -198,6 +205,8 @@ class Message
 
     static public function loadAllReceivedMessagesByUserId(mysqli $connection, $userId)
     {
+        $userId = $connection->real_escape_string($userId);
+
         $sql = /** @lang text */
             "SELECT 
             message.id as id,
@@ -226,6 +235,8 @@ class Message
 
     static public function loadLastSendMessageByUserId(mysqli $connection, $userId)
     {
+        $userId = $connection->real_escape_string($userId);
+
         $sql = /** @lang text */
             "SELECT users.name,
             users.surname,
@@ -273,15 +284,20 @@ class Message
 
     public static function getUnreadMessage(mysqli $connection, $id)
     {
+        $id = $connection->real_escape_string($id);
+
         $sql = "SELECT messageStatus FROM message WHERE receiverId=$id AND messageStatus=0";
         $result = $connection->query($sql);
+
         if (!$result) {
             die("Błąd odczytu z bazy danych" . $connection->connect_errno);
         }
+
         $i = 0;
         foreach ($result as $value) {
             $i++;
         }
+
         if ($i < 1) {
             echo '0';
         } else {

@@ -3,21 +3,23 @@
 include_once 'connection.php';
 include_once 'config.php';
 require_once 'autoload.php';
+require_once 'layout/Layout.php';
 
 session_start();
 
 if (!isset($_SESSION['admin'])) {
-    header('Location: index.php');      
+    header('Location: web/index.php');
 }
 
-echo "Hello " . $_SESSION['admin'] . " | " . "<a href='index.php'>Start</a>" . " | " . "<a href='logOut.php'>wyloguj</a><hr>";
-
+Layout::AdminTopBar();
 if ($_SERVER['REQUEST_METHOD'] === "GET") {
 
     if (isset($_GET['photo_id']) && isset($_GET['id'])) {
         
         $id = $_GET['id'];
+        $id = intval($id);
         $photoId = $_GET['photo_id'];
+        $photoId = intval($photoId);
         
         $connection = new mysqli($host, $user, $password, $database);
         

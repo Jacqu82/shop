@@ -3,6 +3,7 @@
 include_once 'connection.php';
 require_once 'autoload.php';
 include_once 'config.php';
+require_once 'layout/Layout.php';
 
 // 1. Tak jak wszędzie sprawdzamy czy użytkownik jest zalogowany, jeśli tak wyświetlamy pasek powitalny
 
@@ -25,8 +26,7 @@ if (!isset($_SESSION['admin'])) {
     <div class="container">
 
 <?php
-
-echo "Witaj " . $_SESSION['admin'] . " | " . "<a href='index.php'>Start</a>" . " | " . "<a href='web/logOut.php'>wyloguj</a><hr>";
+Layout::AdminTopBar();
 echo "<p><a href='itemPanel.php'><--Powrót</a></p>";
 
 // 2. Sprawdzamy czy udało się przesłać getem  informacje, a następnie na podstawie id odszukujemy nazwe przedmiotu i tworzymy obiekt
@@ -34,8 +34,9 @@ echo "<p><a href='itemPanel.php'><--Powrót</a></p>";
 if ($_SERVER['REQUEST_METHOD'] === "GET") {
     if (isset($_GET['id'])) {
         $id = $_GET['id'];
+        $id = intval($id);
         //wykorzystujemy metodę, która wyciąga dane o przedmiocie o podanym id
-        $result = showProduct::getItem($connection, $id);
+        $result = SqlQueries::getItem($connection, $id);
 
         foreach ($result as $value) {
             $name = $value['name'];
@@ -62,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] === "GET") {
 
         echo "<p>Edit Photos</p>";
 
-        $result = showProduct::getPhotoPath($connection, $id);
+        $result = SqlQueries::getPhotoPath($connection, $id);
 
         foreach ($result as $value) {
             $tab[] = array($value);
@@ -81,8 +82,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $first = substr($_SESSION['path'], -3, 3);
             $second = substr($_FILES['file']['name'], -3, 3);
 
-            $itemId = $_POST['itemId'];
-            $photoId = $_POST['photoId'];
+            $itemId = mysqli_real_escape_string($connection, $_POST['itemId']);
+            $photoId = mysqli_real_escape_string($connection, $_POST['photoId']);
             $path = $_SESSION['path'];
             unlink($path);
 
@@ -90,14 +91,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             move_uploaded_file($_FILES['file']['tmp_name'], $path);
 
-            dbEdit::delete($connection, $photoId);
-            dbEdit::insert($connection, $itemId, $path);
+            SqlQueries::delete($connection, $photoId);
+            SqlQueries::insert($connection, $itemId, $path);
 
 
             //gdy nie było wcześniej dodanych  żadnych zdjęć do przedmiotu
         } else {
             $oldName = $_FILES['file']['name'];
-            $number = $_POST['number'];
+            $number = mysqli_real_escape_string($connection, $_POST['number']);
             $itemName = $_SESSION['name'];
             $fileNo = $_POST['fileNo'];
             $ending = substr($oldName, -3, 3);
@@ -110,7 +111,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             move_uploaded_file($_FILES['file']['tmp_name'], $path);
 
-            dbEdit::insert($connection, $number, $path);
+            SqlQueries::insert($connection, $number, $path);
 
         }
     } else {

@@ -29,6 +29,17 @@ $(document).ready(function () {
         }
     })
 
+    $('.itemId').each(function() {
+        $(this).change(function () {
+            if (parseInt($(this).val()) > parseInt($(this).attr('max'))) {
+                alert("Brak wystarczjącej ilości produktów na stanie");
+                var max = parseInt($(this).attr('max'));
+                $(this).val(max);
+            }
+        })
+    })
+
+    // KOSZYK.PHP
     //usuwanie całego wiersza w koszyk.php - usunięcie elementu z koszyka
 
     $('.deleteItemInBasket').click(function() {
@@ -44,6 +55,7 @@ $(document).ready(function () {
     //zmiany zapisują sie przy każdym kliknięciu na zmiane ilości któregokolwiek z produktów znajdujących się w koszyku
 
     $('.quantityItem').click( function() {
+
         //deklaruje pomocniczą zmienną j - dzieki niej nadam każdemu z przekazywanych danych wyjatkowy numer
         var j =1;
         //deklaruje zmienna, ktora bedzie przetrzymywac czesc stringa potrzebnego do przesłania danych GETEM
@@ -76,7 +88,7 @@ $(document).ready(function () {
 
         //zapisywanie łącznej sumy w GET jako sum
 
-        $('#buttonPay').parent().attr('href', 'order.php?sum=' + totalSum + '&userId=' + userId + sing + '&i=' + i);
+        $('#buttonPay').parent().attr('href', '../order.php?sum=' + totalSum + '&userId=' + userId + sing + '&i=' + i);
     })
 
     $(function () {

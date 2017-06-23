@@ -2,21 +2,18 @@
 
 include_once 'connection.php';
 require_once 'autoload.php';
+require_once '../layout/Layout.php';
 
 session_start();
 
 ?>
 <!DOCTYPE HTML>
 <html>
-<head lang="pl">
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-COMPATIBLE" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale = 1">
 
-    <title>Alledrogo-niepoważny sklep</title>
-    <link href="css/bootstrap.css" rel="stylesheet">
-    <link href="css/style.css?h=1" rel="stylesheet">
-</head>
+<?php //metoda wysiwetlająca część Head strony
+Layout::showHead();
+?>
+
 <?php //sprawdzenie czy użytkownik jest zalogowany
 if (!isset($_SESSION['user'])) {
     header("location:index.php");
@@ -25,7 +22,7 @@ if (!isset($_SESSION['user'])) {
     <body>
     <div class="container">
         <?php //wywołanie metody pokazującej górny pasek opcji
-        showLoggedUserOptions::showAllOptions($connection);
+        Layout::showAllOptionsIndex($connection);
         ?>
         <div id="panel" class="col-md-12 col-sm-12 col-xs-12">
             <h1>ALLEDROGO - niepoważny sklep internetowy</h1>
@@ -33,8 +30,8 @@ if (!isset($_SESSION['user'])) {
             <div class="col-md-12 col-sm-12 col-xs-12 searchAndFilter">
                 <?php
                 //wywołanie metod które wyświetlają formularze - wyszukiwania i filtrów
-                searchAndFilter::searchShow();
-                searchAndFilter::filterShow();
+                Layout::searchShow();
+                Layout::filterShow();
                 //przypisanie zmiennej selection domyslnej wartości jako pusty string
                 $selection = '';
                 //domyslne sortowanie po nazwie, poprzez przypisanie stringa 'name' do zmiennej orderSelection
@@ -42,11 +39,11 @@ if (!isset($_SESSION['user'])) {
                 if ($_SERVER['REQUEST_METHOD'] === "POST") {
                     //jeśli POST-em przesłane zostały dane odnosnie wyszukiwania to uruchomi się ten if
                     if (isset($_POST['search'])) {
-                        $selection = $_POST['search'];
+                        $selection = mysqli_real_escape_string($connection, $_POST['search']);
                     }
                     //jesli POST z filtrem - uruchomi się ten filtr
                     if (isset($_POST['filter'])) {
-                        $orderSelection = $_POST['filter'];
+                        $orderSelection = mysqli_real_escape_string($connection, $_POST['filter']);
                     }
                 }
                 ?>
@@ -57,10 +54,10 @@ if (!isset($_SESSION['user'])) {
             <div class="col-md-2 col-sm-2 col-xs-3 witaj row1">
                 <div class="row rowing">
                     <div class="col-md-12 col-sm-12 col-xs-12 rejestracja1 row1 logo">
-                        <a href="index.php" class="btn btn-primary btn-block logo">Alledrogo</a>
+                        <a href="../web/index.php" class="btn btn-primary btn-block logo">Alledrogo</a>
                     </div>
-                    <?php //wywołanie metody, która ma za zadanie wyświetlić wszystkie nazwy grup produktów
-                    photoGallery::showGroupName($connection)
+                    <?php //wywołanie metody, która ma za zadanie wyświetlić wszystkie nazwy grup produktów(lewy side bar)
+                    Layout::showGroupName($connection)
                     ?>
                 </div>
             </div>
@@ -70,6 +67,7 @@ if (!isset($_SESSION['user'])) {
                     if (isset($_GET['groupId'])) {
                         //przy wyborze grupy produktów przypisujemy id tej grupy do zmiennej oraz zapisujemy w sesji
                         $groupId = $_GET['groupId'];
+                        $groupId = intval($groupId);
                         $_SESSION['groupId'] = $groupId;
                     }
                 }
@@ -80,7 +78,7 @@ if (!isset($_SESSION['user'])) {
                     // nie uruchomi się if z GET-em, dlatego wykorzystujemy id zapisane w sesji
                     $groupId = $_SESSION['groupId'];
                     //uruchamiamy metodę , która wyciąga odpowiednie dane i je wyświetla
-                    productGroup::showProductGroup($groupId, $connection, $selection, $orderSelection)
+                    Layout::showProductGroup($groupId, $connection, $selection, $orderSelection)
                     ?>
                 </div>
             </div>
@@ -96,13 +94,13 @@ if (!isset($_SESSION['user'])) {
                         ?>
                         <div class="carousel-inner">
                             <div class="item active">
-                                <?php Carousel::getHTML($connection); ?>
+                                <?php Layout::getHTML($connection) ; ?>
                             </div>
                             <div class="item">
-                                <?php Carousel::getHTML($connection); ?>
+                                <?php Layout::getHTML($connection) ; ?>
                             </div>
                             <div class="item">
-                                <?php Carousel::getHTML($connection); ?>
+                                <?php Layout::getHTML($connection) ; ?>
                             </div>
                         </div>
                     </div>
@@ -111,13 +109,13 @@ if (!isset($_SESSION['user'])) {
                         ?>
                         <div class="carousel-inner">
                             <div class="item active">
-                                <?php Carousel::getHTML($connection); ?>
+                                <?php Layout::getHTML($connection) ; ?>
                             </div>
                             <div class="item">
-                                <?php Carousel::getHTML($connection); ?>
+                                <?php Layout::getHTML($connection) ; ?>
                             </div>
                             <div class="item">
-                                <?php Carousel::getHTML($connection); ?>
+                                <?php Layout::getHTML($connection) ; ?>
                             </div>
                         </div>
                     </div>

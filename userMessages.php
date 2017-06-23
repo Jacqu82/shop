@@ -2,21 +2,24 @@
 
 require_once 'connection.php';
 require_once 'autoload.php';
+require_once 'layout/Layout.php';
 
 session_start();
 
 //jeżeli ktoś wpisze z palca w przeglądarce userMessages.php to jeśli nie jest zalogowany zostanie wyrzucony na stronę główną.
 
 if (!isset($_SESSION['id'])) {
-    header('Location: index.php');
+    header('Location: web/index.php');
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['set_message_as_read']) && isset($_POST['message_id'])) {
         $id = $_POST['message_id'];
+        $id = intval($id);
         Message::setMessageStatus($connection, $id, 1);
     } else if (isset($_POST['set_message_as_unread']) && isset($_POST['message_id'])) {
         $id = $_POST['message_id'];
+        $id = intval($id);
         Message::setMessageStatus($connection, $id, 0);
     }
 }
@@ -24,6 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['delete_messege']) && isset($_POST['message_id'])) {
         $messageId = $_POST['message_id'];
+        $messageId = intval($messageId);
         $message = Message::loadMessageById($connection, $messageId);
         $message->deleteMessage($connection);
     }
@@ -43,8 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <?php
     //górny pasek z podstawowymi funkcjonalnościami użytkownika
-    echo "Witaj " . $_SESSION['user'] . " | " . "<a href='index.php'>Start</a>" . " | " . "<a href='web/logOut.php'>wyloguj</a>";
-
+    Layout::UserTopBar();
     ?>
     <hr>
     <div class="wrapper">

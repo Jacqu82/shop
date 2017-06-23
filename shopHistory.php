@@ -2,6 +2,7 @@
 
 require_once 'connection.php';
 require_once 'autoload.php';
+require_once 'layout/Layout.php';
 
 session_start();
 //
@@ -22,21 +23,11 @@ if (!isset($_SESSION['user'])) {
 <body>
 <div class="container">
 <?php
-echo "Witaj " . $_SESSION['user'] . " | " . "<a href='index.php'>Start</a>" . " | " . "<a href='web/logOut.php'>wyloguj</a>";
+Layout::UserTopBar();
 ?>
     <hr>
     <p><a href='userPanel.php'><--Powrót</a></p>
 <?php
-
-$userId = $_SESSION['id'];
-
-$sql = "SELECT * FROM orders WHERE user_id=$userId";
-
-$result = $connection->query($sql);
-
-if (!$result) {
-    die ("Błąd połączenia z bazą danych" . $connection->errno);
-}
 
 //tabela wyświetlajaca wszystkie zamówienia i ich status oraz datę złożenia
 echo "<table>";
@@ -58,7 +49,7 @@ foreach ($result as $value) {
     if ($status == 'Zapłacono') {
         echo "</td><td>--------</td></tr>";
     } else {
-        echo "</td><td><a href='payment.php?id=$id'>Zapłać</a>" . "</td></tr>";
+        echo "</td><td><a href='payForProducts.php?id=$id'>Zapłać</a>" . "</td></tr>";
     }
 }
 

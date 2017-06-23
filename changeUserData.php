@@ -4,9 +4,10 @@ require_once 'connection.php';
 require_once 'web/login.php';
 require_once 'config.php';
 require_once 'autoload.php';
+require_once 'layout/Layout.php';
 
 if (!isset($_SESSION['user'])) {
-    header('Location: index.php');
+    header('Location: web/index.php');
 }
 
 ?>
@@ -26,7 +27,7 @@ if (!isset($_SESSION['user'])) {
 <body>
 <div class="container">
     <?php
-    echo "Witaj " . $_SESSION['user'] . " | " . "<a href='index.php'>Start</a>" . " | " . "<a href='web/logOut.php'>wyloguj</a>";
+    Layout::UserTopBar();
     ?>
     <hr>
     <div class="backLink"><a href="userPanel.php"><--Powrót</a></div>
@@ -61,28 +62,28 @@ if (!isset($_SESSION['user'])) {
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $mail = $user->getEmail();
                 if (isset($_POST['name'])) {
-                    $name = $_POST['name'];
+                    $name = mysqli_real_escape_string($connection, $_POST['name']);
                     $sql = "UPDATE users SET name='$name' WHERE email='$mail'";
                     $user->setName($name);
                     $_SESSION['user'] = $user->getName();
 
                 } else if (isset ($_POST['surname'])) {
-                    $surname = $_POST['surname'];
+                    $surname = mysqli_real_escape_string($connection, $_POST['surname']);
                     $sql = "UPDATE users SET surname='$surname' WHERE email='$mail'";
                     $user->setSurname($surname);
 
                 } else if (isset($_POST['mail'])) {
-                    $maill = $_POST['mail'];
+                    $maill = mysqli_real_escape_string($connection, $_POST['mail']);
                     $sql = "UPDATE users SET email='$maill' WHERE email='$mail'";
                     $user->setEmail($maill);
 
                 } else if (isset($_POST['password'])) {
-                    $password = $_POST['password'];
+                    $password = mysqli_real_escape_string($connection, $_POST['password']);
                     $sql = "UPDATE users SET password='$password' WHERE email='$mail'";
                     $user->setPassword($password);
 
                 } else {
-                    $address = $_POST['address'];
+                    $address = mysqli_real_escape_string($connection, $_POST['address']);
                     $sql = "UPDATE users SET address='$address' WHERE email='$mail'";
                     $user->setAddress($address);
                 }

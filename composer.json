@@ -1,14 +1,10 @@
 {
-  "name": "coderslab/composer",
-  "type": "project",
-  "license": "MIT",
-  "require-dev": {
+    "name": "root/kat_php_w_01_tdd",
+    "require-dev": {
     "phpunit/phpunit": "*",
     "phpunit/dbunit": ">=1.2"
-  },
-  "autoload": {
-    "psr-0": {
-      "": "src/"
+}, 
+    "autoload":{
+        "psr-0": {"": "src/"}
     }
-  }
 }

@@ -1,6 +1,7 @@
 <?php
 require_once 'connection.php';
 require_once 'autoload.php';
+require_once 'layout/Layout.php';
 
 session_start();
 //
@@ -22,11 +23,11 @@ if (!isset($_SESSION['user'])) {
 <div class="container">
     <?php
 
-    echo "Witaj " . $_SESSION['user'] . " | " . "<a href='index.php'>Start</a>" . " | " . "<a href='web/logOut.php'>wyloguj</a>";
-
+    Layout::UserTopBar();
     ?>
     <hr>
-    <p><a href='koszyk.php'><--Powrót</a></p>
+    <p><a href='web/koszyk.php'><--Powrót</a></p>
+
     <div class='wrapper'>
         <span>Kwota do zapłaty:</span>
         <?php
@@ -36,6 +37,7 @@ if (!isset($_SESSION['user'])) {
                 //zapisanie łącznej kwoty zamówienia i id użytkownika, który złożył zamówienie
                 $sum = $_GET['sum'];
                 $userId = $_GET['userId'];
+                $userId = intval($userId);
 
                 echo "<span id='sumInPayment' sum='$sum'>" . $sum . "zł.</span><br>";
                 echo "<a href='payForProducts.php'>Zapłać</a>";
@@ -47,37 +49,21 @@ if (!isset($_SESSION['user'])) {
                     } else {
                         //przy każdej iteracji pobieram dane GET-em a następnie uaktualniam bazę danych
                         $quantity = $_GET['quantity' . $i];
+                        $quantity = intval($quantity);
                         $id = $_GET['id' . $i];
+                        $id = intval($id);
 
                         //uaktualniam ilośc produktu- odejmuje od ilości bazowej ilośc zakupionego towaru
-                        $sql = "UPDATE item SET availability = availability - $quantity WHERE id=$id";
-
-                        $result = $connection->query($sql);
-
-                        if (!$result) {
-                            die ("Błąd zapisu do bazy danych" . $connection->connect_errno);
-                        }
+                        SqlQueries::setAvailability($connection, $quantity, $id);
                         //kasuje zawartośc koszyka - zakup został już dokonany
-                        $sql = "DELETE from cart WHERE user_id=$userId";
-
-                        $result = $connection->query($sql);
-
-                        if (!$result) {
-                            die ("Błąd zapisu do bazy danych" . $connection->connect_errno);
-                        }
+                        SqlQueries::clearCart($connection, $userId);
 
                         if ($i == $_GET['i'] - 1) {
                             $date = date('d-m-y');
                             $status = 0;
 
-                            //zapisuje do tabeli z zamowieniami szczegółhy danego zamówienia
-                            $sql = "INSERT INTO orders(user_id, amount, date, status) VALUES ('$userId', '$sum', '$date', '$status' )";
-
-                            $result = $connection->query($sql);
-
-                            if (!$result) {
-                                die ("Błąd zapisu do bazy danych" . $connection->connect_errno);
-                            }
+                            $order = new Order();
+                            $order->saveToDB($connection, $userId, $sum, $date, $status);
                         }
                     }
                 }

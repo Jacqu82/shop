@@ -3,6 +3,7 @@
 include_once 'connection.php';
 include_once 'config.php';
 require_once 'autoload.php';
+require_once 'layout/Layout.php';
 
 session_start();
 //sprawdzenie czy admin jest zalogowany
@@ -21,13 +22,13 @@ if (!isset($_SESSION['admin'])) {
 <body>
 <div class="container">
     <?php
-    echo "Witaj " . $_SESSION['adminName'] . " | " . "<a href='index.php'>Start</a>" . " | " . "<a href='web/logOut.php'>wyloguj</a><hr>";
+    Layout::AdminTopBar();
     echo "<p><a href='adminPanel.php'><--Powrót</a></p>";
     echo "<div class='wrapper'>";
     echo "<p><a href='addNewItem.php'>Dodaj nowy przedmiot</a></p>";
     echo "<p>Pokaż wszystkie przedmioty:</p>";
     //wywołanie metody, która pokazuje wszystkie grupy produktów
-    $result = photoGallery::getGallery($connection);
+    $result = SqlQueries::getGallery($connection);
 
     //Wyświetlenie SELECTa w którym wybieramy interesującą nas grupę przedmiotów
     echo '<form action="#" method="post">';
@@ -45,7 +46,7 @@ if (!isset($_SESSION['admin'])) {
 
     if ($_SERVER['REQUEST_METHOD'] === "POST") {
         if (isset($_POST['selection'])) {
-            $selection = $_POST['selection'];
+            $selection = mysqli_real_escape_string($connection, $_POST['selection']);
 
             //jeśli wybralismy wszystko wysyłamy zapytanie wybierające wszystkie rekordy
             if ($selection == 'all') {
@@ -68,11 +69,12 @@ if (!isset($_SESSION['admin'])) {
             echo "</tr>";
             foreach ($result as $value) {
                 $id = $value['id'];
+                $name = $value['name'];
                 echo "<tr>";
                 echo "<td>" . $value['name'] . "</td><td>" . $value['groupName'] . "</td><td>" . $value['description'] . "</td>";
                 echo "<td>" . $value['availability'] . "</td><td>" . $value['price'] . "</td>";
                 echo "<td><a href='editItem.php?id=$id'>Edytuj</a></td>";
-                echo "<td><a href='deleteItem.php?id=$id'>Usuń</a></td></tr>";
+                echo "<td><a href='deleteItem.php?name=$name'>Usuń</a></td></tr>";
             }
 
             echo "</table>";

@@ -202,7 +202,7 @@ class Layout
             </div>
             <div class="col-md-4 part">' . $value['name'] . '
             </div>
-            <div class="col-md-2 part">' . '<form class="fuck"><input type ="number"  id="' . $id . '" class="itemId form-control input-sm quantityItem" value = 1 min="1" max="' . $value["availability"] . '"></form>max: ' . $value['availability'] . '
+            <div class="col-md-2 part">' . '<form><input type ="number"  id="' . $id . '" class="itemId form-control input-sm quantityItem" value = 1 min="1" max="' . $value["availability"] . '"></form>max: ' . $value['availability'] . '
             </div>
             <div class="col-md-2 part price" name="' . $value['price'] . '">' . $value['price'] . '
             </div>

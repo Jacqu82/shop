@@ -13,44 +13,27 @@ if (!isset($_SESSION['user'])) {
 }
 ?>
 
-    <html>
-    <head>
-        <title>Shop</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="css/style.css?h=1" rel="stylesheet">
-    </head>
+<html>
+<head>
+    <title>Shop</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="css/style.css?h=1" rel="stylesheet">
+</head>
 <body>
 <div class="container">
-<?php
-Layout::UserTopBar();
-?>
+    <?php
+    Layout::UserTopBar();
+    ?>
     <hr>
     <p><a href='userPanel.php'><--Powrót</a></p>
-<?php
+    <?php
 
-//tabela wyświetlajaca wszystkie zamówienia i ich status oraz datę złożenia
-echo "<table>";
-echo "<tr>";
-echo "<th>Autor zamówienia</th><th>Data zamówienia</th><th>Kwota zamówienia</th><th>Status zamówienia</th><th>Realizuj płatność</th>";
-echo "</tr>";
-foreach ($result as $value) {
-    $status = $value['status'];
-    if ($status != 0) {
-        $status = 'Zapłacono';
-    } else {
-        $status = "<span style='color: red'>Do zapłaty!</span>";
-    }
-    $amount = $value['amount'];
-    $date = $value['date'];
-    $id = $value['id'];
-    echo "<tr>";
-    echo "<td>" . $_SESSION['user'] . "</td><td>" . $date . "</td><td>" . $amount . "</td><td>" . $status;
-    if ($status == 'Zapłacono') {
-        echo "</td><td>--------</td></tr>";
-    } else {
-        echo "</td><td><a href='payForProducts.php?id=$id'>Zapłać</a>" . "</td></tr>";
-    }
-}
+    //tabela wyświetlajaca wszystkie zamówienia i ich status oraz datę złożenia
 
-echo "</table>";
+    Order::payForProducts($connection);
+    ?>
+</div>
+</body>
+</html>
+

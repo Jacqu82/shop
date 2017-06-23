@@ -32,7 +32,7 @@ if (!isset($_SESSION['user'])) {
 
                 $id = $item->getId();
                 $availability = $item->getAvailability();
-                if ($availability == 0) {
+                if ($availability <= 0) {
                     echo "Brak produktu. Prosze spróbować później.<br>";
                     echo "<a style='margin-left: 130px' href='web/product.php?id=" . $id . "'><button>OK</button></a>";
 

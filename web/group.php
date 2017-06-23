@@ -86,15 +86,14 @@ if (!isset($_SESSION['user'])) {
                 <div class="row rowing">
                     <div class="col-md-12 col-sm-12 col-xs-12 rejestracja1 row1 logo">
                         <div id="line">
-                            <a href="#" class="btn btn-primary btn-block logo">Bestsellers</a>
+                            <a class="btn btn-primary btn-block logo">Bestsellers</a>
                         </div>
                     </div>
                     <div id="productsCarousel" class="carousel slide" data-ride="carousel">
-                        <?php //trzy razy wywoływana metoda, której celem jest wylosowanie produktów i wrzucenie ich do karuzeli
-                        ?>
                         <div class="carousel-inner">
                             <div class="item active">
-                                <?php Layout::getHTML($connection) ; ?>
+                                <?php //trzy razy wywoływana metoda, której celem jest wylosowanie produktów i wrzucenie ich do karuzeli
+                                Layout::getHTML($connection) ?>
                             </div>
                             <div class="item">
                                 <?php Layout::getHTML($connection) ; ?>
@@ -105,11 +104,10 @@ if (!isset($_SESSION['user'])) {
                         </div>
                     </div>
                     <div id="productsCarousel" class="carousel slide" data-ride="carousel">
-                        <?php //trzy razy wywoływana metoda, której celem jest wylosowanie produktów i wrzucenie ich do karuzeli
-                        ?>
                         <div class="carousel-inner">
                             <div class="item active">
-                                <?php Layout::getHTML($connection) ; ?>
+                                <?php //trzy razy wywoływana metoda, której celem jest wylosowanie produktów i wrzucenie ich do karuzeli
+                                Layout::getHTML($connection) ?>
                             </div>
                             <div class="item">
                                 <?php Layout::getHTML($connection) ; ?>
@@ -127,8 +125,9 @@ if (!isset($_SESSION['user'])) {
             <h1>Stopka naszej strony internetowej</h1>
         </div>
     </div>
-    <script src="js/jquery.js"></script>
-    <script src="js/bootstrap.js"></script>
+    <script src="../js/jquery.js"></script>
+    <script src="../js/bootstrap.js"></script>
+    <script src="../js/style.js"></script>
     </body>
     <?php
 }

@@ -84,7 +84,7 @@ Layout::showHead();
             <div class="row rowing">
                 <div class="col-md-12 col-sm-12 col-xs-12 rejestracja1 row1 logo">
                     <div id="line">
-                        <a href="#" class="btn btn-primary btn-block logo">Bestsellers</a>
+                        <a class="btn btn-primary btn-block logo">Bestsellers</a>
                     </div>
                 </div>
                 <div id="productsCarousel" class="carousel slide" data-ride="carousel">

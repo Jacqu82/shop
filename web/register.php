@@ -1,25 +1,23 @@
 <?php
 
 require_once '../connection.php';
+require_once '../src/User.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (isset($_POST['name']) && isset($_POST['surname']) && isset($_POST['email']) && isset($_POST['password'])) {
-        $name = $_POST['name'];
-        $surname = $_POST['surname'];
-        $email = $_POST['email'];
-        $password = $_POST['password'];
-        $address = $_POST['address'];
-        
-        $sql = "INSERT INTO users (`name`, `surname`, `email`, `password`, `address`) VALUES ('$name', '$surname', '$email', '$password', '$address')";
+    if (isset($_POST['name']) && isset($_POST['surname']) && isset($_POST['email']) && isset($_POST['password']) && isset($_POST['address'])) {
 
-        $ready = $connection->query($sql);
-        
-        if ($ready) {
-            echo "Poprawnie utworzyłeś swoje konto na Aledrogo.pl!<br/>";
-            echo "<a href='loginForm.html'>Zaloguj się na swoje konto</a>";
-        } else {
-            echo "Wystąpił błąd podczas rejestracji, spróbuj jeszcze raz!";
-            die("Connection Error! " . $connection->connect_error);
-        }
+        $name = mysqli_real_escape_string($connection, $_POST['name']);
+        $surname = mysqli_real_escape_string($connection, $_POST['surname']);
+        $email = mysqli_real_escape_string($connection, $_POST['email']);
+        $password = mysqli_real_escape_string($connection, $_POST['password']);
+        $address = mysqli_real_escape_string($connection, $_POST['address']);
+
+        $user = new User();
+        $user->setName($name);
+        $user->setSurname($surname);
+        $user->setEmail($email);
+        $user->setPassword($password);
+        $user->setAddress($address);
+        $user->saveToDB($connection);
     }
 }

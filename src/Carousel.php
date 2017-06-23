@@ -2,7 +2,7 @@
 
 class Carousel
 {
-    public static function getItemData(mysqli $connection)
+    public static function getItemDataLimitOne(mysqli $connection)
     {
         $sql = "SELECT * FROM item ORDER BY RAND() LIMIT 1 ";
 
@@ -17,12 +17,14 @@ class Carousel
 
     public static function getPhotoPath(mysqli $connection, $id)
     {
+        $id = intval($id);
+
         $sql = "SELECT * FROM photos WHERE item_id = $id LIMIT 1";
 
         $result = $connection->query($sql);
 
         if (!$result) {
-            die("Error na photosie" . $connection->error);
+            die("Błąd odczyu z bazy danych" . $connection->error);
         }
 
         return $result;
@@ -43,7 +45,7 @@ class Carousel
         $result = self::getPhotoPath($connection, $id);
 
         foreach ($result as $value) {
-            $path = $value['path'];
+            $path = '../' . $value['path'];
         }
 
         $array = [
@@ -75,5 +77,4 @@ class Carousel
                     </div>
                 </div>";
     }
-
 }

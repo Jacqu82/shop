@@ -2,6 +2,7 @@
 include_once 'connection.php';
 include_once 'config.php';
 require_once 'autoload.php';
+require_once 'layout/Layout.php';
 
 session_start();
 
@@ -21,20 +22,19 @@ if (!isset($_SESSION['admin'])) {
     <div class="container">
 
         <?php
-
-        echo "Witaj " . $_SESSION['admin'] . " | " . "<a href='index.php'>Start</a>" . " | " . "<a href='logOut.php'>wyloguj</a><hr>";
+        Layout::AdminTopBar();
         echo "<p><a href='itemPanel.php'><--Powrót</a></p>";
         ?>
         <div class="itemShow">
             <form action="#" method="post" enctype="multipart/form-data">
                 Podaj nazwę:<br>
                 <input type="text" name="name"/><br>
-                Wybierz grupę  lub stwórz <a href="addGroupOfProducts.php"><b>nową grupę:</b></a><br>
+                Wybierz grupę lub stwórz <a href="addGroupOfProducts.php"><b>nową grupę:</b></a><br>
                 <?php
 
                 //wybieramy z listy rozwijalnej grupę produktów do której dodamy przedmiot
 
-                $result = photoGallery::getGallery($connection);
+                $result = SqlQueries::getGallery($connection);
 
                 echo '<select name="selection">';
 
@@ -61,7 +61,7 @@ if (!isset($_SESSION['admin'])) {
                 <input type="submit" value="Dodaj"/>
             </form>
         </div>
-        </div>
+    </div>
     </body>
     </html>
 <?php
@@ -75,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $selection = mysqli_real_escape_string($connection, $_POST['selection']);
         $description = mysqli_real_escape_string($connection, $_POST['description']);
         $price = mysqli_real_escape_string($connection, $_POST['price']);
-        $availability = mysqli_real_escape_string($connection,$_POST['availability']);
+        $availability = mysqli_real_escape_string($connection, $_POST['availability']);
 
         //tworzymy obiekt typu Item i ustawiamy setery zmiennymi otrzymanymiz formularza
 
@@ -133,8 +133,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $ending = $matches[0];
             }
 
-            var_dump($ending);
-
             //przy każdej iteracji resetuje zmiane scieżki dostepu do ustawien poczatkowych
             $path = "files/" . $id . $name;
 
@@ -143,7 +141,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_FILES[$i]['name'] = $i + 1 . "_" . $name . $ending;
             $path = $path . "/" . $_FILES[$i]['name'];
 
-            dbEdit::insert($connection, $id, $path);
+            SqlQueries::insert($connection, $id, $path);
 
             move_uploaded_file($_FILES[$fileNo]['tmp_name'], $path);
         }

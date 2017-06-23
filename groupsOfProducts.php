@@ -3,12 +3,13 @@
 include_once 'connection.php';
 include_once 'config.php';
 require_once 'autoload.php';
+require_once 'layout/Layout.php';
 
 session_start();
 
 //sprawdzenie czy użytkownik jest zalogowany
 if (!isset($_SESSION['admin'])) {
-    header('Location: index.php');
+    header('Location: web/index.php');
 }
 ?>
     <html>
@@ -23,12 +24,12 @@ if (!isset($_SESSION['admin'])) {
     <div class="container">
 
 <?php
-echo "Witaj " . $_SESSION['admin'] . " | " . "<a href='index.php'>Start</a>" . " | " . "<a href='logOut.php'>wyloguj</a><hr>";
+Layout::AdminTopBar();
 echo "<p><a href='adminPanel.php'><--Powrót</a></p>";
 echo "<p><a href='addGroupOfProducts.php'>Dodaj nową grupę produktów</a></p>";
 
 // wykorzystanie metody która wybiera wszystkie grupy produktów z bazy danych
-$result = photoGallery::getGallery($connection);
+$result = SqlQueries::getGallery($connection);
 
 //wyświetlenie tabeli ze wszystkimi grupami produktów
 echo "<div class='tableShow'>";
@@ -43,11 +44,7 @@ foreach ($result as $value) {
     echo "<td><a href='editGroupOfProducts.php?id=$id'>Edytuj</a></td>";
     echo "<td><a href='deleteGroupOfProducts.php?id=$id'>Usuń</a></td></tr>";
 }
-$connection->close();
+
 echo "</table></div></body></html>";
 
-
-
-
-
-
+$connection->close();

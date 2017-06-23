@@ -1,13 +1,15 @@
 <?php
+
 require_once 'connection.php';
 require_once 'autoload.php';
+require_once 'layout/Layout.php';
 
 session_start();
 //
 ////jeżeli ktoś wpisze z palca w przeglądarce userPanel.php to jeśli nie jest zalogowany zostanie wyrzucony na stronę głóœną.
 //
 if (!isset($_SESSION['admin'])) {
-    header('Location: index.php');
+    header('Location: web/index.php');
 }
 ?>
 
@@ -21,38 +23,51 @@ if (!isset($_SESSION['admin'])) {
 <body>
 <div class="container">
     <?php
-    echo "Witaj " . $_SESSION['admin'] . " | " . "<a href='index.php'>Start</a>" . " | " . "<a href='web/logOut.php'>wyloguj</a>";
+    Layout::AdminTopBar();
     ?>
     <hr>
-    <p><a href='itemPanel.php'><--Powrót</a></p>
+    <p><a href='adminPanel.php'><--Powrót</a></p>
+
     <div class="wrapper">
         <p>Wysyłanie wiadomości:</p>
 
         <p>Wybierz odbiorcę:</p>
         <?php
 
-            $result = selectUsers::selectAllUsers($connection);
+        $result = Layout::selectAllUsers($connection);
 
-            if ($_SERVER['REQUEST_METHOD'] === "POST") {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            if (isset($_POST['receiverId']) && isset($_POST['messageTitle']) && isset($_POST['messageContent'])) {
+                $receiverId = mysqli_real_escape_string($connection, $_POST['receiverId']);
+                $messageTitle = mysqli_real_escape_string($connection, $_POST['messageTitle']);
+                $messageContent = mysqli_real_escape_string($connection, $_POST['messageContent']);
 
-                echo" hej";
-                if (isset ($_POST['title']) && isset ($_POST['content'])) {
+                $message = new Message();
+                $message->setAdminId($_SESSION['admin']);
+                $message->setReceiverId($receiverId);
+                $message->setMessageTitle($messageTitle);
+                $message->setMessageContent($messageContent);
+                $message->setCreationDate();
+                $message->setMessageStatus($connection, $message->getId(), 0);
+                $message->saveToDB($connection);
 
-                    $title = $_POST['title'];
-                    $content = $_POST['content'];
-                    $id = $_POST['selection'];
+                $send = Message::loadLastSendMessageByUserId($connection, $_SESSION['admin']);
 
-                    $message = new Message();
-
-                    $message->setTitle($_POST['title']);
-                    $message->setContent($_POST['content']);
-                    $message->setReceiverId($_POST['selection']);
-
-                    $message->sendMessage($connection, $title, $content, $id);
+                foreach ($send as $value) {
+                    echo '<div class="flash-message alert alert-success alert-dismissible" role="alert">
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                      <strong>Wysłałeś wiadomość do ' . $value["name"] . '</strong>
+                    </div>';
                 }
             }
+        }
         ?>
     </div>
 </div>
+<script src="js/jquery.js"></script>
+<script src="js/bootstrap.js"></script>
+<script src="js/style.js"></script>
 </body>
 </html>

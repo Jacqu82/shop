@@ -2,6 +2,7 @@
 
 include_once 'connection.php';
 require_once 'autoload.php';
+require_once 'layout/Layout.php';
 
 session_start();
 
@@ -10,6 +11,7 @@ session_start();
 if (!isset($_SESSION['admin'])) {
     header('Location: index.php');
 }
+
 ?>
 <html>
 <head>
@@ -22,7 +24,7 @@ if (!isset($_SESSION['admin'])) {
 <body>
 <div class="container">
     <?php
-    echo "Witaj " . $_SESSION['admin'] . " | " . "<a href='index.php'>Start</a>" . " | " . "<a href='web/logOut.php'>wyloguj</a>";
+    Layout::AdminTopBar();
     ?>
     <hr>
     <div class="wrapper">

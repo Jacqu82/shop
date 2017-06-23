@@ -10,4 +10,3 @@ if ($connection->connect_error) {
 }
 
 $connection->query('SET CHARACTER SET utf8');
-

@@ -11,64 +11,61 @@ if (!isset($_SESSION['admin'])) {
     header('Location: web/index.php');
 }
 ?>
-    <html>
-    <head>
-        <title>Shop</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="css/style.css?h=1" rel="stylesheet">
-    </head>
+<html>
+<?php Layout::showHeadInMain(); ?>
+<body>
+<div class="container">
+    <?php Layout::AdminTopBar(); ?>
+    <p><a href='adminPanel.php'><--Powrót</a></p>
 
-    <body>
-    <div class="container">
-<?php
+    <div class='wrapper'>
+        <?php
+        $result = SqlQueries::selectUsersFromDb($connection);
+        ?>
+        <p>Wybierz użytkownika<br> którego chcesz usunąć:</p>
 
-Layout::AdminTopBar();
+        <form method='post' action='#'>
+            <select name='userSelection'>
+                <?php
+                foreach ($result as $value) {
+                    echo "<option value='" . $value['id'] . "'>" . $value['name'] . $value['surname'] . "</option>";
+                }
+                ?>
+                <input type='submit' value='Usuń'>
+        </form>
+        <?php
+        if ($_SERVER['REQUEST_METHOD'] === "POST") {
+            if (isset($_POST['userSelection'])) {
+                $id = mysqli_real_escape_string($connection, $_POST['userSelection']);
 
-echo "<p><a href='adminPanel.php'><--Powrót</a></p>";
-echo "<div class='wrapper'>";
+                $sql = "DELETE FROM message WHERE receiverId='$id'";
+                $result = $connection->query($sql);
+                if (!$result) {
+                    die ("Błąd połączenia z bazą danych" . $connection->connect_error);
+                }
 
-$result = SqlQueries::selectUsersFromDb($connection);
+                $sql = "DELETE FROM orders WHERE user_id='$id'";
+                $result = $connection->query($sql);
+                if (!$result) {
+                    die ("Błąd połączenia z bazą danych" . $connection->connect_errno);
+                }
 
-echo "<p>Wybierz użytkownika,<br> którego chcesz usunąć:</p>";
-echo "<form method='post' action='#'>";
-echo "<select name='userSelection'>";
-foreach ($result as $value) {
-    echo "<option value='" . $value['id'] . "'>" . $value['name'] . $value['surname'] . "</option>";
-}
-echo "<input type='submit' value='Usuń'>";
-echo "</form>";
+                $sql = "DELETE FROM cart WHERE user_id='$id'";
+                $result = $connection->query($sql);
+                if (!$result) {
+                    die ("Błąd połączenia z bazą danych" . $connection->connect_errno);
+                }
 
-if ($_SERVER['REQUEST_METHOD'] === "POST") {
-    if (isset($_POST['userSelection'])) {
-        $id = mysqli_real_escape_string($connection, $_POST['userSelection']);
-
-        $sql = "DELETE FROM message WHERE receiverId='$id'";
-        $result = $connection->query($sql);
-        if (!$result) {
-            die ("Błąd połączenia z bazą danych message" . $connection->connect_error);
+                $sql = "DELETE FROM users WHERE id='$id'";
+                $result = $connection->query($sql);
+                if (!$result) {
+                    die ("Błąd połączenia z bazą danych" . $connection->connect_errno);
+                }
+                echo "Udało Ci się usunąć użytkownika.";
+            }
         }
-
-        $sql = "DELETE FROM orders WHERE user_id='$id'";
-        $result = $connection->query($sql);
-        if (!$result) {
-            die ("Błąd połączenia z bazą danych orders" . $connection->connect_errno);
-        }
-
-        $sql = "DELETE FROM cart WHERE user_id='$id'";
-        $result = $connection->query($sql);
-        if (!$result) {
-            die ("Błąd połączenia z bazą danych cart" . $connection->connect_errno);
-        }
-
-        $sql = "DELETE FROM users WHERE id='$id'";
-        $result = $connection->query($sql);
-        if (!$result) {
-            die ("Błąd połączenia z bazą danych cart" . $connection->connect_errno);
-        }
-
-        echo "Udało Ci się usunąć użytkownika.";
-
-    }
-}
-echo "</div></div></body></html>";
+        ?>
+    </div>
+</div>
+</body>
+</html>

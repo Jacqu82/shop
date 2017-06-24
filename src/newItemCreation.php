@@ -14,66 +14,71 @@ class newItemCreation
 
     public static function showEditItem($name, $description, $price, $availability)
     {
-
-        // 3. Wyświtlamy formularz w którym wstawiamy wykorzystując gettery dane , które można edytować
-        echo "<form action='editItem.php' method='post'>";
-        //wyłączona opcja zmiany nazwy - do poprawki
-//        echo "Edit the name for the <b>" . $name . " </b>item.<br>";
-//        echo "<textarea rows='1' cols='50' name='name'>" . $name . "</textarea><br>";
-        echo "Edit description for the <b>" . $name . "</b> item<br>";
-        echo "<textarea rows='4' cols='50' name='description'>" . $description . "</textarea><br>";
-        echo "Edit the price for the <b>" . $name . " </b>item.<br>";
-        echo "<input name='price' type='text'  value= " . $price . "><br><br>";
-        echo "Edit the availability for the <b>" . $name . " </b>item.<br>";
-        echo "<input name='availability' type='text'  value= " . $availability . "><br><br>";
-        echo "<input type='hidden' name='oldName' value=" . $name . ">";
-        echo "<input type='submit' value='change'/>";
-        echo "</form>";
-        echo "<hr>";
+        // Wyświetlamy formularz w którym wstawiamy wykorzystując gettery dane , które można edytować
+        ?>
+        <form action='editItem.php' method='post'>
+            Edit description for the <b><?php echo $name; ?></b> item<br>
+            <textarea rows='4' cols='50' name='description'><?php echo $description; ?></textarea><br>
+            Edit the price for the <b><?php echo $name; ?></b>item<br>
+            <input name='price' type='text' value="<?php echo $price; ?>"><br><br>
+            Edit the availability for the <b><?php echo $name ?></b>item.<br>
+            <input name='availability' type='text' value="<?php echo $availability ?>"><br><br>
+            <input type='hidden' name='oldName' value="<?php echo $name; ?>">
+            <input type='submit' value='change'/>
+        </form>
+        <hr>
+    <?php
     }
 
     public static function editPhoto($tab, Item $item)
     {
-        // 5. Pętla przebiega 4 razy, ponieważ tyle można maksymalnie dodać zdjęć.
+        // 2. Pętla przebiega 4 razy, ponieważ tyle można maksymalnie dodać zdjęć.
         for ($i = 0; $i < 4; $i++) {
 
-            // 6. Jeśli są juz jakieś zdjęcia dodane do danego przedmiotu uruchomi się ten if
+            // 3. Jeśli są juz jakieś zdjęcia dodane do danego przedmiotu uruchomi się ten if
             if (isset($tab[$i][0])) {
-
-                echo "<form action='#' method='post' enctype='multipart/form-data'>";
-
-                $id = $item->getId();
-                $path = $tab[$i][0]['path'];
-                $_SESSION['path'] = $path;
-                $photoId = $tab[$i][0]['id'];
-                $itemId = $tab[$i][0]['item_id'];
-
-                echo "<div class='photoBox'>";
-                echo "<br>Zdjęcie nr " . ($i + 1) . "<br>";
-                echo "<img src='" . $path . "' height='120' width='120'><br>";
-                echo "Change | <a href='deletePhoto.php?photo_id=$photoId&id=$id'>Delete</a><br>";
-                echo "<input type='file' name='file'><br>";
-                echo "<input type='hidden' name='path' value=$path>";
-                echo "<input type='hidden' name='photoId' value=$photoId>";
-                echo "<input type='hidden' name='itemId' value=$itemId>";
-                echo "<input type='submit' value='Add'/>";
-                echo "</form></div>";
-
-                //7. Jesli nie to uruchomi się ten else
+                ?>
+                <form action='#' method='post' enctype='multipart/form-data'>
+                    <?php
+                    $id = $item->getId();
+                    $path = $tab[$i][0]['path'];
+                    $_SESSION['path'] = $path;
+                    $photoId = $tab[$i][0]['id'];
+                    $itemId = $tab[$i][0]['item_id'];
+                    ?>
+                    <div class='photoBox'>
+                        <br>Zdjęcie nr <?php echo($i + 1); ?><br>
+                        <img src='<?php echo $path; ?>' height='120' width='120'><br>
+                        <?php
+                        echo "Change | <a href='deletePhoto.php?photo_id=$photoId&id=$id'>Delete</a><br>";
+                        ?>
+                        <input type='file' name='file'><br>
+                        <input type='hidden' name='path' value='<?php echo $path; ?>'>
+                        <input type='hidden' name='photoId' value='<?php echo $photoId; ?>'>
+                        <input type='hidden' name='itemId' value='<?php echo $itemId; ?>'>
+                        <input type='submit' value='Add'/>
+                    </div>
+                </form>
+                <?php
+                //4. Jesli nie to uruchomi się ten else
             } else {
-                echo "<form action='#' method='post' enctype='multipart/form-data'>";
-                $fileNo = ($i + 1);
-                $itemName = $item->getName();
-                $_SESSION['name'] = $itemName;
-                $itemId = $_SESSION['itemId'];
-                echo "<br>Zdjęcie nr " . ($i + 1) . "<br>";
-                echo "Brak załadowanego zdjęcia.<br>";
-                echo "<input type='file' name='file'><br>";
-                echo "<input type='hidden' name='number' value=$itemId>";
-                echo "<input type='hidden' name='name' value=$itemName>";
-                echo "<input type='hidden' name='fileNo' value=$fileNo>";
-                echo "<input type='submit' value='Add'/>";
-                echo "</form>";
+                ?>
+                <form action='#' method='post' enctype='multipart/form-data'>
+                    <?php
+                    $fileNo = ($i + 1);
+                    $itemName = $item->getName();
+                    $_SESSION['name'] = $itemName;
+                    $itemId = $_SESSION['itemId'];
+                    ?>
+                    <br>Zdjęcie nr <?php echo $fileNo; ?><br>
+                    Brak załadowanego zdjęcia.<br>
+                    <input type='file' name='file'><br>
+                    <input type='hidden' name='number' value='<?php echo $itemId; ?>'>
+                    <input type='hidden' name='name' value='<?php echo $itemName; ?>'>
+                    <input type='hidden' name='fileNo' value='<?php echo $fileNo; ?>'>
+                    <input type='submit' value='Add'/>
+                </form>
+            <?php
             }
         }
     }

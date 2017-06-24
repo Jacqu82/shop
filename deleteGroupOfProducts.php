@@ -14,10 +14,8 @@ echo "Witaj " . $_SESSION['admin'] . " | " . "<a href='index.php'>Start</a>" . "
 
 if ($_SERVER['REQUEST_METHOD'] === "GET") {
     if (isset($_GET['id'])) {
-
         $id = $_GET['id'];
         $id = intval($id);
-
         Admin::removeGroup($connection, $id);
     }
 }

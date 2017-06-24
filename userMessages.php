@@ -7,7 +7,6 @@ require_once 'layout/Layout.php';
 session_start();
 
 //jeżeli ktoś wpisze z palca w przeglądarce userMessages.php to jeśli nie jest zalogowany zostanie wyrzucony na stronę główną.
-
 if (!isset($_SESSION['id'])) {
     header('Location: web/index.php');
 }
@@ -34,17 +33,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 ?>
-
 <html>
-<head>
-    <title>Shop</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="css/style.css?h=1" rel="stylesheet">
-</head>
+<?php Layout::showHeadInMain() ?>
 <body>
 <div class="container">
-
     <?php
     //górny pasek z podstawowymi funkcjonalnościami użytkownika
     Layout::UserTopBar();
@@ -82,10 +74,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         ?>
     </div>
 </div>
-<script src="https://code.jquery.com/jquery-3.1.1.min.js"
-        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
-        crossorigin="anonymous"></script>
-<script src="js/bootstrap.js"></script>
-<script src="js/style.js"></script>
+<?php Layout::jsScriptsInMain() ?>
 </body>
 </html>

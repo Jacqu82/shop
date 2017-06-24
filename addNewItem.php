@@ -11,16 +11,9 @@ if (!isset($_SESSION['admin'])) {
 }
 ?>
     <html>
-    <head>
-        <title>Shop</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="css/style.css?h=1" rel="stylesheet">
-    </head>
-
+    <?php Layout::showHeadInMain() ?>
     <body>
     <div class="container">
-
         <?php
         Layout::AdminTopBar();
         echo "<p><a href='itemPanel.php'><--Powrót</a></p>";
@@ -31,18 +24,16 @@ if (!isset($_SESSION['admin'])) {
                 <input type="text" name="name"/><br>
                 Wybierz grupę lub stwórz <a href="addGroupOfProducts.php"><b>nową grupę:</b></a><br>
                 <?php
-
                 //wybieramy z listy rozwijalnej grupę produktów do której dodamy przedmiot
-
                 $result = SqlQueries::getGallery($connection);
-
-                echo '<select name="selection">';
-
-                foreach ($result as $value) {
-                    echo '<option value="' . $value['id'] . '">' . $value['groupName'] . '</option>';
-                }
-                echo '</select>';
                 ?>
+                <select name="selection">
+                    <?php
+                    foreach ($result as $value) {
+                        echo '<option value="' . $value['id'] . '">' . $value['groupName'] . '</option>';
+                    }
+                    ?>
+                </select>
                 <br>
                 Opis:<br>
                 <textarea rows='4' cols='50' name='description'></textarea><br>
@@ -85,9 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $item->setDescription($description);
         $item->setGroup($selection);
         $item->setPrice($price);
-
         $item->save($connection);
-
         $id = $item->getId();
 
         //tworze folder z id pliku a nastepnie z jego nazwą
@@ -140,14 +129,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             $_FILES[$i]['name'] = $i + 1 . "_" . $name . $ending;
             $path = $path . "/" . $_FILES[$i]['name'];
-
             SqlQueries::insert($connection, $id, $path);
-
             move_uploaded_file($_FILES[$fileNo]['tmp_name'], $path);
         }
-
         header('Location: itemPanel.php');
     }
 }
-
 $connection->close();

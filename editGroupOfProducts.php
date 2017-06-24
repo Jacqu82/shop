@@ -11,27 +11,18 @@ if (!isset($_SESSION['admin'])) {
     header('Location: index.php');
 }
 ?>
-
 <html>
-<head>
-    <title>Shop</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="css/style.css?h=1" rel="stylesheet">
-</head>
-
+<?php Layout::showHeadInMain(); ?>
 <body>
 <div class="container">
+    <?php Layout::AdminTopBar(); ?>
+    <p><a href='groupsOfProducts.php'><--Powrót</a></p>
     <?php
-    Layout::AdminTopBar();
-    echo "<p><a href='groupsOfProducts.php'><--Powrót</a></p>";
-
     if ($_SERVER['REQUEST_METHOD'] === "GET") {
         if (isset($_GET['id'])) {
 
             $id = $_GET['id'];
             $id = intval($id);
-
             $sql = "SELECT * FROM groups WHERE id=$id";
             $result = $connection->query($sql);
 
@@ -43,17 +34,19 @@ if (!isset($_SESSION['admin'])) {
                 $name = $value['groupName'];
                 $description = $value['groupDescriptiopn'];
             }
+            ?>
+            <div class='wrapper'>
+                <form action='editGroupOfProducts.php' method='post'>
+                    <p>Edytuj nazwę dla grupy:<b><?php echo $name; ?></b></p>
+                    <textarea name='name' rows='1' col='50'><?php echo $name; ?></textarea><br><br>
 
-            echo "<div class='wrapper'>";
-            echo "<form action='editGroupOfProducts.php' method='post'>";
-            echo "Edytuj nazwę dla grupy:<b>" . $name . " </b><br>";
-            echo "<textarea name='name' rows='1' col='50'>" . $name . "</textarea><br><br>";
-            echo "Edytuj nazwę dla grupy:<b>" . $name . "</b><br>";
-            echo "<textarea rows='4' cols='50' name='description'>" . $description . "</textarea><br>";
-            echo "<input type='hidden' name='id' value=$id>";
-            echo "<input type='submit' value='Zmień'/>";
-            echo "</form>";
-            echo "</div>";
+                    <p>Edytuj nazwę dla grupy:<b><?php echo $name; ?></b></p>
+                    <textarea rows='4' cols='50' name='description'><?php echo $description; ?></textarea><br>
+                    <input type='hidden' name='id' value=<?php echo $id ?>>
+                    <input type='submit' value='Zmień'/>
+                </form>
+            </div>
+        <?php
         }
     }
 
@@ -62,7 +55,6 @@ if (!isset($_SESSION['admin'])) {
             $name = mysqli_real_escape_string($connection, $_POST['name']);
             $description = mysqli_real_escape_string($connection, $_POST['description']);
             $id = mysqli_real_escape_string($connection, $_POST['id']);
-
             Admin::modifyGroup($connection, $name, $description, $id);
         }
     }

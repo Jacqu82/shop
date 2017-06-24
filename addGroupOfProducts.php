@@ -12,23 +12,17 @@ if (!isset($_SESSION['admin'])) {
 }
 ?>
     <html>
-    <head>
-        <title>Shop</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="css/style.css?h=1" rel="stylesheet">
-    </head>
+    <?php Layout::showHeadInMain(); ?>
     <body>
     <div class="container">
+        <?php Layout::AdminTopBar(); ?>
+        <p><a href='groupsOfProducts.php'><--Powrót</a></p>
 
-        <?php
-        Layout::AdminTopBar();
-        echo "<p><a href='groupsOfProducts.php'><--Powrót</a></p>";
-        ?>
         <div class="wrapper">
             <form action="addGroupOfProducts.php" method="post">
                 <p>Wprowadź nazwę grupy</p>
                 <input type="text" name="name"/><br>
+
                 <p>Wprowadź opis grupy</p>
                 <textarea type="text" name="description" rows="5" cols="40"></textarea>
                 <br>
@@ -37,7 +31,6 @@ if (!isset($_SESSION['admin'])) {
         </div>
     </body>
     </html>
-
 <?php
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
@@ -46,15 +39,17 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $name = mysqli_real_escape_string($connection, $_POST['name']);
         $description = mysqli_real_escape_string($connection, $_POST['description']);
 
-        //wywołujemy metodę addGrouo klasy Admin w celu dodania grupy produktów do bazy danych
+        //wywołujemy metodę addGroup klasy Admin w celu dodania grupy produktów do bazy danych
         $group = Admin::addGroup($connection, $name, $description);
 
         if ($group) {
-            echo "<div class='wrapper'>";
-            echo "Dodano nową grupę produktów.</br><b>" . $name . "</b><br><br>";
-            echo "<a href='adminPanel.php'>Panel administratora</a><br>";
-            echo "<a href='groupsOfProducts.php'>Grupy produktów</a><br>";
-            echo "</div>";
+            ?>
+            <div class='wrapper'>
+                Dodano nową grupę produktów.</br><b><?php echo $name ?></b><br><br>
+                <a href='adminPanel.php'>Panel administratora</a><br>
+                <a href='groupsOfProducts.php'>Grupy produktów</a><br>
+            </div>
+        <?php
         } else {
             die("Błąd dodawania grupy do bazy danych!" . $connection->errno);
         }

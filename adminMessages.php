@@ -12,20 +12,12 @@ if (!isset($_SESSION['admin'])) {
 }
 ?>
 <html>
-<head>
-    <title>Shop</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="css/style.css?h=1" rel="stylesheet">
-</head>
-
+<?php Layout::showHeadInMain(); ?>
 <body>
 <div class="container">
-
+    <?php Layout::AdminTopBar(); ?>
+    <p><a href='adminPanel.php'><--Powrót</a></p>
     <?php
-    Layout::AdminTopBar();
-    echo "<p><a href='adminPanel.php'><--Powrót</a></p>";
-
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (isset($_POST['delete_messege']) && isset($_POST['message_id'])) {
             $messageId = mysqli_real_escape_string($connection, $_POST['message_id']);
@@ -33,29 +25,39 @@ if (!isset($_SESSION['admin'])) {
             $message->deleteMessage($connection);
         }
     }
-
-    echo "<h2 style='text-align: center'>Skrzynka Admina</h2>";
-
-    $send = Message::loadAllSendMessagesByAdminId($connection, $_SESSION['admin']);
-    echo "<table border=1 cellpadding=5>";
-    echo "<tr>";
-    echo "<th>Date</th><th>User name</th><th>Title</th><th>Content</th>";
-    echo "</tr>";
-    foreach ($send as $value) {
-        echo "<tr>";
-        echo "<td>" . $value['creationDate'] . "</td><td>" . $value['surname'] . " " . $value['name'] . "</td><td>" . $value['messageTitle'] . "</td><td>" . $value['messageContent'] . "</td>";
-        echo "<td><form method='POST'>
-              <input type=\"submit\" class=\"btn btn-primary\" name=\"delete_messege\" value=\"Usuń wiadomość\"/>
-              <input type='hidden' name='message_id' value='" . $value['id'] . " '>
-              </form></td>";
-        echo '</tr>';
-    }
-    echo "</table>";
-
     ?>
+    <h2 style='text-align: center'>Skrzynka Admina</h2>
+    <?php
+    $send = Message::loadAllSendMessagesByAdminId($connection, $_SESSION['admin']);
+    ?>
+    <table border=1 cellpadding=5>
+        <tr>
+            <th>Date</th>
+            <th>User name</th>
+            <th>Title</th>
+            <th>Content</th>
+            <th>Akcja</th>
+        </tr>
+        <?php
+        foreach ($send as $value) {
+            ?>
+            <tr>
+                <td><?php echo $value['creationDate']; ?></td>
+                <td><?php echo $value['surname'] . " " . $value['name'] ?></td>
+                <td><?php echo $value['messageTitle'] ?></td>
+                <td><?php echo $value['messageContent'] ?></td>
+                <td>
+                    <form method='POST'>
+                        <input type="submit" class="btn btn-primary" name="delete_messege" value="Usuń wiadomość">
+                        <input type='hidden' name='message_id' value='<?php echo $value['id']; ?>'>
+                    </form>
+                </td>
+            </tr>
+        <?php
+        }
+        ?>
+    </table>
 </div>
-<script src="js/jquery.js"></script>
-<script src="js/bootstrap.js"></script>
-<script src="js/style.js"></script>
+<?php Layout::jsScriptsInMain(); ?>
 </body>
 </html>

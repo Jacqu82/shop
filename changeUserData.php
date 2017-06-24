@@ -2,28 +2,15 @@
 
 require_once 'connection.php';
 require_once 'web/login.php';
-require_once 'config.php';
 require_once 'autoload.php';
 require_once 'layout/Layout.php';
 
 if (!isset($_SESSION['user'])) {
     header('Location: web/index.php');
 }
-
 ?>
-
 <html>
-<head>
-    <meta charset="utf-8"/>
-    <title>Shop</title>
-    <script
-            src="https://code.jquery.com/jquery-3.1.1.min.js"
-            integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
-            crossorigin="anonymous"></script>
-    <script src="js/style.js?s3=213237" type="text/javascript"></script>
-    <link href="css/style.css" type="text/css" rel="stylesheet"/>
-</head>
-
+<?php Layout::showHeadInMain(); ?>
 <body>
 <div class="container">
     <?php
@@ -36,9 +23,7 @@ if (!isset($_SESSION['user'])) {
 
         <div id='changeName'>
             <?php
-
             //przycisk pokazuje/ukrywa formularz do zmiany danych
-
             $name = $_SESSION['user'];
             $user = User::loadUserByName($connection, $name);
 
@@ -58,7 +43,6 @@ if (!isset($_SESSION['user'])) {
             echo "<form action='#' method='post'><input type='text' name='address'/><input type='submit' value='Confirm'/></form>";
 
             //po zaktualizowaniu danych w bazie zmieniam również dane aktualnie zalogowanego usera
-
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $mail = $user->getEmail();
                 if (isset($_POST['name'])) {
@@ -95,14 +79,13 @@ if (!isset($_SESSION['user'])) {
                 }
 
                 //tutaj przycisk do odświeżenia, tak żeby przekonać się czy dane zaktualizowały się.
-
                 echo "Udało Ci się zmienić dane<br>";
                 echo "<a href='changeUserData.php'>Odśwież</a>";
             }
             ?>
         </div>
     </div>
-
 </div>
+<?php Layout::jsScriptsInMain(); ?>
 </body>
 </html>

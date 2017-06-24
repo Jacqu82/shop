@@ -92,7 +92,6 @@ class User
 
             if ($result) {
                 $this->id = $connection->insert_id;
-
                 echo "<h3>Cieszymy się że tu jesteś,  " . $this->name . "</h3>";
                 echo "  <h3><a href='../web/loginForm.html' class='btn btn - primary btn - block'>Zaloguj się na swoje
                                 konto</a></h3>";

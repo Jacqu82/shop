@@ -184,4 +184,19 @@ class SqlQueries
         }
     }
 
+    public static function selectAllFromPhotosById($connection, $photoId)
+    {
+        $sql = "SELECT * FROM photos WHERE `id` = $photoId";
+        $result = $connection->query($sql);
+
+        if (!$result) {
+            die("Błąd odczytu z bazy danych");
+        }
+
+        foreach ($result as $value) {
+            $path = $value['path'];
+        }
+        return $path;
+    }
+
 }

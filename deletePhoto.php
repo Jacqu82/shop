@@ -11,7 +11,6 @@ if (!isset($_SESSION['admin'])) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === "GET") {
-
     if (isset($_GET['photo_id']) && isset($_GET['id'])) {
         $id = $_GET['id'];
         $id = intval($id);
@@ -23,7 +22,6 @@ if ($_SERVER['REQUEST_METHOD'] === "GET") {
 
         $sql = "DELETE FROM photos WHERE `id`=$photoId";
         $connection->query($sql);
-
         header("Location: editItem.php?id=" . $id);
     }
 }

@@ -19,7 +19,6 @@ if (!isset($_SESSION['user'])) {
         <?php
         if ($_SERVER['REQUEST_METHOD'] === "GET") {
             if (isset($_GET['name']) && isset($_GET['path'])) {
-
                 $name = $_GET['name'];
                 $path = $_GET['path'];
                 $item = Item::loadItemByName($connection, $name);

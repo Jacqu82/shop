@@ -17,13 +17,11 @@ if (!isset($_SESSION['admin'])) {
 <div class="container">
     <?php Layout::AdminTopBar(); ?>
     <p><a href='adminPanel.php'><--Powrót</a></p>
-
     <div class='wrapper'>
         <?php
         $result = SqlQueries::selectUsersFromDb($connection);
         ?>
         <p>Wybierz użytkownika<br> którego chcesz usunąć:</p>
-
         <form method='post' action='#'>
             <select name='userSelection'>
                 <?php

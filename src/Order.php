@@ -31,7 +31,6 @@ class Order
         return $this;
     }
 
-
     function getStatusId()
     {
         return $this->statusId;
@@ -68,8 +67,6 @@ class Order
         $this->id = $id;
     }
 
-
-
     public function saveToDB($connection, $userId, $sum, $date, $status)
     {
         $userId = $connection->real_escape_string($userId);
@@ -78,7 +75,6 @@ class Order
         $status = $connection->real_escape_string($status);
 
         $sql = "INSERT INTO orders(user_id, amount, date, status) VALUES ('$userId', '$sum', '$date', '$status' )";
-
         $result = $connection->query($sql);
 
         if (!$result) {
@@ -89,16 +85,15 @@ class Order
     public static function payForProducts($connection)
     {
         $result = SqlQueries::selectAllFromOrderByUserId($connection);
-
         Layout::payForProducts($result);
     }
 
     public static function loadOrderById(mysqli $connection, $id)
     {
         $id = $connection->real_escape_string($id);
-
         $sql = "SELECT * FROM orders WHERE id=$id";
         $result = $connection->query($sql);
+
         if (!$result) {
             die("Błąd odczytu z bazy danych hej");
         }
@@ -126,5 +121,4 @@ class Order
             die("Błąd zapisu w bazie danych" . $connection->connect_errno);
         }
     }
-
 }

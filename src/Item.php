@@ -5,7 +5,6 @@ require_once 'SqlQueries.php';
 
 class Item
 {
-
     protected $id;
     protected $name;
     protected $price;
@@ -98,11 +97,9 @@ class Item
         }
 
         if ($result) {
-
             $itemArray = $result->fetch_assoc();
 
             $item = new Item();
-
             $item->setName($itemArray['name']);
             $item->setDescription($itemArray['description']);
             $item->setPrice($itemArray['price']);
@@ -140,7 +137,6 @@ class Item
             $availability = $this->getAvailability();
 
             $sql = "INSERT INTO `item` (`name`, `price`, `description`, `availability`, `group_id`) VALUES ('$name', $price, '$description', $availability, $group)";
-
             $result = $connection->query($sql);
 
             if ($result) {
@@ -177,7 +173,6 @@ class Item
             'availability' => $availability,
             'description' => $description
         ];
-
         return $array;
     }
 
@@ -220,14 +215,12 @@ class Item
             'availability' => $availability,
             'description' => $description
         ];
-
         return $array;
     }
 
     public static function getAllPhotos(mysqli $connection, $id)
     {
         $result = SqlQueries::getPhotoPath($connection, $id);
-
         $paths = [0 => '', 1 => '', 2 => '', 3 => ''];
         $i = 0;
 

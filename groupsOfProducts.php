@@ -19,17 +19,15 @@ if (!isset($_SESSION['admin'])) {
     <?php
     Layout::AdminTopBar();
     ?>
-
     <p><a href='adminPanel.php'><--Powrót</a></p>
-
     <p><a href='addGroupOfProducts.php'>Dodaj nową grupę produktów</a></p>
 
-<!--    wykorzystanie metody która wybiera wszystkie grupy produktów z bazy danych-->
+    <!--    wykorzystanie metody która wybiera wszystkie grupy produktów z bazy danych-->
     <?php
     $result = SqlQueries::getGallery($connection);
     ?>
 
-<!--    wyświetlenie tabeli ze wszystkimi grupami produktów-->
+    <!--    wyświetlenie tabeli ze wszystkimi grupami produktów-->
     <div class='tableShow'>
         <table>
             <tr>

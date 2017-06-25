@@ -15,7 +15,6 @@ Layout::AdminTopBar();
 
 if ($_SERVER['REQUEST_METHOD'] === "GET") {
     if (isset($_GET['id']) || isset($_GET['name'])) {
-
         $name = $_GET['name'];
         $item = Item::loadItemByName($connection, $name);
 

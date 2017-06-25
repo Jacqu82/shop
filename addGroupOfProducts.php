@@ -17,16 +17,14 @@ if (!isset($_SESSION['admin'])) {
     <div class="container">
         <?php Layout::AdminTopBar(); ?>
         <p><a href='groupsOfProducts.php'><--Powrót</a></p>
-
         <div class="wrapper">
             <form action="addGroupOfProducts.php" method="post">
                 <p>Wprowadź nazwę grupy</p>
                 <input type="text" name="name"/><br>
-
                 <p>Wprowadź opis grupy</p>
                 <textarea type="text" name="description" rows="5" cols="40"></textarea>
                 <br>
-                <input type="submit" value="Add"/>
+                <input type="submit" value="Dodaj"/>
             </form>
         </div>
     </body>
@@ -49,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 <a href='adminPanel.php'>Panel administratora</a><br>
                 <a href='groupsOfProducts.php'>Grupy produktów</a><br>
             </div>
-        <?php
+            <?php
         } else {
             die("Błąd dodawania grupy do bazy danych!" . $connection->errno);
         }

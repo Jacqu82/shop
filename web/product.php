@@ -4,7 +4,6 @@ include_once 'connection.php';
 require_once 'autoload.php';
 require_once '../layout/Layout.php';
 
-
 session_start();
 
 ?>
@@ -13,9 +12,7 @@ session_start();
 
 <?php //metoda wysiwetlająca część Head strony
 Layout::showHead();
-?>
 
-<?php
 //sprawdzenie czy użytkownik jest zalogowany
 if (!isset($_SESSION['user'])) {
     header("location:index.php");
@@ -31,7 +28,6 @@ if (!isset($_SESSION['user'])) {
                 <h1>ALLEDROGO - niepoważny sklep internetowy</h1>
             </div>
         </div>
-
         <div class="row mainRow">
             <div class="col-md-2 col-sm-2 col-xs-3 witaj row1">
                 <div class="row rowing">
@@ -51,7 +47,6 @@ if (!isset($_SESSION['user'])) {
             //metoda wyświetlająca całą zawartośc produktu - zdjęcia,miniaturki,opis,cena,dostępnośc.
             Layout::showProductDetail($connection, $id);
             ?>
-
             <div class="col-md-2 col-sm-2 col-xs-3 witaj row1">
                 <div class="row rowing">
                     <div class="col-md-12 col-sm-12 col-xs-12 rejestracja1 row1 logo">
@@ -64,13 +59,13 @@ if (!isset($_SESSION['user'])) {
                         ?>
                         <div class="carousel-inner">
                             <div class="item active">
-                                <?php Layout::getHTML($connection) ; ?>
+                                <?php Layout::getHTML($connection); ?>
                             </div>
                             <div class="item">
-                                <?php Layout::getHTML($connection) ; ?>
+                                <?php Layout::getHTML($connection); ?>
                             </div>
                             <div class="item">
-                                <?php Layout::getHTML($connection) ; ?>
+                                <?php Layout::getHTML($connection); ?>
                             </div>
                         </div>
                     </div>
@@ -79,13 +74,13 @@ if (!isset($_SESSION['user'])) {
                         ?>
                         <div class="carousel-inner">
                             <div class="item active">
-                                <?php Layout::getHTML($connection) ; ?>
+                                <?php Layout::getHTML($connection); ?>
                             </div>
                             <div class="item">
-                                <?php Layout::getHTML($connection) ; ?>
+                                <?php Layout::getHTML($connection); ?>
                             </div>
                             <div class="item">
-                                <?php Layout::getHTML($connection) ; ?>
+                                <?php Layout::getHTML($connection); ?>
                             </div>
                         </div>
                     </div>
@@ -93,16 +88,15 @@ if (!isset($_SESSION['user'])) {
             </div>
         </div>
         <div class="row foot">
-            <h1>Stopka naszej strony internetowej</h1>
+            <h1>2017 &copy ALLEDROGO</h1>
         </div>
     </div>
     <script src="../js/jquery.js"></script>
     <script src="../js/bootstrap.js"></script>
     <script src="../js/style.js"></script>
     </body>
-<?php
+    <?php
 }
 $connection->close();
-
 ?>
 </html>

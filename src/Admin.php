@@ -2,7 +2,6 @@
 
 include_once 'Item.php';
 
-
 class Admin
 {
     protected $name;
@@ -52,7 +51,6 @@ class Admin
         $this->password = $password;
     }
 
-        
     public function getPassword()
     {
         return $this->password;
@@ -61,9 +59,7 @@ class Admin
     static public function loadAdminByName(mysqli $connection, $name)
     {
         $name = $connection->real_escape_string($name);
-
         $sql = "SELECT * FROM `admins` WHERE `adminName` = '$name'";
-
         $result = $connection->query($sql);
 
         if (!$result) {
@@ -74,14 +70,12 @@ class Admin
             $adminArray = $result->fetch_assoc();
 
             $admin = new Admin();
-
             $admin->setName($adminArray['adminName']);
             $admin->setEmail($adminArray['adminMail']);
             $admin->setPassword($adminArray['adminPassword']);
             $admin->setId($adminArray['id']);
 
             return $admin;
-
         } else {
             return false;
         }
@@ -90,9 +84,7 @@ class Admin
     static public function loadAdminById(mysqli $connection, $id)
     {
         $id = $connection->real_escape_string($id);
-
         $sql = "SELECT * FROM `admins` WHERE `id` = $id";
-
         $result = $connection->query($sql);
 
         if (!$result) {
@@ -103,29 +95,27 @@ class Admin
             $adminArray = $result->fetch_assoc();
 
             $admin = new Admin();
-
             $admin->setName($adminArray['adminName']);
             $admin->setEmail($adminArray['adminMail']);
             $admin->setPassword($adminArray['adminPassword']);
             $admin->setId($id);
 
             return $admin;
-
         } else {
             return false;
         }
     }
-    
+
     // trzy metody do obsługi przedmiotów
-    
+
     public static function addItem()
     {
         $item = new Item();
         $item->setName($item);
     }
-    
+
     //trzy metody do obsługi grup przedmiotów
-    
+
     public static function addGroup(mysqli $connection, $name, $description)
     {
         $name = $connection->real_escape_string($name);
@@ -137,10 +127,9 @@ class Admin
         if (!$result) {
             die ("error" . $connection->connect_error);
         }
-
         return true;
     }
-    
+
     public static function modifyGroup(mysqli $connection, $name, $description, $id)
     {
         $name = $connection->real_escape_string($name);
@@ -150,25 +139,21 @@ class Admin
         $sql = "UPDATE groups SET groupName='$name', groupDescriptiopn='$description' WHERE id=$id";
         $result = $connection->query($sql);
 
-        if(!$result) {
+        if (!$result) {
             die ("Error");
         }
-
         header('Location: groupsOfProducts.php');
     }
-    
+
     public static function removeGroup(mysqli $connection, $id)
     {
         $id = $connection->real_escape_string($id);
-
         $sql = "DELETE FROM groups WHERE id=$id";
-
         $result = $connection->query($sql);
 
         if (!$result) {
             die ("Error");
         }
-
         header('Location: groupsOfProducts.php');
     }
 }

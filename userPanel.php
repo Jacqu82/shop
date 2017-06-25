@@ -11,7 +11,6 @@ if (!isset($_SESSION['user'])) {
     header('Location: web/index.php');
 }
 ?>
-
 <html>
 <?php Layout::showHeadInMain() ?>
 <body>

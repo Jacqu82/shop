@@ -21,8 +21,7 @@ class Layout
             crossorigin="anonymous"></script>
             <script src="../js/style.js?s3=213235517" type="text/javascript"></script>
             <script src="../js/jquery.cookie.js" type="text/javascript"></script>
-        </head>
-        ';
+        </head>';
     }
 
     //metoda sprawdzająca czy użytkownik jest zalogowany
@@ -33,7 +32,6 @@ class Layout
         }
 
         if (isset($_SESSION['user'])) {
-
             $id = $_SESSION['id'];
             $id = intval($id);
 
@@ -82,25 +80,19 @@ class Layout
         }
     }
 
-    public static function showProductCarousel(mysqli $connection)
-    {
-
-    }
-
     public static function UserTopBar()
     {
-        echo "Witaj " . $_SESSION['user'] . " | " . "<a href='web/index.php'>Start</a>" . " | " . "<a href='web/logOut.php'>wyloguj</a>";
+        echo "Witaj " . $_SESSION['user'] . " | " . "<a href='web/index.php'>Start</a>" . " | " . "<a href='web/logOut.php'>Wyloguj</a>";
     }
 
     public static function AdminTopBar()
     {
-        echo "Witaj " . $_SESSION['adminName'] . " | " . "<a href='web/index.php'>Start</a>" . " | " . "<a href='web/logOut.php'>wyloguj</a>";
+        echo "Witaj " . $_SESSION['adminName'] . " | " . "<a href='web/index.php'>Start</a>" . " | " . "<a href='web/logOut.php'>Wyloguj</a>";
     }
 
     public static function getHTML(mysqli $connection)
     {
         $result = Item::parametersReceiver($connection);
-
         $id = ($result['id']);
 
         echo "  <div class='carousel-caption'>
@@ -117,7 +109,7 @@ class Layout
 
     public static function payForProducts($result)
     {
-        echo "<table>";
+        echo "<table align='center'>";
         echo "<tr>";
         echo "<th>Autor zamówienia</th><th>Data zamówienia</th><th>Kwota zamówienia</th><th>Status zamówienia</th><th>Realizuj płatność</th>";
         echo "</tr>";
@@ -139,7 +131,6 @@ class Layout
                 echo "</td><td><a href='payForProducts.php?id=$id'>Zapłać</a>" . "</td></tr>";
             }
         }
-
         echo "</table>";
     }
 
@@ -173,7 +164,7 @@ class Layout
                     <h2>" . $result['name'] . "</h2>
                     <div class='col-md-6 col-sm-6 col-xs-6'><h3>Cena:</h3><h3>Dostepny:</h3></div>
                     <div class='col-md-6 col-sm-6 col-xs-6'>
-                        <h3>" . $result['price'] . "zł.</h3>
+                        <h3>" . $result['price'] . " zł</h3>
                         <h3>" . $result['availability'] . " szt.</h3>
                     </div>
                     <div class='col-md-12 col-sm-12 col-xs-12'>
@@ -238,7 +229,6 @@ class Layout
         echo '<input type="text" name = "messageTitle"><br>';
         echo 'Treść wiadomości:<br>';
         echo '<textarea name="messageContent" cols="30" rows="5"></textarea>';
-
         echo '<br><br><input type="submit" value="Wyślij"></form>';
     }
 
@@ -267,8 +257,7 @@ class Layout
                 <input type="submit" value="Sortuj">
             </form>
         </div>
-        <div class="col-md-2"></div>
-        ';
+        <div class="col-md-2"></div>';
     }
 
     public static function showProductGroup($groupId, mysqli $connection, $selection, $orderSelection)
@@ -292,7 +281,7 @@ class Layout
             echo "<a href='product.php?id=$id'><img id='wtf' class='img-responsive'  src='$path'></a>";
             echo "</div>";
             echo "<div class='col-md-6 col-sm-12 col-xs-12 productPriceElement'>";
-            echo "<p>" . $price . "zł.</p><p>" . $availability . " szt.</p>" . "<a href='../addItemToCart.php?name=$name&path=$path' class='btn btn-primary btn-block'>Do Koszyka</a>";
+            echo "<p>" . $price . " zł</p><p>" . $availability . " szt.</p>" . "<a href='../addItemToCart.php?name=$name&path=$path' class='btn btn-primary btn-block'>Do Koszyka</a>";
             echo "</div>";
             echo "<div class='col-md-12 col-sm-12 col-xs-12 productBuyElement' style='margin-bottom: 65px'>";
             echo "<h3>" . $name . "</h3>";
@@ -309,8 +298,7 @@ class Layout
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <link href="css/style.css?h=1" rel="stylesheet">
-        </head>
-        ';
+        </head>';
     }
 
     public static function jsScriptsInMain()
@@ -320,8 +308,6 @@ class Layout
         integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
         crossorigin="anonymous"></script>
         <script src="js/bootstrap.js"></script>
-        <script src="js/style.js"></script>
-        ';
+        <script src="js/style.js"></script>';
     }
-
 }

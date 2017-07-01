@@ -14,7 +14,7 @@ if (!isset($_SESSION['user'])) {
 <body>
 <div class="container">
     <?php
-    Layout::UserTopBar();
+    Layout::userTopBar();
     ?>
     <hr>
     <div class="backLink"><a href="userPanel.php"><--Powrót</a></div>

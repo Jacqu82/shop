@@ -15,7 +15,7 @@ if (!isset($_SESSION['admin'])) {
     <?php Layout::showHeadInMain(); ?>
     <body>
     <div class="container">
-        <?php Layout::AdminTopBar(); ?>
+        <?php Layout::adminTopBar(); ?>
         <p><a href='groupsOfProducts.php'><--Powrót</a></p>
         <div class="wrapper">
             <form action="addGroupOfProducts.php" method="post">

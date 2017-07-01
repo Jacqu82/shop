@@ -15,7 +15,7 @@ if (!isset($_SESSION['user'])) {
 <body>
 <div class="container">
     <?php
-    Layout::UserTopBar();
+    Layout::userTopBar();
     ?>
     <hr>
     <p><a href='web/koszyk.php'><--Powrót</a></p>

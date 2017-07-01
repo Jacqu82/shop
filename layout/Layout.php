@@ -80,12 +80,12 @@ class Layout
         }
     }
 
-    public static function UserTopBar()
+    public static function userTopBar()
     {
         echo "Witaj " . $_SESSION['user'] . " | " . "<a href='web/index.php'>Start</a>" . " | " . "<a href='web/logOut.php'>Wyloguj</a>";
     }
 
-    public static function AdminTopBar()
+    public static function adminTopBar()
     {
         echo "Witaj " . $_SESSION['adminName'] . " | " . "<a href='web/index.php'>Start</a>" . " | " . "<a href='web/logOut.php'>Wyloguj</a>";
     }

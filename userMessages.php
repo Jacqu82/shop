@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <div class="container">
     <?php
     //górny pasek z podstawowymi funkcjonalnościami użytkownika
-    Layout::UserTopBar();
+    Layout::userTopBar();
     ?>
     <hr>
     <div class="backLink"><a href="userPanel.php"><--Powrót</a></div>

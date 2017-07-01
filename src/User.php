@@ -112,7 +112,7 @@ class User
         return false;
     }
 
-    static public function loadUserByName(mysqli $connection, $name)
+    public static function loadUserByName(mysqli $connection, $name)
     {
         $name = $connection->real_escape_string($name);
         $sql = /** @lang text */

@@ -15,7 +15,7 @@ if (!isset($_SESSION['admin'])) {
 <?php Layout::showHeadInMain(); ?>
 <body>
 <div class="container">
-    <?php Layout::AdminTopBar(); ?>
+    <?php Layout::adminTopBar(); ?>
     <p><a href='adminPanel.php'><--Powrót</a></p>
     <div class='wrapper'>
         <?php

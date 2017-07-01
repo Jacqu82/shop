@@ -85,7 +85,7 @@ class Item
         return $this;
     }
 
-    static public function loadItemByName(mysqli $connection, $name)
+    public static function loadItemByName(mysqli $connection, $name)
     {
         $name = $connection->real_escape_string($name);
 

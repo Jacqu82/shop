@@ -56,7 +56,7 @@ class Admin
         return $this->password;
     }
 
-    static public function loadAdminByName(mysqli $connection, $name)
+    public static function loadAdminByName(mysqli $connection, $name)
     {
         $name = $connection->real_escape_string($name);
         $sql = "SELECT * FROM `admins` WHERE `adminName` = '$name'";
@@ -81,7 +81,7 @@ class Admin
         }
     }
 
-    static public function loadAdminById(mysqli $connection, $id)
+    public static function loadAdminById(mysqli $connection, $id)
     {
         $id = $connection->real_escape_string($id);
         $sql = "SELECT * FROM `admins` WHERE `id` = $id";

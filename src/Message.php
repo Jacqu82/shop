@@ -120,7 +120,7 @@ class Message
         return false;
     }
 
-    static public function loadAllSendMessagesByUserId(mysqli $connection, $userId)
+    public static function loadAllSendMessagesByUserId(mysqli $connection, $userId)
     {
         $userId = $connection->real_escape_string($userId);
         $sql = /** @lang text */
@@ -142,7 +142,7 @@ class Message
         return $result;
     }
 
-    static public function loadAllSendMessagesByAdminId(mysqli $connection, $adminId)
+    public static function loadAllSendMessagesByAdminId(mysqli $connection, $adminId)
     {
         $adminId = $connection->real_escape_string($adminId);
         $sql = /** @lang text */
@@ -176,7 +176,7 @@ class Message
     }
 
 
-    static public function setMessageStatus(mysqli $connection, $messageId, $status)
+    public static function setMessageStatus(mysqli $connection, $messageId, $status)
     {
         $messageId = $connection->real_escape_string($messageId);
         $status = $connection->real_escape_string($status);
@@ -190,7 +190,7 @@ class Message
         return true;
     }
 
-    static public function loadAllReceivedMessagesByUserId(mysqli $connection, $userId)
+    public static function loadAllReceivedMessagesByUserId(mysqli $connection, $userId)
     {
         $userId = $connection->real_escape_string($userId);
         $sql = /** @lang text */
@@ -219,7 +219,7 @@ class Message
         return $result;
     }
 
-    static public function loadLastSendMessageByUserId(mysqli $connection, $userId)
+    public static function loadLastSendMessageByUserId(mysqli $connection, $userId)
     {
         $userId = $connection->real_escape_string($userId);
         $sql = /** @lang text */
@@ -242,7 +242,7 @@ class Message
         return $result;
     }
 
-    static public function loadMessageById(mysqli $connection, $id)
+    public static function loadMessageById(mysqli $connection, $id)
     {
         $id = $connection->real_escape_string($id);
         $sql = /** @lang text */

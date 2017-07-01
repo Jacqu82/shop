@@ -15,7 +15,7 @@ if (!isset($_SESSION['admin'])) {
     <body>
     <div class="container">
         <?php
-        Layout::AdminTopBar();
+        Layout::adminTopBar();
         echo "<p><a href='itemPanel.php'><--Powrót</a></p>";
         ?>
         <div class="itemShow">

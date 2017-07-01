@@ -17,7 +17,7 @@ if (!isset($_SESSION['admin'])) {
 <body>
 <div class="container">
     <?php
-    Layout::AdminTopBar();
+    Layout::adminTopBar();
     ?>
     <p><a href='adminPanel.php'><--Powrót</a></p>
     <p><a href='addGroupOfProducts.php'>Dodaj nową grupę produktów</a></p>

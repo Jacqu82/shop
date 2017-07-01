@@ -17,7 +17,7 @@ if (!isset($_SESSION['admin'])) {
 <body>
 <div class="container">
     <?php
-    Layout::AdminTopBar();
+    Layout::adminTopBar();
     ?>
     <hr>
     <div class="wrapper">

@@ -39,7 +39,7 @@
 }
 
 body {
-    background-image: url("../photos/back1.jpg");
+    background-image: url("../files/back1.jpg");
     background-attachment: fixed;
     margin: 0px;
     padding: 0px;
@@ -80,7 +80,7 @@ body {
 
 #panel {
     text-align: center;
-    background-image: url("../photos/logo2.jpg");
+    background-image: url("../files/logo2.jpg");
     padding: 0px;
     margin-top: 10px;
     color: whitesmoke;
@@ -126,7 +126,7 @@ body {
 
 .foot {
     text-align: center;
-    background-image: url("../photos/logo2.jpg");
+    background-image: url("../files/logo2.jpg");
     padding: 0px;
     margin-top: 10px;
     min-height: 100px;
@@ -304,7 +304,7 @@ table th {
 
 .searchAndFilter {
     margin-top: 0px;
-    background-image: url("../photos/logo2.jpg");
+    background-image: url("../files/logo2.jpg");
     min-height: 20px;
     margin-bottom: 10px;
 }

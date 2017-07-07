@@ -11,14 +11,13 @@ session_start();
 if (!isset($_SESSION['admin'])) {
     header('Location: index.php');
 }
-
 ?>
 <html>
 <?php Layout::showHeadInMain(); ?>
 <body>
 <div class="container">
     <?php
-    Layout::AdminTopBar();
+    Layout::adminTopBar();
     ?>
     <hr>
     <div class="wrapper">

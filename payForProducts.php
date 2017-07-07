@@ -15,13 +15,10 @@ if (!isset($_SESSION['user'])) {
 <?php Layout::showHeadInMain(); ?>
 <body>
 <div class="container">
-    <?php
-    Layout::UserTopBar();
-    ?>
+    <?php Layout::userTopBar(); ?>
     <hr/>
     <p><a href='userPanel.php'><--Powrót</a></p>
     <?php
-
     Order::payForProducts($connection);
 
     if ($_SERVER['REQUEST_METHOD'] === "GET") {

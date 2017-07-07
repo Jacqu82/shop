@@ -16,7 +16,7 @@ if (!isset($_SESSION['admin'])) {
 <body>
 <div class="container">
     <?php
-    Layout::AdminTopBar();
+    Layout::adminTopBar();
     ?>
     <p><a href='itemPanel.php'><--Powrót</a></p>
     <?php
@@ -51,7 +51,7 @@ if (!isset($_SESSION['admin'])) {
 
             //4. Tworze formularz do edycji i dodawania zdjęć do przedmiotu, ale najpierw  odszukuje go poprzed item_id w tabeli photos
 
-            echo "<p>Edit Photos</p>";
+            echo "<p>Edytuj zdjęcia</p>";
 
             $result = SqlQueries::getPhotoPath($connection, $id);
             $tab = [];
@@ -59,7 +59,6 @@ if (!isset($_SESSION['admin'])) {
             foreach ($result as $value) {
                 $tab[] = array($value);
             }
-
             newItemCreation::editPhoto($tab, $item);
         }
     }
@@ -77,12 +76,10 @@ if (!isset($_SESSION['admin'])) {
                 $photoId = mysqli_real_escape_string($connection, $_POST['photoId']);
                 $path = $_SESSION['path'];
                 unlink($path);
-
                 $path = str_replace($first, $second, $path);
                 move_uploaded_file($_FILES['file']['tmp_name'], $path);
                 SqlQueries::delete($connection, $photoId);
                 SqlQueries::insert($connection, $itemId, $path);
-
 
                 //gdy nie było wcześniej dodanych  żadnych zdjęć do przedmiotu
             } else {
@@ -91,13 +88,11 @@ if (!isset($_SESSION['admin'])) {
                 $itemName = $_SESSION['name'];
                 $fileNo = $_POST['fileNo'];
                 $ending = substr($oldName, -3, 3);
-
                 $path = "files/" . $number . $itemName;
                 newItemCreation::newFolder($path);
                 $path = $path . "/" . $fileNo . "_" . $itemName . "." . $ending;
                 move_uploaded_file($_FILES['file']['tmp_name'], $path);
                 SqlQueries::insert($connection, $number, $path);
-
             }
         } else {
             $description = mysqli_real_escape_string($connection, $_POST['description']);

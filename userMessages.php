@@ -10,7 +10,6 @@ session_start();
 if (!isset($_SESSION['id'])) {
     header('Location: web/index.php');
 }
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['set_message_as_read']) && isset($_POST['message_id'])) {
         $id = $_POST['message_id'];
@@ -22,7 +21,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         Message::setMessageStatus($connection, $id, 0);
     }
 }
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['delete_messege']) && isset($_POST['message_id'])) {
         $messageId = $_POST['message_id'];
@@ -31,7 +29,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $message->deleteMessage($connection);
     }
 }
-
 ?>
 <html>
 <?php Layout::showHeadInMain() ?>
@@ -39,9 +36,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <div class="container">
     <?php
     //górny pasek z podstawowymi funkcjonalnościami użytkownika
-    Layout::UserTopBar();
+    Layout::userTopBar();
     ?>
     <hr>
+    <div class="backLink"><a href="userPanel.php"><--Powrót</a></div>
     <div class="wrapper">
         <?php
         $receive = Message::loadAllReceivedMessagesByUserId($connection, $_SESSION['id']);

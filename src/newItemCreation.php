@@ -17,17 +17,17 @@ class newItemCreation
         // Wyświetlamy formularz w którym wstawiamy wykorzystując gettery dane , które można edytować
         ?>
         <form action='editItem.php' method='post'>
-            Edit description for the <b><?php echo $name; ?></b> item<br>
+            Edytuj nazwę dla <b><?php echo $name; ?></b><br>
             <textarea rows='4' cols='50' name='description'><?php echo $description; ?></textarea><br>
-            Edit the price for the <b><?php echo $name; ?></b>item<br>
+            Edytuj cenę<br>
             <input name='price' type='text' value="<?php echo $price; ?>"><br><br>
-            Edit the availability for the <b><?php echo $name ?></b>item.<br>
+            Edytuj dostępność<br>
             <input name='availability' type='text' value="<?php echo $availability ?>"><br><br>
             <input type='hidden' name='oldName' value="<?php echo $name; ?>">
-            <input type='submit' value='change'/>
+            <input type='submit' value='Zmień'/>
         </form>
         <hr>
-    <?php
+        <?php
     }
 
     public static function editPhoto($tab, Item $item)
@@ -50,13 +50,13 @@ class newItemCreation
                         <br>Zdjęcie nr <?php echo($i + 1); ?><br>
                         <img src='<?php echo $path; ?>' height='120' width='120'><br>
                         <?php
-                        echo "Change | <a href='deletePhoto.php?photo_id=$photoId&id=$id'>Delete</a><br>";
+                        echo "Zmień | <a href='deletePhoto.php?photo_id=$photoId&id=$id'>Skasuj</a><br>";
                         ?>
                         <input type='file' name='file'><br>
                         <input type='hidden' name='path' value='<?php echo $path; ?>'>
                         <input type='hidden' name='photoId' value='<?php echo $photoId; ?>'>
                         <input type='hidden' name='itemId' value='<?php echo $itemId; ?>'>
-                        <input type='submit' value='Add'/>
+                        <input type='submit' value='Dodaj'/>
                     </div>
                 </form>
                 <?php
@@ -78,7 +78,7 @@ class newItemCreation
                     <input type='hidden' name='fileNo' value='<?php echo $fileNo; ?>'>
                     <input type='submit' value='Add'/>
                 </form>
-            <?php
+                <?php
             }
         }
     }

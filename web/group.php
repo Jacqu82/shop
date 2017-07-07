@@ -12,9 +12,8 @@ session_start();
 
 <?php //metoda wysiwetlająca część Head strony
 Layout::showHead();
-?>
 
-<?php //sprawdzenie czy użytkownik jest zalogowany
+//sprawdzenie czy użytkownik jest zalogowany
 if (!isset($_SESSION['user'])) {
     header("location:index.php");
 } else {
@@ -26,7 +25,6 @@ if (!isset($_SESSION['user'])) {
         ?>
         <div id="panel" class="col-md-12 col-sm-12 col-xs-12">
             <h1>ALLEDROGO - niepoważny sklep internetowy</h1>
-
             <div class="col-md-12 col-sm-12 col-xs-12 searchAndFilter">
                 <?php
                 //wywołanie metod które wyświetlają formularze - wyszukiwania i filtrów
@@ -49,7 +47,6 @@ if (!isset($_SESSION['user'])) {
                 ?>
             </div>
         </div>
-
         <div class="row mainRow">
             <div class="col-md-2 col-sm-2 col-xs-3 witaj row1">
                 <div class="row rowing">
@@ -96,10 +93,10 @@ if (!isset($_SESSION['user'])) {
                                 Layout::getHTML($connection) ?>
                             </div>
                             <div class="item">
-                                <?php Layout::getHTML($connection) ; ?>
+                                <?php Layout::getHTML($connection); ?>
                             </div>
                             <div class="item">
-                                <?php Layout::getHTML($connection) ; ?>
+                                <?php Layout::getHTML($connection); ?>
                             </div>
                         </div>
                     </div>
@@ -110,19 +107,18 @@ if (!isset($_SESSION['user'])) {
                                 Layout::getHTML($connection) ?>
                             </div>
                             <div class="item">
-                                <?php Layout::getHTML($connection) ; ?>
+                                <?php Layout::getHTML($connection); ?>
                             </div>
                             <div class="item">
-                                <?php Layout::getHTML($connection) ; ?>
+                                <?php Layout::getHTML($connection); ?>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
         <div class="row foot">
-            <h1>Stopka naszej strony internetowej</h1>
+            <h1>2017 &copy ALLEDROGO</h1>
         </div>
     </div>
     <script src="../js/jquery.js"></script>

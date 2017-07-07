@@ -12,9 +12,7 @@ session_start();
 
 <?php //metoda wysiwetlająca część Head strony
 Layout::showHead();
-?>
 
-<?php
 //sprawdzenie czy użytkownik jest zalogowany
 if (!isset($_SESSION['user'])) {
     header("location:index.php");
@@ -30,7 +28,6 @@ if (!isset($_SESSION['user'])) {
                 <h1>ALLEDROGO - niepoważny sklep internetowy</h1>
             </div>
         </div>
-
         <div class="row mainRow">
             <div class="col-md-2 col-sm-2 col-xs-3 witaj row1">
                 <div class="row rowing">
@@ -59,13 +56,13 @@ if (!isset($_SESSION['user'])) {
                         ?>
                         <div class="carousel-inner">
                             <div class="item active">
-                                <?php Layout::getHTML($connection) ; ?>
+                                <?php Layout::getHTML($connection); ?>
                             </div>
                             <div class="item">
-                                <?php Layout::getHTML($connection) ; ?>
+                                <?php Layout::getHTML($connection); ?>
                             </div>
                             <div class="item">
-                                <?php Layout::getHTML($connection) ; ?>
+                                <?php Layout::getHTML($connection); ?>
                             </div>
                         </div>
                     </div>
@@ -74,22 +71,21 @@ if (!isset($_SESSION['user'])) {
                         ?>
                         <div class="carousel-inner">
                             <div class="item active">
-                                <?php Layout::getHTML($connection) ; ?>
+                                <?php Layout::getHTML($connection); ?>
                             </div>
                             <div class="item">
-                                <?php Layout::getHTML($connection) ; ?>
+                                <?php Layout::getHTML($connection); ?>
                             </div>
                             <div class="item">
-                                <?php Layout::getHTML($connection) ; ?>
+                                <?php Layout::getHTML($connection); ?>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
         <div class="row foot">
-            <h1>Stopka naszej strony internetowej</h1>
+            <h1>2017 &copy ALLEDROGO</h1>
         </div>
     </div>
     <script src="../js/jquery.js"></script>
@@ -99,6 +95,5 @@ if (!isset($_SESSION['user'])) {
     <?php
 }
 $connection->close();
-
 ?>
 </html>

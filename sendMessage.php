@@ -16,14 +16,12 @@ if (!isset($_SESSION['admin'])) {
 <body>
 <div class="container">
     <?php
-    Layout::AdminTopBar();
+    Layout::adminTopBar();
     ?>
     <hr>
     <p><a href='adminPanel.php'><--Powrót</a></p>
-
     <div class="wrapper">
         <p>Wysyłanie wiadomości:</p>
-
         <p>Wybierz odbiorcę:</p>
         <?php
         $result = Layout::selectAllUsers($connection);

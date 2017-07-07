@@ -15,11 +15,10 @@ if (!isset($_SESSION['user'])) {
 <body>
 <div class="container">
     <?php
-    Layout::UserTopBar();
+    Layout::userTopBar();
     ?>
     <hr>
     <p><a href='web/koszyk.php'><--Powrót</a></p>
-
     <div class='wrapper'>
         <span>Kwota do zapłaty:</span>
         <?php /**/
@@ -31,8 +30,8 @@ if (!isset($_SESSION['user'])) {
                 $sum = floatval($sum);
                 $userId = intval($userId);
 
-                echo "<span id='sumInPayment' sum='$sum'>" . $sum . "zł.</span><br>";
-                echo "<a href='payForProducts.php'>Zapłać</a>";
+                echo "<span id='sumInPayment' sum='$sum'>" . $sum . " zł</span><br>";
+                echo "<h3><a href='payForProducts.php'>Przejdź do płatności</a> </h3>";
 
                 //wykorzystanie pętli, która przebiega tyle razy ile przedmiotów zostało dodanych do koszyka - zmienna i
                 for ($i = 1; $i != $_GET['i']; $i++) {
@@ -49,7 +48,7 @@ if (!isset($_SESSION['user'])) {
                     SqlQueries::clearCart($connection, $userId);
 
                     if ($i == $_GET['i'] - 1) {
-                        $date = date('d-m-y');
+                        $date = date('d-m-Y');
                         $status = 0;
 
                         $order = new Order();

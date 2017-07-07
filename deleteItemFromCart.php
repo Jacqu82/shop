@@ -10,11 +10,10 @@ if (!isset($_SESSION['user'])) {
     header('Location: web/index.php');
 }
 
-Layout::UserTopBar();
+Layout::userTopBar();
 
 if ($_SERVER['REQUEST_METHOD'] === "GET") {
     if (isset($_GET['id'])) {
-
         $id = $_GET['id'];
         $id = intval($id);
 

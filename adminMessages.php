@@ -15,7 +15,7 @@ if (!isset($_SESSION['admin'])) {
 <?php Layout::showHeadInMain(); ?>
 <body>
 <div class="container">
-    <?php Layout::AdminTopBar(); ?>
+    <?php Layout::adminTopBar(); ?>
     <p><a href='adminPanel.php'><--Powrót</a></p>
     <?php
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -30,13 +30,13 @@ if (!isset($_SESSION['admin'])) {
     <?php
     $send = Message::loadAllSendMessagesByAdminId($connection, $_SESSION['admin']);
     ?>
-    <table border=1 cellpadding=5>
+    <table border=1 cellpadding=5 align="center">
         <tr>
-            <th>Date</th>
-            <th>User name</th>
-            <th>Title</th>
-            <th>Content</th>
-            <th>Akcja</th>
+            <th>Data</th>
+            <th>Imię i nazwisko</th>
+            <th>Tytuł</th>
+            <th>Treść wiadomości</th>
+            <th></th>
         </tr>
         <?php
         foreach ($send as $value) {
@@ -53,7 +53,7 @@ if (!isset($_SESSION['admin'])) {
                     </form>
                 </td>
             </tr>
-        <?php
+            <?php
         }
         ?>
     </table>

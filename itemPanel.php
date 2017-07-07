@@ -16,16 +16,14 @@ if (!isset($_SESSION['admin'])) {
 <body>
 <div class="container">
     <?php
-    Layout::AdminTopBar();
+    Layout::adminTopBar();
     ?>
     <p><a href='adminPanel.php'><--Powrót</a></p>
-
     <div class='wrapper'>
         <p><a href='addNewItem.php'>Dodaj nowy przedmiot</a></p>
-
         <p>Pokaż wszystkie przedmioty:</p>
-
         <?php
+
         //wywołanie metody, która pokazuje wszystkie grupy produktów
         $result = SqlQueries::getGallery($connection);
 
@@ -35,7 +33,6 @@ if (!isset($_SESSION['admin'])) {
             <p>Wybierz grupe przedmiotów</p>
             <select name="selection">
                 <option value="all">Wszystkie</option>
-
                 <?php
                 foreach ($result as $value) {
                     echo '<option value="' . $value['groupName'] . '">' . $value['groupName'] . '</option>';
@@ -85,7 +82,7 @@ if (!isset($_SESSION['admin'])) {
                     echo "<td><a href='deleteItem.php?name=$name'>Usuń</a></td></tr>";
                 } ?>
             </table>
-        <?php
+            <?php
         }
     }
     $connection->close();

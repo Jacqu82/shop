@@ -15,12 +15,11 @@ if (!isset($_SESSION['admin'])) {
 <?php Layout::showHeadInMain(); ?>
 <body>
 <div class="container">
-    <?php Layout::AdminTopBar(); ?>
+    <?php Layout::adminTopBar(); ?>
     <p><a href='groupsOfProducts.php'><--Powrót</a></p>
     <?php
     if ($_SERVER['REQUEST_METHOD'] === "GET") {
         if (isset($_GET['id'])) {
-
             $id = $_GET['id'];
             $id = intval($id);
             $sql = "SELECT * FROM groups WHERE id=$id";
@@ -39,14 +38,13 @@ if (!isset($_SESSION['admin'])) {
                 <form action='editGroupOfProducts.php' method='post'>
                     <p>Edytuj nazwę dla grupy:<b><?php echo $name; ?></b></p>
                     <textarea name='name' rows='1' col='50'><?php echo $name; ?></textarea><br><br>
-
                     <p>Edytuj nazwę dla grupy:<b><?php echo $name; ?></b></p>
                     <textarea rows='4' cols='50' name='description'><?php echo $description; ?></textarea><br>
                     <input type='hidden' name='id' value=<?php echo $id ?>>
                     <input type='submit' value='Zmień'/>
                 </form>
             </div>
-        <?php
+            <?php
         }
     }
 

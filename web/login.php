@@ -19,12 +19,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         if ($password = $user->getPassword()) {
-
             $_SESSION['user'] = $user->getName();
             $_SESSION['id'] = $user->getId();
-
             header('Location: index.php');
-
         } else {
             echo '<p style="color: red">Niepoprawny login lub hasło!</p>';
             echo '<a href="loginForm.html">Zaloguj się ponownie</a>';

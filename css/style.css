@@ -6,7 +6,7 @@
     overflow: hidden;
 }
 
-#changeName form{
+#changeName form {
     display: none;
 }
 
@@ -33,15 +33,13 @@
     min-height: 700px;
 }
 
-
 .row1 a {
     text-align: center;
     font-size: 150%;
 }
 
-
 body {
-    background-image: url("../photos/back1.jpg");
+    background-image: url("../files/back1.jpg");
     background-attachment: fixed;
     margin: 0px;
     padding: 0px;
@@ -80,11 +78,9 @@ body {
     font-size: 20px;
 }
 
-/**/
-
 #panel {
     text-align: center;
-    background-image: url("../photos/logo2.jpg");
+    background-image: url("../files/logo2.jpg");
     padding: 0px;
     margin-top: 10px;
     color: whitesmoke;
@@ -98,9 +94,8 @@ body {
 }
 
 .productsCarousel {
-    width:50%;
+    width: 50%;
 }
-
 
 .carousel-caption {
     position: relative;
@@ -129,11 +124,9 @@ body {
     font-size: 130%
 }
 
-
-
 .foot {
     text-align: center;
-    background-image: url("../photos/logo2.jpg");
+    background-image: url("../files/logo2.jpg");
     padding: 0px;
     margin-top: 10px;
     min-height: 100px;
@@ -311,10 +304,11 @@ table th {
 
 .searchAndFilter {
     margin-top: 0px;
-    background-image: url("../photos/logo2.jpg");
+    background-image: url("../files/logo2.jpg");
     min-height: 20px;
     margin-bottom: 10px;
 }
+
 .searchText {
     width: 200px;
 }

@@ -32,12 +32,10 @@ class Message
         $this->id = $id;
     }
 
-
     public function getAdminId()
     {
         return $this->adminId;
     }
-
 
     public function setAdminId($adminId)
     {
@@ -49,7 +47,6 @@ class Message
     {
         return $this->receiverId;
     }
-
 
     public function setReceiverId($receiverId)
     {
@@ -71,18 +68,15 @@ class Message
         return $this->messageContent;
     }
 
-
     public function setMessageContent($messageContent)
     {
         $this->messageContent = $messageContent;
     }
 
-
     public function getCreationDate()
     {
         return $this->creationDate;
     }
-
 
     public function setCreationDate()
     {
@@ -90,12 +84,10 @@ class Message
         return $this;
     }
 
-
     public function getMessageStatus()
     {
         return $this->messageStatus;
     }
-
 
     public function _setMessageStatus($messageStatus)
     {
@@ -128,10 +120,9 @@ class Message
         return false;
     }
 
-    static public function loadAllSendMessagesByUserId(mysqli $connection, $userId)
+    public static function loadAllSendMessagesByUserId(mysqli $connection, $userId)
     {
         $userId = $connection->real_escape_string($userId);
-
         $sql = /** @lang text */
             "SELECT user.username,
             message.id,
@@ -151,10 +142,9 @@ class Message
         return $result;
     }
 
-    static public function loadAllSendMessagesByAdminId(mysqli $connection, $adminId)
+    public static function loadAllSendMessagesByAdminId(mysqli $connection, $adminId)
     {
         $adminId = $connection->real_escape_string($adminId);
-
         $sql = /** @lang text */
             "SELECT 
             message.id as id,
@@ -182,19 +172,16 @@ class Message
         while ($row = $result->fetch_assoc()) {
             $arrResult[] = $row;
         }
-
         return $arrResult;
     }
 
 
-    static public function setMessageStatus(mysqli $connection, $messageId, $status)
+    public static function setMessageStatus(mysqli $connection, $messageId, $status)
     {
         $messageId = $connection->real_escape_string($messageId);
         $status = $connection->real_escape_string($status);
-
         $sql = /** @lang text */
             "UPDATE message SET messageStatus = '$status' WHERE id = $messageId";
-
         $result = $connection->query($sql);
 
         if ($result == false) {
@@ -203,10 +190,9 @@ class Message
         return true;
     }
 
-    static public function loadAllReceivedMessagesByUserId(mysqli $connection, $userId)
+    public static function loadAllReceivedMessagesByUserId(mysqli $connection, $userId)
     {
         $userId = $connection->real_escape_string($userId);
-
         $sql = /** @lang text */
             "SELECT 
             message.id as id,
@@ -233,10 +219,9 @@ class Message
         return $result;
     }
 
-    static public function loadLastSendMessageByUserId(mysqli $connection, $userId)
+    public static function loadLastSendMessageByUserId(mysqli $connection, $userId)
     {
         $userId = $connection->real_escape_string($userId);
-
         $sql = /** @lang text */
             "SELECT users.name,
             users.surname,
@@ -257,13 +242,11 @@ class Message
         return $result;
     }
 
-    static public function loadMessageById(mysqli $connection, $id)
+    public static function loadMessageById(mysqli $connection, $id)
     {
         $id = $connection->real_escape_string($id);
-
         $sql = /** @lang text */
             "SELECT * FROM `message` WHERE `id` = $id";
-
         $result = $connection->query($sql);
 
         if ($result == true && $result->num_rows == 1) {
@@ -285,7 +268,6 @@ class Message
     public static function getUnreadMessage(mysqli $connection, $id)
     {
         $id = $connection->real_escape_string($id);
-
         $sql = "SELECT messageStatus FROM message WHERE receiverId=$id AND messageStatus=0";
         $result = $connection->query($sql);
 

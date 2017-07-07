@@ -15,7 +15,6 @@ Layout::showHead();
 <body>
 <div class="container">
     <?php //wywołanie metody pokazującej górny pasek opcji
-
     Layout::showAllOptionsIndex($connection);
     ?>
     <div id="panel" class="row">
@@ -36,7 +35,6 @@ Layout::showHead();
             <div id="content">
                 <h1>Wyjątkowy sklep internetowy</h1>
                 <br/>
-
                 <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
                     labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
                     laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
@@ -94,10 +92,10 @@ Layout::showHead();
                             Layout::getHTML($connection) ?>
                         </div>
                         <div class="item">
-                            <?php Layout::getHTML($connection) ; ?>
+                            <?php Layout::getHTML($connection); ?>
                         </div>
                         <div class="item">
-                            <?php Layout::getHTML($connection) ; ?>
+                            <?php Layout::getHTML($connection); ?>
                         </div>
                     </div>
                 </div>
@@ -108,10 +106,10 @@ Layout::showHead();
                             Layout::getHTML($connection) ?>
                         </div>
                         <div class="item">
-                            <?php Layout::getHTML($connection) ; ?>
+                            <?php Layout::getHTML($connection); ?>
                         </div>
                         <div class="item">
-                            <?php Layout::getHTML($connection) ; ?>
+                            <?php Layout::getHTML($connection); ?>
                         </div>
                     </div>
                 </div>
@@ -119,7 +117,7 @@ Layout::showHead();
         </div>
     </div>
     <div class="row foot">
-        <h1>Stopka naszej strony internetowej</h1>
+        <h1>2017 &copy ALLEDROGO</h1>
     </div>
 </div>
 <script src="../js/jquery.js"></script>

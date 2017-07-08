@@ -108,6 +108,7 @@ class Admin
         $name = $connection->real_escape_string($name);
         $description = $connection->real_escape_string($description);
         AdminRepository::insertGroup($connection, $name, $description);
+        return true;
     }
 
     public static function modifyGroup(mysqli $connection, $name, $description, $id)
@@ -116,11 +117,13 @@ class Admin
         $description = $connection->real_escape_string($description);
         $id = $connection->real_escape_string($id);
         AdminRepository::mofifyGroup($connection, $name, $description, $id);
+        return true;
     }
 
     public static function removeGroup(mysqli $connection, $id)
     {
         $id = $connection->real_escape_string($id);
         AdminRepository::deleteGroup($connection, $id);
+        return true;
     }
 }

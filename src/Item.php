@@ -2,6 +2,7 @@
 
 require_once 'newItemCreation.php';
 require_once 'SqlQueries.php';
+require_once 'ItemRepository.php';
 
 class Item
 {
@@ -88,13 +89,7 @@ class Item
     public static function loadItemByName(mysqli $connection, $name)
     {
         $name = $connection->real_escape_string($name);
-
-        $sql = "SELECT * FROM `item` WHERE `name` = '$name'";
-        $result = $connection->query($sql);
-
-        if (!$result) {
-            die("Error" . $connection->connect_error);
-        }
+        $result = ItemRepository::getItemByName($connection, $name);
 
         if ($result) {
             $itemArray = $result->fetch_assoc();
@@ -121,13 +116,8 @@ class Item
             $id = $this->getId();
             $price = $this->getPrice();
             $availability = $this->getAvailability();
+            ItemRepository::saveItem($connection, $name, $description, $price, $availability, $id);
 
-            $sql = "UPDATE item SET name='$name', description='$description', price='$price', availability=$availability WHERE id=$id";
-            $result = $connection->query($sql);
-
-            if (!$result) {
-                die("Error");
-            }
         } else {
 
             $name = $this->getName();
@@ -135,21 +125,13 @@ class Item
             $group = $this->getGroup();
             $price = $this->getPrice();
             $availability = $this->getAvailability();
-
-            $sql = "INSERT INTO `item` (`name`, `price`, `description`, `availability`, `group_id`) VALUES ('$name', $price, '$description', $availability, $group)";
-            $result = $connection->query($sql);
-
-            if ($result) {
-                $this->id = $connection->insert_id;  //id ostatnio wstawionego wiersza.
-            } else {
-                die("Error: item not saved: " . $connection->error);
-            }
+            $this->id = ItemRepository::updateItem($connection, $name, $description, $price, $availability, $group);
         }
     }
 
     public static function parametersReceiver(mysqli $connection)
     {
-        $result = SqlQueries::getItemDataLimitOne($connection);
+        $result = ItemRepository::getItemDataLimitOne($connection);
 
         foreach ($result as $value) {
             $id = $value['id'];
@@ -159,7 +141,7 @@ class Item
             $description = $value['description'];
         }
 
-        $result = SqlQueries::getPhotoPathLimitOne($connection, $id);
+        $result = ItemRepository::getPhotoPathLimitOne($connection, $id);
 
         foreach ($result as $value) {
             $path = '../' . $value['path'];
@@ -181,16 +163,7 @@ class Item
         $id = $this->id;
         $id = intval($id);
 
-        $sql = "DELETE FROM photos WHERE `item_id`=$id";
-        $connection->query($sql);
-
-        $sql = "DELETE FROM cart WHERE `item_id`=$id";
-        $connection->query($sql);
-
-        $sql = "DELETE FROM item WHERE id=$id";
-        $result = $connection->query($sql);
-
-        if ($result) {
+        if (ItemRepository::deleteItem($connection, $id)) {
             return true;
         } else {
             return false;
@@ -199,7 +172,7 @@ class Item
 
     public static function getAllData(mysqli $connection, $id)
     {
-        $result = SqlQueries::getItem($connection, $id);
+        $result = ItemRepository::getItemById($connection, $id);
 
         foreach ($result as $value) {
             $name = $value['name'];
@@ -220,7 +193,7 @@ class Item
 
     public static function getAllPhotos(mysqli $connection, $id)
     {
-        $result = SqlQueries::getPhotoPath($connection, $id);
+        $result = ItemRepository::getPhotoPath($connection, $id);
         $paths = [0 => '', 1 => '', 2 => '', 3 => ''];
         $i = 0;
 

@@ -97,23 +97,12 @@ class Message
     public function saveToDB(mysqli $connection)
     {
         if ($this->id == -1) {
-            $sql = /** @lang text */
-                "INSERT INTO message (adminId, receiverId, messageTitle, messageContent, creationDate, messageStatus) 
-                VALUES ('$this->adminId', '$this->receiverId', '$this->messageTitle', '$this->messageContent', '$this->creationDate', '$this->messageStatus')";
 
-            $result = $connection->query($sql);
-
-            if ($result) {
-                $this->id = $connection->insert_id;
-            } else {
-                die("Connection Error" . $connection->connect_error);
-            }
+            $this->id = MessageRepository::saveMessage($connection, $this->adminId, $this->receiverId, $this->messageTitle, $this->messageContent, $this->creationDate, $this->messageStatus );
+            return true;
         } else {
-            $sql = /** @lang text */
-                "UPDATE message SET messageStatus = '$this->messageStatus' WHERE id = $this->id";
 
-            $result = $connection->query($sql);
-            if ($result) {
+            if (MessageRepository::updateMessageStatus($connection, $this->messageStatus, $this->id)) {
                 return true;
             }
         }

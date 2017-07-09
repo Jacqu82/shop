@@ -1,5 +1,7 @@
 <?php
 
+include_once 'UserRepository.php';
+
 class User
 {
     protected $id;
@@ -85,7 +87,7 @@ class User
         if ($this->id == -1) {
             $sql = /** @lang text */
                 "INSERT INTO users(name, surname, email, password, address) VALUES ('$this->name', '$this->surname', '$this->email', '$this->password', '$this->address')";
-            $result = $connection->query($sql);
+            $result = UserRepository::saveUser($connection, $this->name, $this->surname, $this->email, $this->password, $this->address);
 
             if ($result) {
                 $this->id = $connection->insert_id;
@@ -96,15 +98,7 @@ class User
                 die("Connection Error! " . $connection->connect_error);
             }
         } else {
-            $sql = /** @lang text */
-                "UPDATE users SET email = '$this->email',
-                                    name = '$this->name',
-                                    surname = '$this->surname',
-                                    password = '$this->password'
-                                    address = '$this->address'
-                                    WHERE id = $this->id";
-
-            $result = $connection->query($sql);
+            $result = UserRepository::updateUser($connection, $this->name, $this->surname, $this->email, $this->password, $this->address, $this->id);
             if ($result) {
                 return true;
             }
@@ -115,12 +109,7 @@ class User
     public static function loadUserByName(mysqli $connection, $name)
     {
         $name = $connection->real_escape_string($name);
-        $sql = /** @lang text */
-            "SELECT * FROM `users` WHERE `name` = '$name'";
-        $result = $connection->query($sql);
-        if (!$result) {
-            die("Błąd połączenia z bazą danych" . $connection->connect_error);
-        }
+        $result = UserRepository::getUserById($connection, $name);
         if ($result->num_rows == 1) {
             $userArray = $result->fetch_assoc();
             $user = new User();

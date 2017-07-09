@@ -67,38 +67,25 @@ class Order
         $this->id = $id;
     }
 
-    public function saveToDB($connection, $userId, $sum, $date, $status)
+    public function saveToDB(mysqli $connection, $userId, $sum, $date, $status)
     {
         $userId = $connection->real_escape_string($userId);
         $sum = $connection->real_escape_string($sum);
         $date = $connection->real_escape_string($date);
         $status = $connection->real_escape_string($status);
-
-        $sql = "INSERT INTO orders(user_id, amount, date, status) VALUES ('$userId', '$sum', '$date', '$status' )";
-        $result = $connection->query($sql);
-
-        if (!$result) {
-            die ("Błąd zapisu do bazy danych" . $connection->connect_errno);
-        }
+        OrderRepository::saveOrder($connection, $userId, $sum, $date, $status);
     }
 
     public static function payForProducts($connection)
     {
-        $result = SqlQueries::selectAllFromOrderByUserId($connection);
+        $result = OrderRepository::selectAllFromOrderByUserId($connection);
         Layout::payForProducts($result);
     }
 
     public static function loadOrderById(mysqli $connection, $id)
     {
         $id = $connection->real_escape_string($id);
-        $sql = "SELECT * FROM orders WHERE id=$id";
-        $result = $connection->query($sql);
-
-        if (!$result) {
-            die("Błąd odczytu z bazy danych hej");
-        }
-
-        $orderArray = $result->fetch_assoc();
+        $orderArray = OrderRepository::getOrderById($connection, $id);
         $order = new Order();
 
         $order->setUserId($orderArray['user_id']);
@@ -114,11 +101,6 @@ class Order
     public function updateStatus($connection)
     {
         $id =   $this->id;
-        $sql = "UPDATE orders SET status=1 WHERE id=$id";
-        $result = $connection->query($sql);
-
-        if (!$result) {
-            die("Błąd zapisu w bazie danych" . $connection->connect_errno);
-        }
+        OrderRepository::updateStatus($connection, $id);
     }
 }

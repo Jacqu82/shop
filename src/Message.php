@@ -2,13 +2,13 @@
 
 class Message
 {
-    private $id;
-    private $adminId;
-    private $receiverId;
-    private $messageTitle;
-    private $messageContent;
-    private $creationDate;
-    private $messageStatus;
+    protected $id;
+    protected $adminId;
+    protected $receiverId;
+    protected $messageTitle;
+    protected $messageContent;
+    protected $creationDate;
+    protected $messageStatus;
 
 
     public function __construct()
@@ -89,40 +89,31 @@ class Message
         return $this->messageStatus;
     }
 
-    public function _setMessageStatus($messageStatus)
-    {
-        $this->messageStatus = $messageStatus;
-    }
-
     public function saveToDB(mysqli $connection)
     {
         if ($this->id == -1) {
+            $sql = /** @lang text */
+                "INSERT INTO message (adminId, receiverId, messageTitle, messageContent, creationDate, messageStatus)
+                VALUES ('$this->adminId', '$this->receiverId', '$this->messageTitle', '$this->messageContent', '$this->creationDate', '$this->messageStatus')";
 
-            $this->id = MessageRepository::saveMessage($connection, $this->adminId, $this->receiverId, $this->messageTitle, $this->messageContent, $this->creationDate, $this->messageStatus );
-            return true;
+            $result = $connection->query($sql);
+
+            if ($result) {
+                $this->id = $connection->insert_id;
+            } else {
+                die("Connection Error" . $connection->connect_error);
+            }
         } else {
 
-            if (MessageRepository::updateMessageStatus($connection, $this->messageStatus, $this->id)) {
+            $sql = /** @lang text */
+                "UPDATE message SET messageStatus = '$this->messageStatus' WHERE id = $this->id";
+            $result = $connection->query($sql);
+            if ($result) {
                 return true;
             }
         }
         return false;
     }
-
-    public static function loadAllSendMessagesByUserId(mysqli $connection, $userId)
-    {
-        $userId = $connection->real_escape_string($userId);
-        return MessageRepository::getAllSendMessageByUserId($connection, $userId);
-
-    }
-
-    public static function loadAllSendMessagesByAdminId(mysqli $connection, $adminId)
-    {
-        $adminId = $connection->real_escape_string($adminId);
-        $array = MessageRepository::getAllSendMessageByAdminId($connection, $adminId);
-        return $array;
-    }
-
 
     public static function setMessageStatus(mysqli $connection, $messageId, $status)
     {
@@ -136,57 +127,12 @@ class Message
         }
     }
 
-    public static function loadAllReceivedMessagesByUserId(mysqli $connection, $userId)
-    {
-        $userId = $connection->real_escape_string($userId);
-        $result = MessageRepository::getAllReceiveddMessageByUserId($connection, $userId);
-        return $result;
-    }
-
-    public static function loadLastSendMessageByUserId(mysqli $connection, $userId)
-    {
-        $userId = $connection->real_escape_string($userId);
-        $result = MessageRepository::getLastSendMessageByUserId($connection, $userId);
-        return $result;
-    }
-
-    public static function loadMessageById(mysqli $connection, $id)
-    {
-        $id = $connection->real_escape_string($id);
-        $row = MessageRepository::getMessageById($connection, $id);
-
-        $message = new Message();
-        $message->setId($row['id']);
-        $message->setReceiverId($row['receiverId']);
-        $message->setAdminId($row['adminId']);
-        $message->setMessageTitle($row['messageTitle']);
-        $message->setMessageContent($row['messageContent']);
-        $message->setCreationDate();
-
-        return $message;
-    }
-
-    public static function getUnreadMessage(mysqli $connection, $id)
-    {
-        $id = $connection->real_escape_string($id);
-        $result = MessageRepository::getUnreadMessage($connection, $id);
-
-        $i = 0;
-        foreach ($result as $value) {
-            $i++;
-        }
-
-        if ($i < 1) {
-            echo '0';
-        } else {
-            echo $i;
-        }
-    }
-
     public function deleteMessage(mysqli $connection)
     {
         if ($this->id != -1) {
-            $result = MessageRepository::deleteMessage($connection, $this->getId());
+            $sql = /** @lang text */
+                "DELETE FROM message WHERE id = $this->id";
+            $result = $connection->query($sql);
             if ($result) {
                 $this->id = -1;
                 return true;

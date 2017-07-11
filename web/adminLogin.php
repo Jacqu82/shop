@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $name = mysqli_real_escape_string($connection, $_POST['name']);
         $password = mysqli_real_escape_string($connection, $_POST['password']);
 
-        $admin = Admin::loadAdminByName($connection, $name);
+        $admin = AdminRepository::loadAdminByName($connection, $name);
 
         if ($admin == false) {
             die("Incorrect admin name");

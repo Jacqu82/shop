@@ -38,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $description = mysqli_real_escape_string($connection, $_POST['description']);
 
         //wywołujemy metodę addGroup klasy Admin w celu dodania grupy produktów do bazy danych
-        $group = Admin::addGroup($connection, $name, $description);
+        $group = AdminRepository::addGroup($connection, $name, $description);
 
         if ($group) {
             ?>

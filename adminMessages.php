@@ -21,14 +21,14 @@ if (!isset($_SESSION['admin'])) {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (isset($_POST['delete_messege']) && isset($_POST['message_id'])) {
             $messageId = mysqli_real_escape_string($connection, $_POST['message_id']);
-            $message = Message::loadMessageById($connection, $messageId);
+            $message = MessageRepository::loadMessageById($connection, $messageId);
             $message->deleteMessage($connection);
         }
     }
     ?>
     <h2 style='text-align: center'>Skrzynka Admina</h2>
     <?php
-    $send = Message::loadAllSendMessagesByAdminId($connection, $_SESSION['admin']);
+    $send = MessageRepository::loadAllSendMessagesByAdminId($connection, $_SESSION['admin']);
     ?>
     <table border=1 cellpadding=5 align="center">
         <tr>

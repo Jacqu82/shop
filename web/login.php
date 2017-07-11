@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $name = mysqli_real_escape_string($connection, $_POST['name']);
         $password = mysqli_real_escape_string($connection, $_POST['password']);
 
-        $user = User::loadUserByName($connection, $name);
+        $user = UserRepository::loadUserByName($connection, $name);
 
         if ($user == false) {
             echo '<p style="color: red">Niepoprawny login lub hasło!</p>';

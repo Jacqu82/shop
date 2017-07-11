@@ -41,7 +41,7 @@ class Layout
             echo '<span class="glyphicon glyphicon-envelope" style="margin-top: 2px"></span>';
             echo '<span style="padding-left: 4px">';
 
-            Message::getUnreadMessage($connection, $id);
+            MessageRepository::getUnreadMessage($connection, $id);
 
             echo '</span>';
             echo '</a>';

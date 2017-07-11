@@ -14,18 +14,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['set_message_as_read']) && isset($_POST['message_id'])) {
         $id = $_POST['message_id'];
         $id = intval($id);
-        Message::setMessageStatus($connection, $id, 1);
+        MessageRepository::setMessageStatus($connection, $id, 1);
     } else if (isset($_POST['set_message_as_unread']) && isset($_POST['message_id'])) {
         $id = $_POST['message_id'];
         $id = intval($id);
-        Message::setMessageStatus($connection, $id, 0);
+        MessageRepository::setMessageStatus($connection, $id, 0);
     }
 }
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (isset($_POST['delete_messege']) && isset($_POST['message_id'])) {
+    if (isset($_POST['delete_message']) && isset($_POST['message_id'])) {
         $messageId = $_POST['message_id'];
         $messageId = intval($messageId);
-        $message = Message::loadMessageById($connection, $messageId);
+        $message = MessageRepository::loadMessageById($connection, $messageId);
         $message->deleteMessage($connection);
     }
 }
@@ -42,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="backLink"><a href="userPanel.php"><--Powrót</a></div>
     <div class="wrapper">
         <?php
-        $receive = Message::loadAllReceivedMessagesByUserId($connection, $_SESSION['id']);
+        $receive = MessageRepository::loadAllReceivedMessagesByUserId($connection, $_SESSION['id']);
         if ($receive->num_rows > 0) {
             echo "<h3>Skrzynka odbiorcza:</h3>";
             foreach ($receive as $row) {
@@ -52,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     echo "<b>" . $row['title'] . "<br/>" . $row['content'] . "<br/>" . $row['date'] . "</b><br/>
                             <input type='submit'  name='set_message_as_read' value='Oznacz jako przeczytaną' class='btn btn-success' />
                             <input type='hidden' name='message_id' value='" . $row['id'] . " '>
-                            <input type=\"submit\" class=\"btn btn-primary\" name=\"delete_messege\" value=\"Usuń wiadomość\"/>
+                            <input type=\"submit\" class=\"btn btn-primary\" name=\"delete_message\" value=\"Usuń wiadomość\"/>
                             <input type='hidden' name='message_id' value='" . $row['id'] . " '>
                         </form>";
                 } else {
@@ -60,7 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     echo $row['title'] . "<br/>" . $row['content'] . "<br/>" . $row['date'] . "<br/>
                             <input type='submit'  name='set_message_as_unread' value='Oznacz jako nie przeczytaną' class='btn btn-success' />
                             <input type='hidden' name='message_id' value='" . $row['id'] . " '>
-                            <input type=\"submit\" class=\"btn btn-primary\" name=\"delete_messege\" value=\"Usuń wiadomość\"/>
+                            <input type=\"submit\" class=\"btn btn-primary\" name=\"delete_message\" value=\"Usuń wiadomość\"/>
                             <input type='hidden' name='message_id' value='" . $row['id'] . " '>
                         </form>";
                 }

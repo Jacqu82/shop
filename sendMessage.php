@@ -3,6 +3,7 @@
 require_once 'connection.php';
 require_once 'autoload.php';
 require_once 'layout/Layout.php';
+require_once 'src/MessageRepository.php';
 
 session_start();
 
@@ -41,7 +42,7 @@ if (!isset($_SESSION['admin'])) {
                 $message->setMessageStatus($connection, $message->getId(), 0);
                 $message->saveToDB($connection);
 
-                $send = Message::loadLastSendMessageByUserId($connection, $_SESSION['admin']);
+                $send = MessageRepository::loadLastSendMessageByAdminId($connection, $_SESSION['admin']);
 
                 foreach ($send as $value) {
                     echo '  <div class="flash-message alert alert-success alert-dismissible" role="alert">

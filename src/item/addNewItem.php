@@ -1,8 +1,9 @@
 <?php
-include_once 'connection.php';
-include_once 'config.php';
-require_once 'autoload.php';
-require_once 'layout/Layout.php';
+include_once '../../connection.php';
+include_once '../../config.php';
+require_once '../../autoload.php';
+require_once '../../layout/Layout.php';
+require_once '../SqlQueries.php';
 
 session_start();
 
@@ -11,7 +12,7 @@ if (!isset($_SESSION['admin'])) {
 }
 ?>
     <html>
-    <?php Layout::showHeadInMain() ?>
+    <?php Layout::showHeadInUser() ?>
     <body>
     <div class="container">
         <?php
@@ -81,7 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         //tworze folder z id pliku a nastepnie z jego nazwą
 
-        $path = "files/" . $id;  //1. usunąc $name - ok!!!!!!!!
+        $path = "files/" . $id;
         newItemCreation::newFolder($path);
 
         //sposób okreslam ile zdjęć zostało załadowanych - wartość tą wykorzystam w pętli

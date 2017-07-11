@@ -4,6 +4,9 @@ include_once '../../config.php';
 require_once '../../autoload.php';
 require_once '../../layout/Layout.php';
 require_once '../SqlQueries.php';
+require_once '../Item.php';
+require_once '../ItemRepository.php';
+require_once '../ItemRepository.php';
 
 session_start();
 
@@ -82,7 +85,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         //tworze folder z id pliku a nastepnie z jego nazwą
 
-        $path = "files/" . $id;
+        $path = "../../files/" . $id;
         newItemCreation::newFolder($path);
 
         //sposób okreslam ile zdjęć zostało załadowanych - wartość tą wykorzystam w pętli
@@ -124,13 +127,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
 
             //przy każdej iteracji resetuje zmiane scieżki dostepu do ustawien poczatkowych
-            $path = "files/" . $id; //2. tu tez usuwam nazw
+            $pathtoDB = "files/" . $id;
+            $path = "../../files/" . $id;
 
             //nastepnie zmieniam nazwe elementu na liczbe porzadkowa + nazwe przedmiotu + koncowka odpowiednia
 
-            $_FILES[$i]['name'] = $i + 1 . "_" . $id . $ending;  //3. powinienem zmienic na $id z $name
+            $_FILES[$i]['name'] = $i + 1 . "_" . $id . $ending;
             $path = $path . "/" . $_FILES[$i]['name'];
-            SqlQueries::insert($connection, $id, $path);
+            $pathtoDB = $pathtoDB . "/" . $_FILES[$i]['name'];
+            SqlQueries::insert($connection, $id, $pathtoDB);
             move_uploaded_file($_FILES[$fileNo]['tmp_name'], $path);
         }
         header('Location: itemPanel.php');

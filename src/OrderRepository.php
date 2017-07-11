@@ -12,21 +12,23 @@ class OrderRepository
         }
     }
 
-    public static function selectAllFromOrderByUserId(mysqli $connection)
+    public static function payForProducts(mysqli $connection)
     {
         $userId = $_SESSION['id'];
         $userId = intval($userId);
         $sql = "SELECT * FROM orders WHERE user_id=$userId";
         $result = $connection->query($sql);
-
+        Layout::payForProducts($result);
         if (!$result) {
             die ("Błąd połączenia z bazą danych" . $connection->errno);
         }
         return $result;
+
     }
 
-    public static function getOrderById(mysqli $connection, $id)
+    public static function loadOrderById(mysqli $connection, $id)
     {
+        $id = $connection->real_escape_string($id);
         $sql = "SELECT * FROM orders WHERE id=$id";
         $result = $connection->query($sql);
 
@@ -35,7 +37,16 @@ class OrderRepository
         }
 
         $orderArray = $result->fetch_assoc();
-        return $orderArray;
+        $order = new Order();
+
+        $order->setUserId($orderArray['user_id']);
+        $order->setStatusId($orderArray['status']);
+        $order->setId($orderArray['id']);
+        $order->setAmount($orderArray['amount']);
+        $order->setDate($orderArray['date']);
+
+        return $order;
+
     }
 
     public static function updateStatus(mysqli $connection, $id)

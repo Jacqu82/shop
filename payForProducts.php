@@ -19,12 +19,12 @@ if (!isset($_SESSION['user'])) {
     <hr/>
     <p><a href='userPanel.php'><--Powrót</a></p>
     <?php
-    Order::payForProducts($connection);
+    OrderRepository::payForProducts($connection);
 
     if ($_SERVER['REQUEST_METHOD'] === "GET") {
         if (isset($_GET['id'])) {
             $id = intval($_GET['id']);
-            $order = Order::loadOrderById($connection, $id);
+            $order = OrderRepository::loadOrderById($connection, $id);
             $order->updateStatus($connection);
         }
     }

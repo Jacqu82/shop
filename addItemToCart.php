@@ -31,7 +31,7 @@ if (!isset($_SESSION['user'])) {
                 } else {
                     $price = $item->getPrice();
                     $userName = $_SESSION['user'];
-                    $user = User::loadUserByName($connection, $userName);
+                    $user = UserRepository::loadUserByName($connection, $userName);
                     $userId = $user->getId();
 
                     $sql = "INSERT INTO cart(path, user_id, item_id) VALUES('$path', '$userId', '$id' )";

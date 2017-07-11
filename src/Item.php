@@ -22,17 +22,17 @@ class Item
         $this->availability = null;
     }
 
-    function getGroup()
+    public function getGroup()
     {
         return $this->group;
     }
 
-    function setGroup($group)
+    public function setGroup($group)
     {
         $this->group = $group;
     }
 
-    function setId($id)
+    protected function setId($id)
     {
         $this->id = $id;
     }

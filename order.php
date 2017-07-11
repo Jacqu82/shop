@@ -31,7 +31,7 @@ if (!isset($_SESSION['user'])) {
                 $userId = intval($userId);
 
                 echo "<span id='sumInPayment' sum='$sum'>" . $sum . " zł</span><br>";
-                echo "<h3><a href='payForProducts.php'>Przejdź do płatności</a> </h3>";
+                echo "<h3><a href='src/user/payForProducts.php'>Przejdź do płatności</a> </h3>";
 
                 //wykorzystanie pętli, która przebiega tyle razy ile przedmiotów zostało dodanych do koszyka - zmienna i
                 for ($i = 1; $i != $_GET['i']; $i++) {

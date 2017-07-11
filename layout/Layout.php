@@ -37,7 +37,7 @@ class Layout
 
             echo '<div class="row" id="topMenu">';
             echo '<div class="col-md-2 col-sm-3 col-xs-3 witaj row1">';
-            echo '<a href="../userPanel.php" class="btn btn-primary btn-block">' . $_SESSION['user'];
+            echo '<a href="../src/user/userPanel.php" class="btn btn-primary btn-block">' . $_SESSION['user'];
             echo '<span class="glyphicon glyphicon-envelope" style="margin-top: 2px"></span>';
             echo '<span style="padding-left: 4px">';
 
@@ -82,12 +82,12 @@ class Layout
 
     public static function userTopBar()
     {
-        echo "Witaj " . $_SESSION['user'] . " | " . "<a href='web/index.php'>Start</a>" . " | " . "<a href='web/logOut.php'>Wyloguj</a>";
+        echo "Witaj " . $_SESSION['user'] . " | " . "<a href='../../web/index.php'>Start</a>" . " | " . "<a href='../../web/logOut.php'>Wyloguj</a>";
     }
 
     public static function adminTopBar()
     {
-        echo "Witaj " . $_SESSION['adminName'] . " | " . "<a href='web/index.php'>Start</a>" . " | " . "<a href='web/logOut.php'>Wyloguj</a>";
+        echo "Witaj " . $_SESSION['adminName'] . " | " . "<a href='../../web/index.php'>Start</a>" . " | " . "<a href='web/logOut.php'>Wyloguj</a>";
     }
 
     public static function getHTML(mysqli $connection)
@@ -309,5 +309,25 @@ class Layout
         crossorigin="anonymous"></script>
         <script src="js/bootstrap.js"></script>
         <script src="js/style.js"></script>';
+    }
+    public static function jsScriptsInUser()
+    {
+        echo '
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js"
+        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+        crossorigin="anonymous"></script>
+        <script src="../../js/bootstrap.js"></script>
+        <script src="../../js/style.js"></script>';
+    }
+
+    public static function showHeadInUser()
+    {
+        echo '
+        <head>
+            <title>Shop</title>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <link href="../../css/style.css?h=1" rel="stylesheet">
+        </head>';
     }
 }

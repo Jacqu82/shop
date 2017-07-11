@@ -1,8 +1,9 @@
 <?php
 
-include_once 'connection.php';
+require_once 'connection.php';
 require_once 'autoload.php';
-require_once '../layout/Layout.php'
+require_once '../layout/Layout.php';
+
 
 ?>
 <!DOCTYPE HTML>

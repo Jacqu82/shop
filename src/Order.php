@@ -76,28 +76,6 @@ class Order
         OrderRepository::saveOrder($connection, $userId, $sum, $date, $status);
     }
 
-    public static function payForProducts($connection)
-    {
-        $result = OrderRepository::selectAllFromOrderByUserId($connection);
-        Layout::payForProducts($result);
-    }
-
-    public static function loadOrderById(mysqli $connection, $id)
-    {
-        $id = $connection->real_escape_string($id);
-        $orderArray = OrderRepository::getOrderById($connection, $id);
-        $order = new Order();
-
-        $order->setUserId($orderArray['user_id']);
-        $order->setStatusId($orderArray['status']);
-        $order->setId($orderArray['id']);
-        $order->setAmount($orderArray['amount']);
-        $order->setDate($orderArray['date']);
-
-        return $order;
-
-    }
-
     public function updateStatus($connection)
     {
         $id =   $this->id;

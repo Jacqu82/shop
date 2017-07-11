@@ -2,6 +2,8 @@
 
 class ItemRepository
 {
+
+
     public static function getItemByName(mysqli $connection, $name)
     {
         $sql = "SELECT * FROM `item` WHERE `name` = '$name'";

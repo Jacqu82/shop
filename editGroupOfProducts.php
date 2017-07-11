@@ -53,7 +53,7 @@ if (!isset($_SESSION['admin'])) {
             $name = mysqli_real_escape_string($connection, $_POST['name']);
             $description = mysqli_real_escape_string($connection, $_POST['description']);
             $id = mysqli_real_escape_string($connection, $_POST['id']);
-            Admin::modifyGroup($connection, $name, $description, $id);
+            AdminRepository::modifyGroup($connection, $name, $description, $id);
         }
     }
     $connection->close();

@@ -1,7 +1,5 @@
 <?php
 
-include_once 'UserRepository.php';
-
 class User
 {
     protected $id;
@@ -77,7 +75,7 @@ class User
         $this->password = $password;
     }
 
-    public function setId($id)
+    protected function setId($id)
     {
         $this->id = $id;
     }
@@ -87,7 +85,7 @@ class User
         if ($this->id == -1) {
             $sql = /** @lang text */
                 "INSERT INTO users(name, surname, email, password, address) VALUES ('$this->name', '$this->surname', '$this->email', '$this->password', '$this->address')";
-            $result = UserRepository::saveUser($connection, $this->name, $this->surname, $this->email, $this->password, $this->address);
+            $result = $connection->query($sql);
 
             if ($result) {
                 $this->id = $connection->insert_id;
@@ -98,30 +96,19 @@ class User
                 die("Connection Error! " . $connection->connect_error);
             }
         } else {
-            $result = UserRepository::updateUser($connection, $this->name, $this->surname, $this->email, $this->password, $this->address, $this->id);
+            $sql = /** @lang text */
+                "UPDATE users SET email = '$this->email',
+                                    name = '$this->name',
+                                    surname = '$this->surname',
+                                    password = '$this->password'
+                                    address = '$this->address'
+                                    WHERE id = $this->id";
+
+            $result = $connection->query($sql);
             if ($result) {
                 return true;
             }
         }
         return false;
-    }
-
-    public static function loadUserByName(mysqli $connection, $name)
-    {
-        $name = $connection->real_escape_string($name);
-        $result = UserRepository::getUserById($connection, $name);
-        if ($result->num_rows == 1) {
-            $userArray = $result->fetch_assoc();
-            $user = new User();
-            $user->setName($userArray['name']);
-            $user->setSurname($userArray['surname']);
-            $user->setEmail($userArray['email']);
-            $user->setAddress($userArray['address']);
-            $user->setPassword($userArray['password']);
-            $user->setId($userArray['id']);
-            return $user;
-        } else {
-            return false;
-        }
     }
 }

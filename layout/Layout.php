@@ -168,7 +168,7 @@ class Layout
                         <h3>" . $result['availability'] . " szt.</h3>
                     </div>
                     <div class='col-md-12 col-sm-12 col-xs-12'>
-                        <a href='../addItemToCart.php?name=$itemName&path=$path' class='btn btn-success btn-block'>Do Koszyka</a>
+                        <a href='../src/order/addItemToCart.php?name=$itemName&path=$path' class='btn btn-success btn-block'>Do Koszyka</a>
                     </div>
                 </div>
                 <div id='descriptionSpace' class='col-md-12 col-sm-12 col-xs-12'>
@@ -199,7 +199,7 @@ class Layout
             </div>
         <div class="col-md-2 part">
             <br/>
-            <a href="../deleteItemFromCart.php?id=' . $id . '"><button class="btn-danger deleteItemInBasket">Usuń</button></a>
+            <a href="../src/order/deleteItemFromCart.php?id=' . $id . '"><button class="btn-danger deleteItemInBasket">Usuń</button></a>
         </div>
     </div>';
             $sum += $value['price'];
@@ -209,7 +209,7 @@ class Layout
         echo "<div class='col-md-12' style='color: #ffffff; border-top: solid white 1px; margin-bottom: 10px'>";
         echo "<div class='col-md-8' style=''>Łączna kwota wynosi: </div>";
         echo "<div class='col-md-2' id='sum'>$sum</div>";
-        echo "<div class='col-md-2'><a href='../order.php?sum=$sum&userId=$userId" . $sing . "&i=" . $i . "'><button class='btn-info' id='buttonPay'>Zapłać</button> </a> </div>";
+        echo "<div class='col-md-2'><a href='../src/order/order.php?sum=$sum&userId=$userId" . $sing . "&i=" . $i . "'><button class='btn-info' id='buttonPay'>Zapłać</button> </a> </div>";
         echo "</div>";
     }
 
@@ -281,7 +281,7 @@ class Layout
             echo "<a href='product.php?id=$id'><img id='wtf' class='img-responsive'  src='$path'></a>";
             echo "</div>";
             echo "<div class='col-md-6 col-sm-12 col-xs-12 productPriceElement'>";
-            echo "<p>" . $price . " zł</p><p>" . $availability . " szt.</p>" . "<a href='../addItemToCart.php?name=$name&path=$path' class='btn btn-primary btn-block'>Do Koszyka</a>";
+            echo "<p>" . $price . " zł</p><p>" . $availability . " szt.</p>" . "<a href='../src/order/addItemToCart.php?name=$name&path=$path' class='btn btn-primary btn-block'>Do Koszyka</a>";
             echo "</div>";
             echo "<div class='col-md-12 col-sm-12 col-xs-12 productBuyElement' style='margin-bottom: 65px'>";
             echo "<h3>" . $name . "</h3>";

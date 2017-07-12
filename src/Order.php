@@ -62,7 +62,7 @@ class Order
         $this->date = $date;
     }
 
-    public function setId($id)
+    protected function setId($id)
     {
         $this->id = $id;
     }

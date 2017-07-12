@@ -7,7 +7,6 @@ require_once '../../layout/Layout.php';
 require_once '../SqlQueries.php';
 require_once '../Item.php';
 require_once '../ItemRepository.php';
-require_once '../ItemRepository.php';
 
 session_start();
 
@@ -37,7 +36,7 @@ if (!isset($_SESSION['admin'])) {
             }
 
             //tworzymy obiekt na podstawie uzyskanej nazwy oraz przypisujemy zmiennym wartości
-            $item = Item::loadItemByName($connection, $name);
+            $item = ItemRepository::loadItemByName($connection, $name);
 
             $oldName = $item->getName();  //1. nie ma takiej potrzeby juz - nazwa to id!!!
             $id = $item->getId();
@@ -105,7 +104,7 @@ if (!isset($_SESSION['admin'])) {
             $oldName = $_SESSION['oldName'];
             $name = mysqli_real_escape_string($connection, $_POST['name']);
 
-            $item = Item::loadItemByName($connection, $oldName);
+            $item = ItemRepository::loadItemByName($connection, $oldName);
             $item->setName($name);
             $item->setDescription($description);
             $item->setPrice($price);

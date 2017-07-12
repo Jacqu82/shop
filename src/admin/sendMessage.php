@@ -1,9 +1,11 @@
 <?php
 
-require_once 'connection.php';
-require_once 'autoload.php';
-require_once 'layout/Layout.php';
-require_once 'src/MessageRepository.php';
+include_once '../../connection.php';
+include_once '../../config.php';
+require_once '../../autoload.php';
+require_once '../../layout/Layout.php';
+require_once '../MessageRepository.php';
+require_once '../SqlQueries.php';
 
 session_start();
 
@@ -13,7 +15,7 @@ if (!isset($_SESSION['admin'])) {
 }
 ?>
 <html>
-<?php Layout::showHeadInMain(); ?>
+<?php Layout::showHeadInUser(); ?>
 <body>
 <div class="container">
     <?php

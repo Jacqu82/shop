@@ -1,16 +1,16 @@
 <?php
 
-require_once 'connection.php';
-require_once 'web/login.php';
-require_once 'autoload.php';
-require_once 'layout/Layout.php';
+require_once '../../connection.php';
+require_once '../../web/login.php';
+require_once '../../layout/Layout.php';
+require_once '../UserRepository.php';
 
 if (!isset($_SESSION['user'])) {
     header('Location: web/index.php');
 }
 ?>
 <html>
-<?php Layout::showHeadInMain(); ?>
+<?php Layout::showHeadInUser(); Layout::jsScriptsInUser(); ?>
 <body>
 <div class="container">
     <?php

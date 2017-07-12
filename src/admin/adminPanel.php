@@ -1,8 +1,9 @@
 <?php
 
-include_once 'connection.php';
-require_once 'autoload.php';
-require_once 'layout/Layout.php';
+include_once '../../connection.php';
+include_once '../../config.php';
+require_once '../../autoload.php';
+require_once '../../layout/Layout.php';
 
 session_start();
 
@@ -13,7 +14,7 @@ if (!isset($_SESSION['admin'])) {
 }
 ?>
 <html>
-<?php Layout::showHeadInMain(); ?>
+<?php Layout::showHeadInUser(); ?>
 <body>
 <div class="container">
     <?php
@@ -23,7 +24,7 @@ if (!isset($_SESSION['admin'])) {
     <div class="wrapper">
         <ul>Jesteś w panelu administratora <br>Masz do wyboru następujące opcje:
             <li><a href="groupsOfProducts.php">Dodaj, usuń lub modyfikuj grupę przedmiotów.</a></li>
-            <li><a href="itemPanel.php">Dodaj, usuń lub modyfikuj przedmiot</a></li>
+            <li><a href="../item/itemPanel.php">Dodaj, usuń lub modyfikuj przedmiot</a></li>
             <li><a href="deleteUser.php">Usuń użytkownika</a></li>
             <li><a href="sendMessage.php">Wyślij wiadomość</a></li>
             <li><a href="adminMessages.php">Pokaż wysłane wiadomości</a></li>

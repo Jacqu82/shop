@@ -1,5 +1,7 @@
 <?php
 
+require_once 'Admin.php';
+
 class AdminRepository extends Admin
 {
     public static function loadAdminByName(mysqli $connection, $name)

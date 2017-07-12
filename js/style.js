@@ -87,7 +87,7 @@ $(document).ready(function () {
 
         //zapisywanie łącznej sumy w GET jako sum
 
-        $('#buttonPay').parent().attr('href', '../order.php?sum=' + totalSum + '&userId=' + userId + sing + '&i=' + i);
+        $('#buttonPay').parent().attr('href', '../src/order/order.php?sum=' + totalSum + '&userId=' + userId + sing + '&i=' + i);
     });
 
     $(function () {

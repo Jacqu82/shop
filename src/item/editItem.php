@@ -1,9 +1,12 @@
 <?php
 
-require_once 'connection.php';
-require_once 'autoload.php';
-require_once 'config.php';
-require_once 'layout/Layout.php';
+include_once '../../connection.php';
+include_once '../../config.php';
+require_once '../../autoload.php';
+require_once '../../layout/Layout.php';
+require_once '../SqlQueries.php';
+require_once '../Item.php';
+require_once '../ItemRepository.php';
 
 session_start();
 
@@ -12,7 +15,7 @@ if (!isset($_SESSION['admin'])) {
 }
 ?>
 <html>
-<?php Layout::showHeadInMain(); ?>
+<?php Layout::showHeadInUser(); ?>
 <body>
 <div class="container">
     <?php
@@ -99,9 +102,10 @@ if (!isset($_SESSION['admin'])) {
             $price = mysqli_real_escape_string($connection, $_POST['price']);
             $availability = mysqli_real_escape_string($connection, $_POST['availability']);
             $oldName = $_SESSION['oldName'];
+            $name = mysqli_real_escape_string($connection, $_POST['name']);
 
             $item = ItemRepository::loadItemByName($connection, $oldName);
-            $item->setName($oldName);
+            $item->setName($name);
             $item->setDescription($description);
             $item->setPrice($price);
             $item->setAvailability($availability);

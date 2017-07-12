@@ -1,7 +1,12 @@
 <?php
-require_once 'connection.php';
-require_once 'autoload.php';
-require_once 'layout/Layout.php';
+include_once '../../connection.php';
+include_once '../../config.php';
+require_once '../../autoload.php';
+require_once '../../layout/Layout.php';
+require_once '../Item.php';
+require_once '../UserRepository.php';
+require_once '../Order.php';
+require_once '../OrderRepository.php';
 
 session_start();
 
@@ -11,14 +16,14 @@ if (!isset($_SESSION['user'])) {
 }
 ?>
 <html>
-<?php Layout::showHeadInMain(); ?>
+<?php Layout::showHeadInUser(); ?>
 <body>
 <div class="container">
     <?php
     Layout::userTopBar();
     ?>
     <hr>
-    <p><a href='web/koszyk.php'><--Powrót</a></p>
+    <p><a href='../../web/koszyk.php'><--Powrót</a></p>
     <div class='wrapper'>
         <span>Kwota do zapłaty:</span>
         <?php /**/
@@ -31,7 +36,7 @@ if (!isset($_SESSION['user'])) {
                 $userId = intval($userId);
 
                 echo "<span id='sumInPayment' sum='$sum'>" . $sum . " zł</span><br>";
-                echo "<h3><a href='payForProducts.php'>Przejdź do płatności</a> </h3>";
+                echo "<h3><a href='../user/payForProducts.php'>Przejdź do płatności</a> </h3>";
 
                 //wykorzystanie pętli, która przebiega tyle razy ile przedmiotów zostało dodanych do koszyka - zmienna i
                 for ($i = 1; $i != $_GET['i']; $i++) {

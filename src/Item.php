@@ -2,7 +2,6 @@
 
 require_once 'newItemCreation.php';
 require_once 'SqlQueries.php';
-require_once 'ItemRepository.php';
 
 class Item
 {
@@ -86,76 +85,36 @@ class Item
         return $this;
     }
 
-    public static function loadItemByName(mysqli $connection, $name)
-    {
-        $name = $connection->real_escape_string($name);
-        $result = ItemRepository::getItemByName($connection, $name);
-
-        if ($result) {
-            $itemArray = $result->fetch_assoc();
-
-            $item = new Item();
-            $item->setName($itemArray['name']);
-            $item->setDescription($itemArray['description']);
-            $item->setPrice($itemArray['price']);
-            $item->setAvailability($itemArray['availability']);
-            $item->setId($itemArray['id']);
-
-            return $item;
-        } else {
-            return false;
-        }
-    }
-
     public function save(mysqli $connection)
     {
         if ($this->id != -1) {
-
             $name = $this->getName();
             $description = $this->getDescription();
             $id = $this->getId();
             $price = $this->getPrice();
             $availability = $this->getAvailability();
-            ItemRepository::saveItem($connection, $name, $description, $price, $availability, $id);
-
+            $sql = "INSERT INTO `item` (`name`, `price`, `description`, `availability`, `group_id`) VALUES ('$name', $price, '$description', $availability, $id)";
+            $result = $connection->query($sql);
+            if (!$result) {
+                die("Błąd zpaisu do bazy danych" . $connection->error);
+            } else {
+                $id = $connection->insert_id;
+                return $id;
+            }
         } else {
-
             $name = $this->getName();
             $description = $this->getDescription();
             $group = $this->getGroup();
             $price = $this->getPrice();
             $availability = $this->getAvailability();
-            $this->id = ItemRepository::updateItem($connection, $name, $description, $price, $availability, $group);
+            //$this->id = ItemRepository::updateItem($connection, $name, $description, $price, $availability, $group);
+            $sql = "UPDATE item SET name='$name', description='$description', price='$price', availability=$availability WHERE id=$group";
+            $result = $connection->query($sql);
+            if (!$result) {
+                die("Błąd zapisu do bazy danych" . $connection->error);
+            }
         }
-    }
-
-    public static function parametersReceiver(mysqli $connection)
-    {
-        $result = ItemRepository::getItemDataLimitOne($connection);
-
-        foreach ($result as $value) {
-            $id = $value['id'];
-            $name = $value['name'];
-            $price = $value['price'];
-            $availability = $value['availability'];
-            $description = $value['description'];
-        }
-
-        $result = ItemRepository::getPhotoPathLimitOne($connection, $id);
-
-        foreach ($result as $value) {
-            $path = '../' . $value['path'];
-        }
-
-        $array = [
-            'id' => $id,
-            'path' => $path,
-            'name' => $name,
-            'price' => $price,
-            'availability' => $availability,
-            'description' => $description
-        ];
-        return $array;
+        return false;
     }
 
     public function deleteItem(mysqli $connection)
@@ -163,50 +122,23 @@ class Item
         $id = $this->id;
         $id = intval($id);
 
-        if (ItemRepository::deleteItem($connection, $id)) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public static function getAllData(mysqli $connection, $id)
-    {
-        $result = ItemRepository::getItemById($connection, $id);
-
-        foreach ($result as $value) {
-            $name = $value['name'];
-            $price = $value['price'];
-            $description = $value['description'];
-            $availability = $value['availability'];
+        $sql = "DELETE FROM photos WHERE `item_id`=$id";
+        $result = $connection->query($sql);
+        if (!$result) {
+            die("Błąd zapisu w bazie danych" . $connection->error);
         }
 
-        $array = [
-            'id' => $id,
-            'name' => $name,
-            'price' => $price,
-            'availability' => $availability,
-            'description' => $description
-        ];
-        return $array;
-    }
-
-    public static function getAllPhotos(mysqli $connection, $id)
-    {
-        $result = ItemRepository::getPhotoPath($connection, $id);
-        $paths = [0 => '', 1 => '', 2 => '', 3 => ''];
-        $i = 0;
-
-        foreach ($result as $value) {
-            $paths[$i] = '../' . $value['path'];
-            $i++;
+        $sql = "DELETE FROM cart WHERE `item_id`=$id";
+        $result = $connection->query($sql);
+        if (!$result) {
+            die("Błąd zapisu w bazie danych" . $connection->error);
         }
 
-        for ($i = 0; $i != 4; $i++) {
-            if ($paths[$i] == '') {
-                $paths[$i] = $paths[$i - 1];
-            }
+        $sql = "DELETE FROM item WHERE id=$id";
+        $result = $connection->query($sql);
+        if (!$result) {
+            die("Błąd zapisu w bazie danych" . $connection->error);
         }
-        return $paths;
+        return true;
     }
 }

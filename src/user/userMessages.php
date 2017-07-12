@@ -1,8 +1,10 @@
 <?php
 
-require_once 'connection.php';
-require_once 'autoload.php';
-require_once 'layout/Layout.php';
+require_once '../../connection.php';
+require_once '../../autoload.php';
+require_once '../../layout/Layout.php';
+require_once '../MessageRepository.php';
+require_once '../Message.php';
 
 session_start();
 
@@ -31,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 <html>
-<?php Layout::showHeadInMain() ?>
+<?php Layout::showHeadInUser() ?>
 <body>
 <div class="container">
     <?php

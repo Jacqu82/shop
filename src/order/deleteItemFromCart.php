@@ -1,8 +1,10 @@
 <?php
-include_once 'connection.php';
-include_once 'config.php';
-require_once 'autoload.php';
-require_once 'layout/Layout.php';
+include_once '../../connection.php';
+include_once '../../config.php';
+require_once '../../autoload.php';
+require_once '../../layout/Layout.php';
+require_once '../Item.php';
+require_once '../UserRepository.php';
 
 session_start();
 
@@ -23,6 +25,6 @@ if ($_SERVER['REQUEST_METHOD'] === "GET") {
         if (!$result) {
             die ("Błąd połączenia z bazą danych" . $connection->connect_errno);
         }
-        header('Location: web/koszyk.php');
+        header('Location: ../../web/koszyk.php');
     }
 }

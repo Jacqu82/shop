@@ -18,6 +18,8 @@ class newItemCreation
         ?>
         <form action='editItem.php' method='post'>
             Edytuj nazwę dla <b><?php echo $name; ?></b><br>
+            <textarea rows='1' cols='50' name='name'><?php echo $name; ?></textarea><br>
+            Edytuj opis dla <b><?php echo $name; ?></b><br>
             <textarea rows='4' cols='50' name='description'><?php echo $description; ?></textarea><br>
             Edytuj cenę<br>
             <input name='price' type='text' value="<?php echo $price; ?>"><br><br>

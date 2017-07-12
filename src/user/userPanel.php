@@ -1,8 +1,8 @@
 <?php
 
-require_once 'connection.php';
-require_once 'autoload.php';
-require_once 'layout/Layout.php';
+require_once '../../connection.php';
+require_once '../../autoload.php';
+require_once '../../layout/Layout.php';
 
 session_start();
 
@@ -12,7 +12,7 @@ if (!isset($_SESSION['user'])) {
 }
 ?>
 <html>
-<?php Layout::showHeadInMain() ?>
+<?php Layout::showHeadInUser() ?>
 <body>
 <div class="container">
     <?php

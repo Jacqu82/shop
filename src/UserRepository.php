@@ -1,5 +1,7 @@
 <?php
 
+require_once 'User.php';
+
 class UserRepository extends User
 {
     public static function loadUserByName(mysqli $connection, $name)

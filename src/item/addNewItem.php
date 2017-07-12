@@ -88,57 +88,63 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $path = "../../files/" . $id;
         newItemCreation::newFolder($path);
 
-        //sposób okreslam ile zdjęć zostało załadowanych - wartość tą wykorzystam w pętli
-
-        if ($_FILES['file2']['size'] == 0) {
-            $flag = 1;
-        } else if ($_FILES['file3']['size'] == 0) {
-            $flag = 2;
-        } else if ($_FILES['file4']['size'] == 0) {
-            $flag = 3;
+        if ($_FILES['file1']['size'] == 0) {
+            header('Location: itemPanel.php');
         } else {
-            $flag = 4;
-        }
+            //sposób okreslam ile zdjęć zostało załadowanych - wartość tą wykorzystam w pętli
 
-        for ($i = 0; $i < $flag; $i++) {
-
-            // sprawdzam z którym plikiem pracuję a następnie wyszukuje końcówki pliku
-
-            if ($i == 0) {
-                $fileNo = 'file1';
-                $fileName = $_FILES['file1']['name'];
-                preg_match('~[\.][a-zA-Z]+~', $fileName, $matches);
-                $ending = $matches[0];
-            } else if ($i == 1) {
-                $fileNo = 'file2';
-                $fileName = $_FILES['file2']['name'];
-                preg_match('~[\.][a-zA-Z]+~', $fileName, $matches);
-                $ending = $matches[0];
-            } else if ($i == 2) {
-                $fileNo = 'file3';
-                $fileName = $_FILES['file3']['name'];
-                preg_match('~[\.][a-zA-Z]+~', $fileName, $matches);
-                $ending = $matches[0];
+            if ($_FILES['file2']['size'] == 0) {
+                $flag = 1;
+            } else if ($_FILES['file3']['size'] == 0) {
+                $flag = 2;
+            } else if ($_FILES['file4']['size'] == 0) {
+                $flag = 3;
             } else {
-                $fileNo = 'file4';
-                $fileName = $_FILES['file4']['name'];
-                preg_match('~[\.][a-zA-Z]+~', $fileName, $matches);
-                $ending = $matches[0];
+                $flag = 4;
             }
 
-            //przy każdej iteracji resetuje zmiane scieżki dostepu do ustawien poczatkowych
-            $pathtoDB = "files/" . $id;
-            $path = "../../files/" . $id;
+            for ($i = 0; $i < $flag; $i++) {
 
-            //nastepnie zmieniam nazwe elementu na liczbe porzadkowa + nazwe przedmiotu + koncowka odpowiednia
+                // sprawdzam z którym plikiem pracuję a następnie wyszukuje końcówki pliku
 
-            $_FILES[$i]['name'] = $i + 1 . "_" . $id . $ending;
-            $path = $path . "/" . $_FILES[$i]['name'];
-            $pathtoDB = $pathtoDB . "/" . $_FILES[$i]['name'];
-            SqlQueries::insert($connection, $id, $pathtoDB);
-            move_uploaded_file($_FILES[$fileNo]['tmp_name'], $path);
+                if ($i == 0) {
+                    $fileNo = 'file1';
+                    $fileName = $_FILES['file1']['name'];
+                    preg_match('~[\.][a-zA-Z]+~', $fileName, $matches);
+                    $ending = $matches[0];
+                } else if ($i == 1) {
+                    $fileNo = 'file2';
+                    $fileName = $_FILES['file2']['name'];
+                    preg_match('~[\.][a-zA-Z]+~', $fileName, $matches);
+                    $ending = $matches[0];
+                } else if ($i == 2) {
+                    $fileNo = 'file3';
+                    $fileName = $_FILES['file3']['name'];
+                    preg_match('~[\.][a-zA-Z]+~', $fileName, $matches);
+                    $ending = $matches[0];
+                } else {
+                    $fileNo = 'file4';
+                    $fileName = $_FILES['file4']['name'];
+                    preg_match('~[\.][a-zA-Z]+~', $fileName, $matches);
+                    $ending = $matches[0];
+                }
+
+                //przy każdej iteracji resetuje zmiane scieżki dostepu do ustawien poczatkowych
+                $pathtoDB = "files/" . $id;
+                $path = "../../files/" . $id;
+
+                //nastepnie zmieniam nazwe elementu na liczbe porzadkowa + nazwe przedmiotu + koncowka odpowiednia
+
+                $_FILES[$i]['name'] = $i + 1 . "_" . $id . $ending;
+                $path = $path . "/" . $_FILES[$i]['name'];
+                $pathtoDB = $pathtoDB . "/" . $_FILES[$i]['name'];
+                SqlQueries::insert($connection, $id, $pathtoDB);
+                move_uploaded_file($_FILES[$fileNo]['tmp_name'], $path);
+            }
+            header('Location: itemPanel.php');
         }
-        header('Location: itemPanel.php');
+
+
     }
 }
 $connection->close();

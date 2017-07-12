@@ -6,6 +6,7 @@ require_once '../../autoload.php';
 require_once '../../layout/Layout.php';
 require_once '../Item.php';
 require_once '../UserRepository.php';
+require_once '../ItemRepository.php';
 
 session_start();
 
@@ -23,7 +24,7 @@ if (!isset($_SESSION['user'])) {
             if (isset($_GET['name']) && isset($_GET['path'])) {
                 $name = $_GET['name'];
                 $path = $_GET['path'];
-                $item = Item::loadItemByName($connection, $name);
+                $item = ItemRepository::loadItemByName($connection, $name);
                 $id = $item->getId();
                 $availability = $item->getAvailability();
 

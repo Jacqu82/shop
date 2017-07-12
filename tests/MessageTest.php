@@ -1,6 +1,6 @@
 <?php
 
-class messageTest extends \PHPUnit\Framework\TestCase
+class MessageTest extends \PHPUnit\Framework\TestCase
 {
 
     protected function setUp()
@@ -27,7 +27,6 @@ class messageTest extends \PHPUnit\Framework\TestCase
         $message->setReceiverId(8);
         $message->setMessageTitle('Witam!');
         $message->setMessageContent('Treść wiadomości');
-        $message->_setMessageStatus(0);
 
         $this->assertEquals(1, $message->getAdminId());
         $this->assertEquals(8, $message->getReceiverId());

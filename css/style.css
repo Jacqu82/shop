@@ -6,7 +6,7 @@
     overflow: hidden;
 }
 
-#changeName form{
+#changeName form {
     display: none;
 }
 
@@ -33,15 +33,13 @@
     min-height: 700px;
 }
 
-
 .row1 a {
     text-align: center;
     font-size: 150%;
 }
 
-
 body {
-    background-image: url("../photos/back1.jpg");]
+    background-image: url("../files/back1.jpg");
     background-attachment: fixed;
     margin: 0px;
     padding: 0px;
@@ -80,21 +78,24 @@ body {
     font-size: 20px;
 }
 
-/**/
-
 #panel {
     text-align: center;
-    background-image: url("../photos/logo2.jpg");
+    background-image: url("../files/logo2.jpg");
     padding: 0px;
     margin-top: 10px;
     color: whitesmoke;
-    font-size: 3em;
+    font-size: 0.9em;
+    margin-bottom: 0px;
+}
+
+#panel h1 {
+    font-size: 4em;
+    padding-bottom: 20px;
 }
 
 .productsCarousel {
-    width:50%;
+    width: 50%;
 }
-
 
 .carousel-caption {
     position: relative;
@@ -110,9 +111,22 @@ body {
     padding-top: 20px;
 }
 
+#carouselName {
+    font-size: 120%;
+}
+
+#priceCarousel {
+    padding-right: 10px;
+}
+
+#amountCarousel {
+    color: red;
+    font-size: 130%
+}
+
 .foot {
     text-align: center;
-    background-image: url("../photos/logo2.jpg");
+    background-image: url("../files/logo2.jpg");
     padding: 0px;
     margin-top: 10px;
     min-height: 100px;
@@ -172,7 +186,129 @@ body {
     margin-top: 10px;
 }
 
+.productInCart {
+    margin-bottom: 15px;
+}
 
+.part {
+    color: #ffffff;
+}
 
+.part:nth-child(2) {
+    padding-top: 27px;
+}
 
+.part:nth-child(3) {
+    padding-top: 27px;
+}
 
+.part:nth-child(4) {
+    padding-top: 27px;
+}
+
+.wrapper {
+    width: 350px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    color: #f5f5f5;
+}
+
+.wrapper ul li a {
+    text-decoration: none;
+    color: #ffffff;
+}
+
+.wrapper ul span {
+    font-weight: bold;
+}
+
+.wrapper a:hover {
+    color: red;
+}
+
+.wrapper ul li {
+    padding-top: 10px;
+}
+
+.wrapper ul li:nth-child(2) {
+    padding-top: 25px;
+}
+
+.wrapper form {
+
+}
+
+.container {
+    color: #ffffff;
+}
+
+.container a {
+    text-decoration: none;
+    color: #ffffff;
+}
+
+.container a:hover {
+    color: red;
+}
+
+.tableShow {
+    width: 900px;
+    margin-left: 300px;
+    margin-right: 300px;
+}
+
+table td {
+    color: #f5f5f5;
+    padding: 10px;
+    border: solid 3px #000000;
+}
+
+table th {
+    color: #f5f5f5;
+    padding: 10px;
+    border: solid 3px #000000;
+}
+
+.itemShow {
+    margin-right: 400px;
+    margin-left: 400px;
+}
+
+.photoBox {
+    float: left;
+}
+
+#wtf {
+    border: solid 2px darkred;
+}
+
+.productBuyElement h3 {
+    border-bottom: 2px solid darkred;
+}
+
+#hej {
+    min-width: 70px;
+    min-height: 70px;
+}
+
+#mainPhoto {
+    min-width: 330px;
+    min-height: 293px;
+}
+
+#sumInPayment {
+    font-size: 180%;
+    padding-left: 10px;
+}
+
+.searchAndFilter {
+    margin-top: 0px;
+    background-image: url("../files/logo2.jpg");
+    min-height: 20px;
+    margin-bottom: 10px;
+}
+
+.searchText {
+    width: 200px;
+}

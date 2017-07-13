@@ -1,10 +1,8 @@
-
 body {
-    background-image: url("../photos/back1.jpg");]
+    background-image: url("../photos/back1.jpg");
     background-attachment: fixed;
     margin: 0px;
     padding: 0px;
     border: 0px;
     max-height: 1000px;
 }
-

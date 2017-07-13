@@ -39,7 +39,8 @@ if (!isset($_SESSION['admin'])) {
             //tworzymy obiekt na podstawie uzyskanej nazwy oraz przypisujemy zmiennym wartości
             $item = Item::loadItemByName($connection, $name);
 
-            $oldName = $item->getName();  //1. nie ma takiej potrzeby juz - nazwa to id!!!
+            $oldName = $item->getName();
+            $_SESSION['oldName'] = $oldName;
             $id = $item->getId();
             $description = $item->getDescription();
             $price = $item->getPrice();

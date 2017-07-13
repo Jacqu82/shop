@@ -43,7 +43,7 @@ class newItemCreation
                 <form action='#' method='post' enctype='multipart/form-data'>
                     <?php
                     $id = $item->getId();
-                    $path = $tab[$i][0]['path'];
+                    $path = '../../' . $tab[$i][0]['path'];
                     $_SESSION['path'] = $path;
                     $photoId = $tab[$i][0]['id'];
                     $itemId = $tab[$i][0]['item_id'];

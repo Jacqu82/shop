@@ -47,7 +47,6 @@ if (!isset($_SESSION['admin'])) {
 
             //zapisuje te dane w sesji, ponieważ przy wysyłaniu postem ucina wszystko od spacji - wyskakują blędy przy nazwach rozdzielonych spacją
             $_SESSION['itemId'] = $id;
-            $_SESSION['oldName'] = $oldName;  //2. kasujemy, wystarczy id!!!!
 
             // 3. Wyświtlamy formularz w którym wstawiamy wykorzystując gettery dane , które można edytować
 
@@ -79,24 +78,29 @@ if (!isset($_SESSION['admin'])) {
                 $itemId = mysqli_real_escape_string($connection, $_POST['itemId']);
                 $photoId = mysqli_real_escape_string($connection, $_POST['photoId']);
                 $path = $_SESSION['path'];
-                unlink($path);
                 $path = str_replace($first, $second, $path);
+                $pathDB = substr($path, 6);
                 move_uploaded_file($_FILES['file']['tmp_name'], $path);
                 SqlQueries::delete($connection, $photoId);
-                SqlQueries::insert($connection, $itemId, $path);
+                SqlQueries::insert($connection, $itemId, $pathDB);
+                header('Location: itemPanel.php');
 
                 //gdy nie było wcześniej dodanych  żadnych zdjęć do przedmiotu
             } else {
                 $oldName = $_FILES['file']['name'];
-                $number = mysqli_real_escape_string($connection, $_POST['number']);
-                $itemName = $_SESSION['name'];
+                $itemId = mysqli_real_escape_string($connection, $_POST['number']);
                 $fileNo = $_POST['fileNo'];
                 $ending = substr($oldName, -3, 3);
-                $path = "files/" . $number . $itemName;
+                $path = "files/"  . $itemId;
+                var_dump($path);
+                $path = "../../" . $path . "/" . $fileNo . "_" . $itemId . "." . $ending;
                 newItemCreation::newFolder($path);
-                $path = $path . "/" . $fileNo . "_" . $itemName . "." . $ending;
+                $pathDB = substr($path, 6);
+                var_dump($path);
+                var_dump($pathDB);
                 move_uploaded_file($_FILES['file']['tmp_name'], $path);
-                SqlQueries::insert($connection, $number, $path);
+                SqlQueries::insert($connection, $itemId, $pathDB);
+                //header('Location: itemPanel.php');
             }
         } else {
             $description = mysqli_real_escape_string($connection, $_POST['description']);

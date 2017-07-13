@@ -1,5 +1,7 @@
 <?php
 
+require_once 'Message.php';
+
 class MessageRepository extends Message
 {
 

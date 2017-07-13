@@ -37,7 +37,7 @@ class Layout
 
             echo '<div class="row" id="topMenu">';
             echo '<div class="col-md-2 col-sm-3 col-xs-3 witaj row1">';
-            echo '<a href="../userPanel.php" class="btn btn-primary btn-block">' . $_SESSION['user'];
+            echo '<a href="../src/user/userPanel.php" class="btn btn-primary btn-block">' . $_SESSION['user'];
             echo '<span class="glyphicon glyphicon-envelope" style="margin-top: 2px"></span>';
             echo '<span style="padding-left: 4px">';
 
@@ -82,12 +82,12 @@ class Layout
 
     public static function userTopBar()
     {
-        echo "Witaj " . $_SESSION['user'] . " | " . "<a href='web/index.php'>Start</a>" . " | " . "<a href='web/logOut.php'>Wyloguj</a>";
+        echo "Witaj " . $_SESSION['user'] . " | " . "<a href='../../web/index.php'>Start</a>" . " | " . "<a href='../../web/logOut.php'>Wyloguj</a>";
     }
 
     public static function adminTopBar()
     {
-        echo "Witaj " . $_SESSION['adminName'] . " | " . "<a href='web/index.php'>Start</a>" . " | " . "<a href='web/logOut.php'>Wyloguj</a>";
+        echo "Witaj " . $_SESSION['adminName'] . " | " . "<a href='../../web/index.php'>Start</a>" . " | " . "<a href='web/logOut.php'>Wyloguj</a>";
     }
 
     public static function getHTML(mysqli $connection)
@@ -168,7 +168,7 @@ class Layout
                         <h3>" . $result['availability'] . " szt.</h3>
                     </div>
                     <div class='col-md-12 col-sm-12 col-xs-12'>
-                        <a href='../addItemToCart.php?name=$itemName&path=$path' class='btn btn-success btn-block'>Do Koszyka</a>
+                        <a href='../src/order/addItemToCart.php?name=$itemName&path=$path' class='btn btn-success btn-block'>Do Koszyka</a>
                     </div>
                 </div>
                 <div id='descriptionSpace' class='col-md-12 col-sm-12 col-xs-12'>
@@ -199,7 +199,7 @@ class Layout
             </div>
         <div class="col-md-2 part">
             <br/>
-            <a href="../deleteItemFromCart.php?id=' . $id . '"><button class="btn-danger deleteItemInBasket">Usuń</button></a>
+            <a href="../src/order/deleteItemFromCart.php?id=' . $id . '"><button class="btn-danger deleteItemInBasket">Usuń</button></a>
         </div>
     </div>';
             $sum += $value['price'];
@@ -209,7 +209,7 @@ class Layout
         echo "<div class='col-md-12' style='color: #ffffff; border-top: solid white 1px; margin-bottom: 10px'>";
         echo "<div class='col-md-8' style=''>Łączna kwota wynosi: </div>";
         echo "<div class='col-md-2' id='sum'>$sum</div>";
-        echo "<div class='col-md-2'><a href='../order.php?sum=$sum&userId=$userId" . $sing . "&i=" . $i . "'><button class='btn-info' id='buttonPay'>Zapłać</button> </a> </div>";
+        echo "<div class='col-md-2'><a href='../src/order/order.php?sum=$sum&userId=$userId" . $sing . "&i=" . $i . "'><button class='btn-info' id='buttonPay'>Zapłać</button> </a> </div>";
         echo "</div>";
     }
 
@@ -281,7 +281,7 @@ class Layout
             echo "<a href='product.php?id=$id'><img id='wtf' class='img-responsive'  src='$path'></a>";
             echo "</div>";
             echo "<div class='col-md-6 col-sm-12 col-xs-12 productPriceElement'>";
-            echo "<p>" . $price . " zł</p><p>" . $availability . " szt.</p>" . "<a href='../addItemToCart.php?name=$name&path=$path' class='btn btn-primary btn-block'>Do Koszyka</a>";
+            echo "<p>" . $price . " zł</p><p>" . $availability . " szt.</p>" . "<a href='../src/order/addItemToCart.php?name=$name&path=$path' class='btn btn-primary btn-block'>Do Koszyka</a>";
             echo "</div>";
             echo "<div class='col-md-12 col-sm-12 col-xs-12 productBuyElement' style='margin-bottom: 65px'>";
             echo "<h3>" . $name . "</h3>";
@@ -309,5 +309,25 @@ class Layout
         crossorigin="anonymous"></script>
         <script src="js/bootstrap.js"></script>
         <script src="js/style.js"></script>';
+    }
+    public static function jsScriptsInUser()
+    {
+        echo '
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js"
+        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+        crossorigin="anonymous"></script>
+        <script src="../../js/bootstrap.js"></script>
+        <script src="../../js/style.js"></script>';
+    }
+
+    public static function showHeadInUser()
+    {
+        echo '
+        <head>
+            <title>Shop</title>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <link href="../../css/style.css?h=1" rel="stylesheet">
+        </head>';
     }
 }

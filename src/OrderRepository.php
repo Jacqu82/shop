@@ -1,5 +1,7 @@
 <?php
 
+require_once 'Order.php';
+
 class OrderRepository
 {
     public static function saveOrder(mysqli $connection, $userId, $sum, $date, $status)

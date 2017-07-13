@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($password == $admin->getPassword()) {
             $_SESSION['admin'] = $admin->getId();
             $_SESSION['adminName'] = $admin->getName();
-            header('Location: ../adminPanel.php');
+            header('Location: ../src/admin/adminPanel.php');
         } else {
             die("Incorrect password!!!");
         }

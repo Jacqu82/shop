@@ -1,7 +1,7 @@
 <?php
 
-require_once '../../connection.php';
 require_once '../../web/login.php';
+require_once '../../connection.php';
 require_once '../../layout/Layout.php';
 require_once '../UserRepository.php';
 

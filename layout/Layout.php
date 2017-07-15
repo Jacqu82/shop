@@ -92,7 +92,7 @@ class Layout
 
     public static function getHTML(mysqli $connection)
     {
-        $result = Item::parametersReceiver($connection);
+        $result = ItemRepository::parametersReceiver($connection);
         $id = ($result['id']);
 
         echo "  <div class='carousel-caption'>
@@ -136,9 +136,9 @@ class Layout
 
     public static function showProductDetail(mysqli $connection, $id)
     {
-        $result = Item::getAllData($connection, $id);
+        $result = ItemRepository::getAllData($connection, $id);
         $itemName = $result['name'];
-        $paths = Item::getAllPhotos($connection, $id);
+        $paths = ItemRepository::getAllPhotos($connection, $id);
         $path = $paths[0];
 
         echo "

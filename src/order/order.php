@@ -1,12 +1,9 @@
 <?php
-include_once '../../connection.php';
-include_once '../../config.php';
-require_once '../../autoload.php';
+
+require_once '../../connection.php';
+require_once '../../config.php';
 require_once '../../layout/Layout.php';
-require_once '../Item.php';
-require_once '../UserRepository.php';
-require_once '../Order.php';
-require_once '../OrderRepository.php';
+require_once 'autoload.php';
 
 session_start();
 
@@ -40,22 +37,18 @@ if (!isset($_SESSION['user'])) {
 
                 //wykorzystanie pętli, która przebiega tyle razy ile przedmiotów zostało dodanych do koszyka - zmienna i
                 for ($i = 1; $i != $_GET['i']; $i++) {
-
                     //przy każdej iteracji pobieram dane GET-em a następnie uaktualniam bazę danych
                     $quantity = $_GET['quantity' . $i];
                     $quantity = intval($quantity);
                     $id = $_GET['id' . $i];
                     $id = intval($id);
-
                     //uaktualniam ilośc produktu- odejmuje od ilości bazowej ilośc zakupionego towaru
                     SqlQueries::setAvailability($connection, $quantity, $id);
                     //kasuje zawartośc koszyka - zakup został już dokonany
                     SqlQueries::clearCart($connection, $userId);
-
                     if ($i == $_GET['i'] - 1) {
                         $date = date('d-m-Y');
                         $status = 0;
-
                         $order = new Order();
                         $order->saveToDB($connection, $userId, $sum, $date, $status);
                     }

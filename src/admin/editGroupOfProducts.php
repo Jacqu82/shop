@@ -1,10 +1,9 @@
 <?php
 
-include_once '../../connection.php';
-include_once '../../config.php';
-require_once '../../autoload.php';
+require_once '../../connection.php';
+require_once '../../config.php';
 require_once '../../layout/Layout.php';
-require_once '../AdminRepository.php';
+require_once 'autoload.php';
 
 session_start();
 
@@ -29,7 +28,6 @@ if (!isset($_SESSION['admin'])) {
             if (!$result) {
                 die ("error" . $connection->connect_error);
             }
-
             foreach ($result as $value) {
                 $name = $value['groupName'];
                 $description = $value['groupDescriptiopn'];
@@ -48,7 +46,6 @@ if (!isset($_SESSION['admin'])) {
             <?php
         }
     }
-
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (isset($_POST['name']) && isset($_POST['description'])) {
             $name = mysqli_real_escape_string($connection, $_POST['name']);

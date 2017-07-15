@@ -1,13 +1,9 @@
 <?php
 
-include_once '../../connection.php';
-include_once '../../config.php';
-require_once '../../autoload.php';
+require_once '../../connection.php';
+require_once '../../config.php';
 require_once '../../layout/Layout.php';
-require_once '../SqlQueries.php';
-require_once '../Item.php';
-require_once '../ItemRepository.php';
-require_once '../ItemRepository.php';
+require_once 'autoload.php';
 
 session_start();
 
@@ -20,7 +16,7 @@ Layout::adminTopBar();
 if ($_SERVER['REQUEST_METHOD'] === "GET") {
     if (isset($_GET['id']) || isset($_GET['name'])) {
         $name = $_GET['name'];
-        $item = Item::loadItemByName($connection, $name);
+        $item = ItemRepository::loadItemByName($connection, $name);
 
         if (!$item->deleteItem($connection)) {
             die ("Błąd usuwania przedmiotu z bazy danych");

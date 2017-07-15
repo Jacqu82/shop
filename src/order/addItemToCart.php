@@ -1,12 +1,9 @@
 <?php
 
-include_once '../../connection.php';
-include_once '../../config.php';
-require_once '../../autoload.php';
+require_once '../../connection.php';
+require_once '../../config.php';
 require_once '../../layout/Layout.php';
-require_once '../Item.php';
-require_once '../UserRepository.php';
-require_once '../ItemRepository.php';
+require_once 'autoload.php';
 
 session_start();
 
@@ -28,11 +25,9 @@ if (!isset($_SESSION['user'])) {
                 $id = $item->getId();
                 $availability = $item->getAvailability();
                 $result = SqlQueries::getCartItemId($connection);
-
                 foreach ($result as $value) {
                     $tab[] = $value['item_id'];
                 }
-
                 if (in_array($id, $tab)) {
                     header('Location: ../../web/koszyk.php');
                 } else {
@@ -44,18 +39,14 @@ if (!isset($_SESSION['user'])) {
                         $userName = $_SESSION['user'];
                         $user = UserRepository::loadUserByName($connection, $userName);
                         $userId = $user->getId();
-
                         $sql = "INSERT INTO cart(path, user_id, item_id) VALUES('$path', '$userId', '$id' )";
                         $result = $connection->query($sql);
-
                         if (!$result) {
                             die ("Błąd zapisu do bazy danych - Cart" . $connection->connect_errno);
                         }
                         header("Location: ../../web/koszyk.php");
                     }
                 }
-
-
             }
         }
         ?>

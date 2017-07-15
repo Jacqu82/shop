@@ -25,12 +25,12 @@ class User
         return $this->id;
     }
 
-    function getAddress()
+    public function getAddress()
     {
         return $this->address;
     }
 
-    function setAddress($address)
+    public function setAddress($address)
     {
         $this->address = $address;
     }
@@ -86,7 +86,6 @@ class User
             $sql = /** @lang text */
                 "INSERT INTO users(name, surname, email, password, address) VALUES ('$this->name', '$this->surname', '$this->email', '$this->password', '$this->address')";
             $result = $connection->query($sql);
-
             if ($result) {
                 $this->id = $connection->insert_id;
                 echo "<h3>Cieszymy się że tu jesteś,  " . $this->name . "</h3>";
@@ -103,7 +102,6 @@ class User
                                     password = '$this->password'
                                     address = '$this->address'
                                     WHERE id = $this->id";
-
             $result = $connection->query($sql);
             if ($result) {
                 return true;

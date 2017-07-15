@@ -25,7 +25,6 @@ if (!isset($_SESSION['user'])) {
             //przycisk pokazuje/ukrywa formularz do zmiany danych
             $name = $_SESSION['user'];
             $user = UserRepository::loadUserByName($connection, $name);
-
             echo "Imię: " . "<br><b>" . $user->getName() . "</b> &nbsp &nbsp" . "<input class='button' type='button' value='Zmień'/><br>";
             echo "<form action='#' method='post'><input type='text' name='name'/><input type='submit' value='Confirm'/></form>";
             echo "Nazwisko: " . "<br><b>" . $user->getSurname() . "</b>&nbsp &nbsp" . "<input class='button' type='button' value='Zmień'/><br>";
@@ -36,7 +35,6 @@ if (!isset($_SESSION['user'])) {
             echo "<form action='#' method='post'><input type='text' name='password'/><input type='submit' value='Confirm'/></form>";
             echo "Adres: " . "<br><b>" . $user->getAddress() . "</b>&nbsp &nbsp" . "<input class='button' type='button' value='Zmień'/><br>";
             echo "<form action='#' method='post'><input type='text' name='address'/><input type='submit' value='Confirm'/></form>";
-
             //po zaktualizowaniu danych w bazie zmieniam również dane aktualnie zalogowanego usera
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $mail = $user->getEmail();

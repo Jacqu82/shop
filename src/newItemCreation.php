@@ -36,7 +36,6 @@ class newItemCreation
     {
         // 2. Pętla przebiega 4 razy, ponieważ tyle można maksymalnie dodać zdjęć.
         for ($i = 0; $i < 4; $i++) {
-
             // 3. Jeśli są juz jakieś zdjęcia dodane do danego przedmiotu uruchomi się ten if
             if (isset($tab[$i][0])) {
                 ?>

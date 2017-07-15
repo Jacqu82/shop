@@ -10,7 +10,6 @@ class UserRepository extends User
         $sql = /** @lang text */
             "SELECT * FROM `users` WHERE `name` = '$name'";
         $result = $connection->query($sql);
-
         if (!$result) {
             die("Błąd połączenia z bazą danych" . $connection->connect_error);
         }

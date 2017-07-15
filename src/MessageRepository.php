@@ -1,10 +1,7 @@
 <?php
 
-require_once 'Message.php';
-
 class MessageRepository extends Message
 {
-
     public static function loadAllSendMessagesByAdminId(mysqli $connection, $adminId)
     {
         $adminId = $connection->real_escape_string($adminId);
@@ -26,11 +23,9 @@ class MessageRepository extends Message
             ORDER BY creationDate DESC";
 
         $result = $connection->query($sql);
-
         if ($result == false) {
             die("Connection Error" . $connection->error);
         }
-
         $arrResult = [];
         while ($row = $result->fetch_assoc()) {
             $arrResult[] = $row;
@@ -43,7 +38,6 @@ class MessageRepository extends Message
         $sql = /** @lang text */
             "UPDATE message SET messageStatus = '$status' WHERE id = $messageId";
         $result = $connection->query($sql);
-
         if ($result == false) {
             die("Connection Error" . $connection->error);
         }
@@ -72,7 +66,6 @@ class MessageRepository extends Message
             ORDER BY creationDate DESC";
 
         $result = $connection->query($sql);
-
         if ($result == false) {
             die("Connection Error" . $connection->error);
         }
@@ -95,7 +88,6 @@ class MessageRepository extends Message
             ORDER BY creationDate DESC LIMIT 1";
 
         $result = $connection->query($sql);
-
         if ($result == false) {
             die("Connection Error" . $connection->error);
         }
@@ -108,10 +100,8 @@ class MessageRepository extends Message
         $sql = /** @lang text */
             "SELECT * FROM `message` WHERE `id` = $id";
         $result = $connection->query($sql);
-
         if ($result == true && $result->num_rows == 1) {
             $row = $result->fetch_assoc();
-
         $message = new Message();
         $message->setId($row['id']);
         $message->setReceiverId($row['receiverId']);
@@ -119,8 +109,6 @@ class MessageRepository extends Message
         $message->setMessageTitle($row['messageTitle']);
         $message->setMessageContent($row['messageContent']);
         $message->setCreationDate();
-
-
             return $message;
         }
         return null;
@@ -131,16 +119,13 @@ class MessageRepository extends Message
         $id = $connection->real_escape_string($id);
         $sql = "SELECT messageStatus FROM message WHERE receiverId=$id AND messageStatus=0";
         $result = $connection->query($sql);
-
         if (!$result) {
             die("Błąd odczytu z bazy danych" . $connection->connect_errno);
         }
-
         $i = 0;
         foreach ($result as $value) {
             $i++;
         }
-
         if ($i < 1) {
             echo '0';
         } else {

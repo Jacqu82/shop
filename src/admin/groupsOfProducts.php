@@ -1,10 +1,9 @@
 <?php
 
-include_once '../../connection.php';
-include_once '../../config.php';
-require_once '../../autoload.php';
+require_once '../../connection.php';
+require_once '../../config.php';
 require_once '../../layout/Layout.php';
-require_once '../SqlQueries.php';
+require_once 'autoload.php';
 
 session_start();
 

@@ -8,7 +8,7 @@ class Order
     protected $amount;
     protected $date;
 
-    function __construct()
+    public function __construct()
     {
         $this->id = -1;
         $this->statusId = 1;
@@ -31,12 +31,12 @@ class Order
         return $this;
     }
 
-    function getStatusId()
+    public function getStatusId()
     {
         return $this->statusId;
     }
 
-    function setStatusId($statusId)
+    public function setStatusId($statusId)
     {
         $this->statusId = $statusId;
         return $this;

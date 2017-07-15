@@ -27,7 +27,7 @@ class Message
         return $this->id;
     }
 
-    public function setId($id)
+    protected function setId($id)
     {
         $this->id = $id;
     }
@@ -95,16 +95,13 @@ class Message
             $sql = /** @lang text */
                 "INSERT INTO message (adminId, receiverId, messageTitle, messageContent, creationDate, messageStatus)
                 VALUES ('$this->adminId', '$this->receiverId', '$this->messageTitle', '$this->messageContent', '$this->creationDate', '$this->messageStatus')";
-
             $result = $connection->query($sql);
-
             if ($result) {
                 $this->id = $connection->insert_id;
             } else {
                 die("Connection Error" . $connection->connect_error);
             }
         } else {
-
             $sql = /** @lang text */
                 "UPDATE message SET messageStatus = '$this->messageStatus' WHERE id = $this->id";
             $result = $connection->query($sql);
@@ -119,7 +116,6 @@ class Message
     {
         $messageId = $connection->real_escape_string($messageId);
         $status = $connection->real_escape_string($status);
-
         if(MessageRepository::setMessageStatus($connection, $messageId, $status)) {
             return true;
         } else {

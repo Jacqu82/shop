@@ -1,11 +1,9 @@
 <?php
 
-include_once '../../connection.php';
-include_once '../../config.php';
-require_once '../../autoload.php';
+require_once '../../connection.php';
+require_once '../../config.php';
 require_once '../../layout/Layout.php';
-require_once '../MessageRepository.php';
-require_once '../SqlQueries.php';
+require_once 'autoload.php';
 
 session_start();
 
@@ -43,7 +41,6 @@ if (!isset($_SESSION['admin'])) {
                 $message->setCreationDate();
                 $message->setMessageStatus($connection, $message->getId(), 0);
                 $message->saveToDB($connection);
-
                 $send = MessageRepository::loadLastSendMessageByAdminId($connection, $_SESSION['admin']);
 
                 foreach ($send as $value) {

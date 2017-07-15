@@ -1,10 +1,9 @@
 <?php
 
-include_once '../../connection.php';
-include_once '../../config.php';
-require_once '../../autoload.php';
+require_once '../../connection.php';
+require_once '../../config.php';
 require_once '../../layout/Layout.php';
-require_once '../SqlQueries.php';
+require_once 'autoload.php';
 
 session_start();
 //sprawdzenie czy admin jest zalogowany
@@ -24,10 +23,8 @@ if (!isset($_SESSION['admin'])) {
         <p><a href='addNewItem.php'>Dodaj nowy przedmiot</a></p>
         <p>Pokaż wszystkie przedmioty:</p>
         <?php
-
         //wywołanie metody, która pokazuje wszystkie grupy produktów
         $result = SqlQueries::getGallery($connection);
-
         //Wyświetlenie SELECTa w którym wybieramy interesującą nas grupę przedmiotów
         ?>
         <form action="#" method="post">
@@ -47,7 +44,6 @@ if (!isset($_SESSION['admin'])) {
     if ($_SERVER['REQUEST_METHOD'] === "POST") {
         if (isset($_POST['selection'])) {
             $selection = mysqli_real_escape_string($connection, $_POST['selection']);
-
             //jeśli wybralismy wszystko wysyłamy zapytanie wybierające wszystkie rekordy
             if ($selection == 'all') {
                 $sql = "SELECT * FROM groups g RIGHT JOIN item i ON i.group_id = g.id";
@@ -55,7 +51,6 @@ if (!isset($_SESSION['admin'])) {
                 //w tym przypadku wybieramy rekordy odpowiadajace warunkowi - nazwie grupy
                 $sql = "SELECT * from groups g RIGHT JOIN item i ON i.group_id = g.id WHERE groupName='$selection'";
             }
-
             $result = $connection->query($sql);
             if (!$result) {
                 die ("Error");

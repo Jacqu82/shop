@@ -1,14 +1,11 @@
 <?php
 
-require_once 'Order.php';
-
 class OrderRepository
 {
     public static function saveOrder(mysqli $connection, $userId, $sum, $date, $status)
     {
         $sql = "INSERT INTO orders(user_id, amount, date, status) VALUES ('$userId', '$sum', '$date', '$status' )";
         $result = $connection->query($sql);
-
         if (!$result) {
             die ("Błąd zapisu do bazy danych" . $connection->connect_errno);
         }
@@ -25,7 +22,6 @@ class OrderRepository
             die ("Błąd połączenia z bazą danych" . $connection->errno);
         }
         return $result;
-
     }
 
     public static function loadOrderById(mysqli $connection, $id)
@@ -33,29 +29,23 @@ class OrderRepository
         $id = $connection->real_escape_string($id);
         $sql = "SELECT * FROM orders WHERE id=$id";
         $result = $connection->query($sql);
-
         if (!$result) {
             die("Błąd odczytu z bazy danych hej");
         }
-
         $orderArray = $result->fetch_assoc();
         $order = new Order();
-
         $order->setUserId($orderArray['user_id']);
         $order->setStatusId($orderArray['status']);
         $order->setId($orderArray['id']);
         $order->setAmount($orderArray['amount']);
         $order->setDate($orderArray['date']);
-
         return $order;
-
     }
 
     public static function updateStatus(mysqli $connection, $id)
     {
         $sql = "UPDATE orders SET status=1 WHERE id=$id";
         $result = $connection->query($sql);
-
         if (!$result) {
             die("Błąd zapisu w bazie danych" . $connection->connect_errno);
         }

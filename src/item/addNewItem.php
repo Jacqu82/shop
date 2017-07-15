@@ -1,12 +1,9 @@
 <?php
-include_once '../../connection.php';
-include_once '../../config.php';
-require_once '../../autoload.php';
+
+require_once '../../connection.php';
+require_once '../../config.php';
 require_once '../../layout/Layout.php';
-require_once '../SqlQueries.php';
-require_once '../Item.php';
-require_once '../ItemRepository.php';
-require_once '../ItemRepository.php';
+require_once 'autoload.php';
 
 session_start();
 
@@ -104,9 +101,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
 
             for ($i = 0; $i < $flag; $i++) {
-
                 // sprawdzam z którym plikiem pracuję a następnie wyszukuje końcówki pliku
-
                 if ($i == 0) {
                     $fileNo = 'file1';
                     $fileName = $_FILES['file1']['name'];
@@ -128,11 +123,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     preg_match('~[\.][a-zA-Z]+~', $fileName, $matches);
                     $ending = $matches[0];
                 }
-
                 //przy każdej iteracji resetuje zmiane scieżki dostepu do ustawien poczatkowych
                 $pathtoDB = "files/" . $id;
                 $path = "../../files/" . $id;
-
                 //nastepnie zmieniam nazwe elementu na liczbe porzadkowa + nazwe przedmiotu + koncowka odpowiednia
 
                 $_FILES[$i]['name'] = $i + 1 . "_" . $id . $ending;
@@ -143,8 +136,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
             header('Location: itemPanel.php');
         }
-
-
     }
 }
 $connection->close();

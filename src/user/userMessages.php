@@ -1,10 +1,8 @@
 <?php
 
 require_once '../../connection.php';
-require_once '../../autoload.php';
 require_once '../../layout/Layout.php';
-require_once '../MessageRepository.php';
-require_once '../Message.php';
+require_once 'autoload.php';
 
 session_start();
 

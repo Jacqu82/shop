@@ -1,13 +1,9 @@
 <?php
 
-include_once '../../connection.php';
-include_once '../../config.php';
-require_once '../../autoload.php';
+require_once '../../connection.php';
+require_once '../../config.php';
 require_once '../../layout/Layout.php';
-require_once '../SqlQueries.php';
-require_once '../Item.php';
-require_once '../ItemRepository.php';
-require_once '../ItemRepository.php';
+require_once 'autoload.php';
 
 session_start();
 
@@ -21,10 +17,8 @@ if ($_SERVER['REQUEST_METHOD'] === "GET") {
         $id = intval($id);
         $photoId = $_GET['photo_id'];
         $photoId = intval($photoId);
-
         $path = SqlQueries::selectAllFromPhotosById($connection, $photoId);
         unlink($path);
-
         $sql = "DELETE FROM photos WHERE `id`=$photoId";
         $connection->query($sql);
         header("Location: editItem.php?id=" . $id);

@@ -6,7 +6,6 @@ class SqlQueries
     {
         $sql = "UPDATE item SET name='$name', description='$description', price='$price', availability=$availability WHERE id=$id";
         $result = $connection->query($sql);
-
         if (!$result) {
             die("Błąd zapisu do bazy danych" . $connection->error);
         }
@@ -16,7 +15,6 @@ class SqlQueries
     {
         $sql = "INSERT INTO `item` (`name`, `price`, `description`, `availability`, `group_id`) VALUES ('$name', $price, '$description', $availability, $group)";
         $result = $connection->query($sql);
-
         if(!$result) {
             die("Błąd zpaisu do bazy danych" . $connection->error);
         } else {
@@ -29,7 +27,6 @@ class SqlQueries
     {
         $sql = "SELECT * FROM item ORDER BY RAND() LIMIT 1 ";
         $result = $connection->query($sql);
-
         if (!$result) {
             die("Error na itemie" . $connection->error);
         }
@@ -41,7 +38,6 @@ class SqlQueries
         $id = intval($id);
         $sql = "SELECT * FROM photos WHERE item_id = $id LIMIT 1";
         $result = $connection->query($sql);
-
         if (!$result) {
             die("Błąd odczyu z bazy danych" . $connection->error);
         }
@@ -54,7 +50,6 @@ class SqlQueries
         $id = intval($id);
         $sql = "UPDATE item SET availability = availability - $quantity WHERE id=$id";
         $result = $connection->query($sql);
-
         if (!$result) {
             die ("Błąd zapisu do bazy danych" . $connection->connect_errno);
         }
@@ -65,7 +60,6 @@ class SqlQueries
         $userId = intval($userId);
         $sql = "DELETE from cart WHERE user_id=$userId";
         $result = $connection->query($sql);
-
         if (!$result) {
             die ("Błąd zapisu do bazy danych" . $connection->connect_errno);
         }
@@ -77,7 +71,6 @@ class SqlQueries
         $userId = intval($userId);
         $sql = "SELECT * FROM orders WHERE user_id=$userId";
         $result = $connection->query($sql);
-
         if (!$result) {
             die ("Błąd połączenia z bazą danych" . $connection->errno);
         }
@@ -88,7 +81,6 @@ class SqlQueries
     {
         $sql = "SELECT * FROM item WHERE id=$id";
         $result = $connection->query($sql);
-
         if (!$result) {
             die("Błąd połączenia z bazą danych" . $connection->connect_error);
         }
@@ -99,7 +91,6 @@ class SqlQueries
     {
         $sql = "SELECT * FROM photos WHERE item_id = $id";
         $result = $connection->query($sql);
-
         if (!$result) {
             die("Error na photosie" . $connection->error);
         }
@@ -108,10 +99,8 @@ class SqlQueries
 
     public static function getItemInCart(mysqli $connection)
     {
-
         $sql = "SELECT * FROM cart c LEFT JOIN users u ON c.user_id=u.id LEFT JOIN item i ON c.item_id=i.id";
         $result = $connection->query($sql);
-
         if (!$result) {
             die("Błąd odczytu z bazy danych - Cart" . $connection->connect_errno);
         }
@@ -122,7 +111,6 @@ class SqlQueries
     {
         $sql = "SELECT * FROM users";
         $result = $connection->query($sql);
-
         if (!$result) {
             die("Błąd połączenia z bazą danych" . $connection->connect_errno);
         }
@@ -133,7 +121,6 @@ class SqlQueries
     {
         $sql = "SELECT * FROM item WHERE group_id=$groupId AND name LIKE '%$selection%' ORDER BY $orderSelection";
         $result = $connection->query($sql);
-
         if (!$result) {
             die ("Błąd połączenia z bazą danych selectgrup" . $connection->connect_error);
         }
@@ -154,7 +141,6 @@ class SqlQueries
     {
         $sql = "DELETE FROM photos WHERE id=$photoId";
         $result = $connection->query($sql);
-
         if (!$result) {
             die("Nie udało się usunąć zdjęcia z bazy danych!");
         }
@@ -164,7 +150,6 @@ class SqlQueries
     {
         $sql = "INSERT INTO photos (`item_id`, `path`) VALUES('$itemId', '$path')";
         $result = $connection->query($sql);
-
         if (!$result) {
             die("Nie udało się zapisać zdjęcia do bazy danych!");
         }
@@ -175,7 +160,6 @@ class SqlQueries
         $userId = $_SESSION['id'];
         $sql = "SELECT * FROM orders WHERE user_id=$userId";
         $result = $connection->query($sql);
-
         if (!$result) {
             die ("Błąd połączenia z bazą danych" . $connection->errno);
         }
@@ -185,11 +169,9 @@ class SqlQueries
     {
         $sql = "SELECT * FROM photos WHERE `id` = $photoId";
         $result = $connection->query($sql);
-
         if (!$result) {
             die("Błąd odczytu z bazy danych");
         }
-
         foreach ($result as $value) {
             $path = $value['path'];
         }
@@ -200,11 +182,9 @@ class SqlQueries
     {
         $sql = "SELECT item_id FROM cart";
         $result = $connection->query($sql);
-
         if (!$result) {
             die("Błąd odczytu z bazy danych" . $connection->error);
         }
-
         return $result;
     }
 }

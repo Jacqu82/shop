@@ -1,8 +1,5 @@
 <?php
 
-require_once 'newItemCreation.php';
-require_once 'SqlQueries.php';
-
 class Item
 {
     protected $id;

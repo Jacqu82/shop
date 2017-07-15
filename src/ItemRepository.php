@@ -109,4 +109,16 @@ class ItemRepository
         }
         return $result;
     }
+
+    public static function getCartItemId(mysqli $connection)
+    {
+        $sql = "SELECT item_id FROM cart";
+        $result = $connection->query($sql);
+
+        if (!$result) {
+            die("Błąd odczytu z bazy danych" . $connection->error);
+        }
+
+        return $result;
+    }
 }

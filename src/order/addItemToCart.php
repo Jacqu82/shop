@@ -26,24 +26,35 @@ if (!isset($_SESSION['user'])) {
                 $item = Item::loadItemByName($connection, $name);
                 $id = $item->getId();
                 $availability = $item->getAvailability();
+                $result = ItemRepository::getCartItemId($connection);
 
-                if ($availability <= 0) {
-                    echo "Brak produktu. Prosze spróbować później.<br>";
-                    echo "<a style='margin-left: 130px' href='web/product.php?id=" . $id . "'><button>OK</button></a>";
-                } else {
-                    $price = $item->getPrice();
-                    $userName = $_SESSION['user'];
-                    $user = UserRepository::loadUserByName($connection, $userName);
-                    $userId = $user->getId();
-
-                    $sql = "INSERT INTO cart(path, user_id, item_id) VALUES('$path', '$userId', '$id' )";
-                    $result = $connection->query($sql);
-
-                    if (!$result) {
-                        die ("Błąd zapisu do bazy danych - Cart" . $connection->connect_errno);
-                    }
-                    header("Location: ../../web/koszyk.php");
+                foreach ($result as $value) {
+                    $tab[] = $value['item_id'];
                 }
+
+                if (in_array($id, $tab)) {
+                    header('Location: ../../web/koszyk.php');
+                } else {
+                    if ($availability <= 0) {
+                        echo "Brak produktu. Prosze spróbować później.<br>";
+                        echo "<a style='margin-left: 130px' href='web/product.php?id=" . $id . "'><button>OK</button></a>";
+                    } else {
+                        $price = $item->getPrice();
+                        $userName = $_SESSION['user'];
+                        $user = UserRepository::loadUserByName($connection, $userName);
+                        $userId = $user->getId();
+
+                        $sql = "INSERT INTO cart(path, user_id, item_id) VALUES('$path', '$userId', '$id' )";
+                        $result = $connection->query($sql);
+
+                        if (!$result) {
+                            die ("Błąd zapisu do bazy danych - Cart" . $connection->connect_errno);
+                        }
+                        header("Location: ../../web/koszyk.php");
+                    }
+                }
+
+
             }
         }
         ?>

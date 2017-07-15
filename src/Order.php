@@ -78,7 +78,7 @@ class Order
 
     public function updateStatus($connection)
     {
-        $id =   $this->id;
+        $id = $this->id;
         OrderRepository::updateStatus($connection, $id);
     }
 }

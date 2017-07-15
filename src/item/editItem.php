@@ -37,7 +37,7 @@ if (!isset($_SESSION['admin'])) {
             }
 
             //tworzymy obiekt na podstawie uzyskanej nazwy oraz przypisujemy zmiennym wartości
-            $item = Item::loadItemByName($connection, $name);
+            $item = ItemRepository::loadItemByName($connection, $name);
 
             $oldName = $item->getName();
             $_SESSION['oldName'] = $oldName;
@@ -110,7 +110,7 @@ if (!isset($_SESSION['admin'])) {
             $oldName = $_SESSION['oldName'];
             $name = mysqli_real_escape_string($connection, $_POST['name']);
 
-            $item = Item::loadItemByName($connection, $oldName);
+            $item = ItemRepository::loadItemByName($connection, $oldName);
             $item->setName($name);
             $item->setDescription($description);
             $item->setPrice($price);

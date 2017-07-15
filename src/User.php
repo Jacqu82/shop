@@ -80,33 +80,21 @@ class User
         $this->id = $id;
     }
 
-    public function saveToDB(mysqli $connection)
-    {
-        if ($this->id == -1) {
-            $sql = /** @lang text */
-                "INSERT INTO users(name, surname, email, password, address) VALUES ('$this->name', '$this->surname', '$this->email', '$this->password', '$this->address')";
-            $result = $connection->query($sql);
-            if ($result) {
-                $this->id = $connection->insert_id;
-                echo "<h3>Cieszymy się że tu jesteś,  " . $this->name . "</h3>";
-                echo "  <h3><a href='../web/loginForm.html' class='btn btn - primary btn - block'>Zaloguj się na swoje konto</a></h3>";
-            } else {
-                echo "Wystąpił błąd podczas rejestracji, spróbuj jeszcze raz!<br/>";
-                die("Connection Error! " . $connection->connect_error);
-            }
-        } else {
-            $sql = /** @lang text */
-                "UPDATE users SET email = '$this->email',
-                                    name = '$this->name',
-                                    surname = '$this->surname',
-                                    password = '$this->password'
-                                    address = '$this->address'
-                                    WHERE id = $this->id";
-            $result = $connection->query($sql);
-            if ($result) {
-                return true;
-            }
-        }
-        return false;
-    }
+//    public function saveToDB(mysqli $connection)
+//    {
+//        if ($this->id == -1) {
+//            $result = UserRepository::saveNewUser($connection, $this->name, $this->surname, $this->email, $this->password, $this->address);
+//            if ($result) {
+//                $this->id = $connection->insert_id;
+//                echo "<h3>Cieszymy się że tu jesteś,  " . $this->name . "</h3>";
+//                echo "  <h3><a href='../web/loginForm.html' class='btn btn - primary btn - block'>Zaloguj się na swoje konto</a></h3>";
+//            } else {
+//                echo "Wystąpił błąd podczas rejestracji, spróbuj jeszcze raz!<br/>";
+//                die("Connection Error! " . $connection->connect_error);
+//            }
+//        } else {
+//            UserRepository::updateUser($connection, $this->email, $this->name, $this->surname, $this->password, $this->address, $this->id);
+//        }
+//        return false;
+//    }
 }

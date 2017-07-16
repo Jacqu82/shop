@@ -17,8 +17,9 @@ if ($_SERVER['REQUEST_METHOD'] === "GET") {
     if (isset($_GET['id']) || isset($_GET['name'])) {
         $name = $_GET['name'];
         $item = ItemRepository::loadItemByName($connection, $name);
+        $itemRepository = new ItemRepository();
 
-        if (!$item->deleteItem($connection)) {
+        if (!$itemRepository->deleteFromDb($connection, $item)) {
             die ("Błąd usuwania przedmiotu z bazy danych");
         }
         header('Location: itemPanel.php');

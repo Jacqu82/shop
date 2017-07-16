@@ -50,7 +50,13 @@ if (!isset($_SESSION['user'])) {
                         $date = date('d-m-Y');
                         $status = 0;
                         $order = new Order();
-                        $order->saveToDB($connection, $userId, $sum, $date, $status);
+                        $order->setUserId($userId);
+                        $order->setSum($sum);
+                        $order->setDate($date);
+                        $order->setStatusId($status);
+//                        $order->saveToDB($connection, $userId, $sum, $date, $status);
+                        $orderRepository = new OrderRepository();
+                        $orderRepository->saveToDb($connection, $order);
                     }
                 }
             }

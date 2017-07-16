@@ -18,6 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $user->setEmail($email);
         $user->setPassword($password);
         $user->setAddress($address);
-        $user->saveToDB($connection);
+        $userRepository = new UserRepository();
+        $userRepository->saveToDB($user, $connection);
     }
 }

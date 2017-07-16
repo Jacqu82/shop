@@ -33,17 +33,6 @@ class MessageRepository extends Message
         return $arrResult;
     }
 
-    public static function setMessageStatus(mysqli $connection, $messageId, $status)
-    {
-        $sql = /** @lang text */
-            "UPDATE message SET messageStatus = '$status' WHERE id = $messageId";
-        $result = $connection->query($sql);
-        if ($result == false) {
-            die("Connection Error" . $connection->error);
-        }
-        return true;
-    }
-
     public static function loadAllReceivedMessagesByUserId(mysqli $connection, $userId)
     {
         $userId = $connection->real_escape_string($userId);
@@ -131,5 +120,59 @@ class MessageRepository extends Message
         } else {
             echo $i;
         }
+    }
+
+    public function saveToDb(mysqli $connection, Message $message)
+    {
+        if ($message->id == -1) {
+            $result = self::addNewMessage($connection, $message->adminId, $message->receiverId, $message->messageTitle, $message->messageContent, $message->creationDate, $message->messageStatus );
+            if ($result) {
+                $message->id = $connection->insert_id;
+            } else {
+                die("Blad zapisu do bazy danych" . $connection->error);
+            }
+        } else {
+            if ($result = self::updateMessage($connection, $message->messageStatus, $message->id)) {
+                return true;
+            }
+        }
+    }
+
+    public static function addNewMessage(mysqli $connection, $adminId, $receiverId, $messageTitle,  $messageContent, $creationDate, $messageStatus )
+    {
+        $sql = /** @lang text */
+            "INSERT INTO message (adminId, receiverId, messageTitle, messageContent, creationDate, messageStatus)
+                VALUES ('$adminId', '$receiverId', '$messageTitle', '$messageContent', '$creationDate', '$messageStatus')";
+        $result = $connection->query($sql);
+        if (!$result) {
+            die ("Blad zapisu do bazy danych" . $connection->error);
+        } else {
+            return $result;
+        }
+    }
+
+    public static function updateMessage(mysqli $connection, $messageStatus, $id)
+    {
+        $sql = /** @lang text */
+            "UPDATE message SET messageStatus = '$messageStatus' WHERE id = $id";
+        $result = $connection->query($sql);
+        if ($result) {
+            return true;
+        }
+    }
+
+    public function deleteMessage(mysqli $connection, Message $message)
+    {
+        if ($message->id != -1) {
+            $sql = /** @lang text */
+                "DELETE FROM message WHERE id = $message->id";
+            $result = $connection->query($sql);
+            if ($result) {
+                $message->id = -1;
+                return true;
+            }
+            return false;
+        }
+        return true;
     }
 }

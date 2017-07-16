@@ -14,11 +14,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['set_message_as_read']) && isset($_POST['message_id'])) {
         $id = $_POST['message_id'];
         $id = intval($id);
-        MessageRepository::setMessageStatus($connection, $id, 1);
+        MessageRepository::updateMessage($connection, 1, $id);
     } else if (isset($_POST['set_message_as_unread']) && isset($_POST['message_id'])) {
         $id = $_POST['message_id'];
         $id = intval($id);
-        MessageRepository::setMessageStatus($connection, $id, 0);
+        MessageRepository::updateMessage($connection, 0, $id);
     }
 }
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -26,7 +26,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $messageId = $_POST['message_id'];
         $messageId = intval($messageId);
         $message = MessageRepository::loadMessageById($connection, $messageId);
-        $message->deleteMessage($connection);
+        $messageRepository = new MessageRepository();
+        $messageRepository->deleteMessage($connection, $message);
     }
 }
 ?>

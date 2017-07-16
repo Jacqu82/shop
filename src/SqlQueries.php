@@ -2,26 +2,26 @@
 
 class SqlQueries
 {
-    public static function saveItem(mysqli $connection, $name, $description, $price, $availability, $id)
-    {
-        $sql = "UPDATE item SET name='$name', description='$description', price='$price', availability=$availability WHERE id=$id";
-        $result = $connection->query($sql);
-        if (!$result) {
-            die("Błąd zapisu do bazy danych" . $connection->error);
-        }
-    }
+//    public static function saveItem(mysqli $connection, $name, $description, $price, $availability, $id)
+//    {
+//        $sql = "UPDATE item SET name='$name', description='$description', price='$price', availability=$availability WHERE id=$id";
+//        $result = $connection->query($sql);
+//        if (!$result) {
+//            die("Błąd zapisu do bazy danych" . $connection->error);
+//        }
+//    }
 
-    public static function updateItem(mysqli $connection, $name, $description, $price, $availability, $group)
-    {
-        $sql = "INSERT INTO `item` (`name`, `price`, `description`, `availability`, `group_id`) VALUES ('$name', $price, '$description', $availability, $group)";
-        $result = $connection->query($sql);
-        if(!$result) {
-            die("Błąd zpaisu do bazy danych" . $connection->error);
-        } else {
-            $id = $connection->insert_id;
-            return $id;
-        }
-    }
+//    public static function updateItem(mysqli $connection, $name, $description, $price, $availability, $group)
+//    {
+//        $sql = "INSERT INTO `item` (`name`, `price`, `description`, `availability`, `group_id`) VALUES ('$name', $price, '$description', $availability, $group)";
+//        $result = $connection->query($sql);
+//        if(!$result) {
+//            die("Błąd zpaisu do bazy danych" . $connection->error);
+//        } else {
+//            $id = $connection->insert_id;
+//            return $id;
+//        }
+//    }
 
     public static function getItemDataLimitOne(mysqli $connection)
     {

@@ -77,7 +77,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $item->setDescription($description);
         $item->setGroup($selection);
         $item->setPrice($price);
-        $item->save($connection);
+        $itemRepository = new ItemRepository();
+        $itemRepository->saveToDb($connection, $item);
         $id = $item->getId();
 
         //tworze folder z id pliku a nastepnie z jego nazwą

@@ -25,7 +25,8 @@ if (!isset($_SESSION['user'])) {
         if (isset($_GET['id'])) {
             $id = intval($_GET['id']);
             $order = OrderRepository::loadOrderById($connection, $id);
-            $order->updateStatus($connection);
+            $orderRepository = new OrderRepository();
+            $orderRepository->saveToDb($connection, $order);
         }
     }
     ?>

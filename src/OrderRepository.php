@@ -1,16 +1,9 @@
 <?php
 
-class OrderRepository
-{
-    public static function saveOrder(mysqli $connection, $userId, $sum, $date, $status)
-    {
-        $sql = "INSERT INTO orders(user_id, amount, date, status) VALUES ('$userId', '$sum', '$date', '$status' )";
-        $result = $connection->query($sql);
-        if (!$result) {
-            die ("Błąd zapisu do bazy danych" . $connection->connect_errno);
-        }
-    }
+require_once 'Order.php';
 
+class OrderRepository extends Order
+{
     public static function payForProducts(mysqli $connection)
     {
         $userId = $_SESSION['id'];
@@ -42,12 +35,30 @@ class OrderRepository
         return $order;
     }
 
-    public static function updateStatus(mysqli $connection, $id)
+    public static function saveNewOrder(mysqli $connection, $userId, $sum, $date, $status)
+    {
+        $sql = "INSERT INTO orders(user_id, amount, date, status) VALUES ('$userId', '$sum', '$date', '$status' )";
+        $result = $connection->query($sql);
+        if (!$result) {
+            die ("Błąd zapisu do bazy danych" . $connection->connect_errno);
+        }
+    }
+
+    public static function updateOrder(mysqli $connection, $id)
     {
         $sql = "UPDATE orders SET status=1 WHERE id=$id";
         $result = $connection->query($sql);
         if (!$result) {
-            die("Błąd zapisu w bazie danych" . $connection->connect_errno);
+            die("Błąd zapisu w bazie danych!" . $connection->error);
+        }
+    }
+
+    public function saveToDb(mysqli $connection, Order $order)
+    {
+        if ($order->id == -1) {
+            self::saveNewOrder($connection, $order->userId, $order->sum, $order->date, $order->statusId);
+        } else {
+            self::updateOrder($connection, $order->id);
         }
     }
 }

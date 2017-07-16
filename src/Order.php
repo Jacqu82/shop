@@ -7,6 +7,7 @@ class Order
     protected $userId;
     protected $amount;
     protected $date;
+    protected $sum;
 
     public function __construct()
     {
@@ -67,18 +68,13 @@ class Order
         $this->id = $id;
     }
 
-    public function saveToDB(mysqli $connection, $userId, $sum, $date, $status)
+    public function getSum()
     {
-        $userId = $connection->real_escape_string($userId);
-        $sum = $connection->real_escape_string($sum);
-        $date = $connection->real_escape_string($date);
-        $status = $connection->real_escape_string($status);
-        OrderRepository::saveOrder($connection, $userId, $sum, $date, $status);
+        return $this->sum;
     }
 
-    public function updateStatus($connection)
+    public function setSum($sum)
     {
-        $id = $this->id;
-        OrderRepository::updateStatus($connection, $id);
+        $this->sum = $sum;
     }
 }

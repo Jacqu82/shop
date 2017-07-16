@@ -100,7 +100,9 @@ if (!isset($_SESSION['admin'])) {
             $item->setDescription($description);
             $item->setPrice($price);
             $item->setAvailability($availability);
-            $item->save($connection);
+            $itemRepository = new ItemRepository();
+            $itemRepository->saveToDb($connection, $item);
+//            $item->save($connection);
             header('Location: itemPanel.php');
         }
     }

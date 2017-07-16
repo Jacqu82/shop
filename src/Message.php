@@ -93,19 +93,4 @@ class Message
     {
         $this->messageStatus = $messageStatus;
     }
-
-//    public function deleteMessage(mysqli $connection)
-//    {
-//        if ($this->id != -1) {
-//            $sql = /** @lang text */
-//                "DELETE FROM message WHERE id = $this->id";
-//            $result = $connection->query($sql);
-//            if ($result) {
-//                $this->id = -1;
-//                return true;
-//            }
-//            return false;
-//        }
-//        return true;
-//    }
 }

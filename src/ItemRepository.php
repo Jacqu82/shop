@@ -57,7 +57,6 @@ class ItemRepository extends Item
 
     public static function getAllData(mysqli $connection, $id)
     {
-        //$result = ItemRepository::getItemById($connection, $id);
         $sql = "SELECT * FROM item WHERE id=$id";
         $result = $connection->query($sql);
 
@@ -110,16 +109,15 @@ class ItemRepository extends Item
             $groupId = $item->getGroup();
             $price = $item->getPrice();
             $availability = $item->getAvailability();
-            var_dump($item);
             self::addNewItem($connection, $name, $description, $price, $availability, $groupId);
             $item->id = $connection->insert_id;
         } else {
-            $name = $item->getName();
-            $description = $item->getDescription();
-            $group = $item->getGroup();
-            $price = $item->getPrice();
-            $availability = $item->getAvailability();
-            $item->id = self::updateItem($connection, $name, $description, $price, $availability, $group);
+            $name = $item->name;
+            $description = $item->description;
+            $id = $item->id;
+            $price = $item->price;
+            $availability = $item->availability;
+            $item->id = self::updateItem($connection, $name, $description, $price, $availability, $id);
         }
     }
 
@@ -132,27 +130,47 @@ class ItemRepository extends Item
         }
     }
 
-    public static function updateItem(mysqli $connection, $name, $description, $price, $availability, $group)
-    {
-        $sql = "INSERT INTO `item` (`name`, `price`, `description`, `availability`, `group_id`) VALUES ('$name', $price, '$description', $availability, $group)";
-        $result = $connection->query($sql);
-        if(!$result) {
-            die("Błąd zpaisu do bazy danych" . $connection->error);
-        } else {
-            $id = $connection->insert_id;
-            return $id;
-        }
-    }
-
     public static function addNewItem(mysqli $connection, $name, $description, $price, $availability, $groupId)
     {
         $sql = "INSERT INTO item (name, price, description, availability, group_id) VALUES ('$name', '$price', '$description', '$availability', '$groupId')";
         $result = $connection->query($sql);
-        var_dump($result);
         if (!$result) {
             die("Blad zapisu do bazy danych czemuuuuu");
         } else {
             return true;
         }
+    }
+
+    public static function updateItem(mysqli $connection, $name, $description, $price, $availability, $id)
+    {
+        $sql = "UPDATE item SET name='$name', price='$price', description='$description', availability='$availability' WHERE id='$id' ";
+        $result = $connection->query($sql);
+        if (!$result) {
+            die("Blad zapisu do bazy danych");
+        } else {
+            return $connection->insert_id;
+        }
+    }
+
+    public function deleteFromDb(mysqli $connection, Item $item)
+    {
+        $id = $item->id;
+        $id = intval($id);
+        $sql = "DELETE FROM photos WHERE `item_id`=$id";
+        $result = $connection->query($sql);
+        if (!$result) {
+            die("Błąd zapisu w bazie danych" . $connection->error);
+        }
+        $sql = "DELETE FROM cart WHERE `item_id`=$id";
+        $result = $connection->query($sql);
+        if (!$result) {
+            die("Błąd zapisu w bazie danych" . $connection->error);
+        }
+        $sql = "DELETE FROM item WHERE id=$id";
+        $result = $connection->query($sql);
+        if (!$result) {
+            die("Błąd zapisu w bazie danych" . $connection->error);
+        }
+        return true;
     }
 }

@@ -79,15 +79,12 @@ if (!isset($_SESSION['admin'])) {
                 $fileNo = $_POST['fileNo'];
                 $ending = substr($oldName, -3, 3);
                 $path = "files/"  . $itemId;
-                var_dump($path);
                 $path = "../../" . $path . "/" . $fileNo . "_" . $itemId . "." . $ending;
                 newItemCreation::newFolder($path);
                 $pathDB = substr($path, 6);
-                var_dump($path);
-                var_dump($pathDB);
                 move_uploaded_file($_FILES['file']['tmp_name'], $path);
                 SqlQueries::insert($connection, $itemId, $pathDB);
-                //header('Location: itemPanel.php');
+                header('Location: itemPanel.php');
             }
         } else {
             $description = mysqli_real_escape_string($connection, $_POST['description']);
@@ -102,7 +99,6 @@ if (!isset($_SESSION['admin'])) {
             $item->setAvailability($availability);
             $itemRepository = new ItemRepository();
             $itemRepository->saveToDb($connection, $item);
-//            $item->save($connection);
             header('Location: itemPanel.php');
         }
     }

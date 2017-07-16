@@ -81,45 +81,4 @@ class Item
         $this->availability = $availability;
         return $this;
     }
-
-    public function save(mysqli $connection)
-    {
-        if ($this->id != -1) {
-            $name = $this->getName();
-            $description = $this->getDescription();
-            $id = $this->getId();
-            $price = $this->getPrice();
-            $availability = $this->getAvailability();
-            SqlQueries::saveItem($connection, $name, $description, $price, $availability, $id);
-        } else {
-            $name = $this->getName();
-            $description = $this->getDescription();
-            $group = $this->getGroup();
-            $price = $this->getPrice();
-            $availability = $this->getAvailability();
-            $this->id = SqlQueries::updateItem($connection, $name, $description, $price, $availability, $group);
-        }
-    }
-
-    public function deleteItem(mysqli $connection)
-    {
-        $id = $this->id;
-        $id = intval($id);
-        $sql = "DELETE FROM photos WHERE `item_id`=$id";
-        $result = $connection->query($sql);
-        if(!$result) {
-            die("Błąd zapisu w bazie danych" . $connection->error);
-        }
-        $sql = "DELETE FROM cart WHERE `item_id`=$id";
-        $result = $connection->query($sql);
-        if(!$result) {
-            die("Błąd zapisu w bazie danych" . $connection->error);
-        }
-        $sql = "DELETE FROM item WHERE id=$id";
-        $result = $connection->query($sql);
-        if(!$result) {
-            die("Błąd zapisu w bazie danych" . $connection->error);
-        }
-        return true;
-    }
 }

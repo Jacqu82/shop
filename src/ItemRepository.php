@@ -57,7 +57,6 @@ class ItemRepository extends Item
 
     public static function getAllData(mysqli $connection, $id)
     {
-        //$result = ItemRepository::getItemById($connection, $id);
         $sql = "SELECT * FROM item WHERE id=$id";
         $result = $connection->query($sql);
 
@@ -100,5 +99,78 @@ class ItemRepository extends Item
             }
         }
         return $paths;
+    }
+
+    public function saveToDb(mysqli $connection, Item $item)
+    {
+        if ($item->id == -1) {
+            $name = $item->getName();
+            $description = $item->getDescription();
+            $groupId = $item->getGroup();
+            $price = $item->getPrice();
+            $availability = $item->getAvailability();
+            self::addNewItem($connection, $name, $description, $price, $availability, $groupId);
+            $item->id = $connection->insert_id;
+        } else {
+            $name = $item->name;
+            $description = $item->description;
+            $id = $item->id;
+            $price = $item->price;
+            $availability = $item->availability;
+            $item->id = self::updateItem($connection, $name, $description, $price, $availability, $id);
+        }
+    }
+
+    public static function saveItem(mysqli $connection, $name, $description, $price, $availability, $id)
+    {
+        $sql = "UPDATE item SET name='$name', description='$description', price='$price', availability=$availability WHERE id=$id";
+        $result = $connection->query($sql);
+        if (!$result) {
+            die("Błąd zapisu do bazy danych" . $connection->error);
+        }
+    }
+
+    public static function addNewItem(mysqli $connection, $name, $description, $price, $availability, $groupId)
+    {
+        $sql = "INSERT INTO item (name, price, description, availability, group_id) VALUES ('$name', '$price', '$description', '$availability', '$groupId')";
+        $result = $connection->query($sql);
+        if (!$result) {
+            die("Blad zapisu do bazy danych czemuuuuu");
+        } else {
+            return true;
+        }
+    }
+
+    public static function updateItem(mysqli $connection, $name, $description, $price, $availability, $id)
+    {
+        $sql = "UPDATE item SET name='$name', price='$price', description='$description', availability='$availability' WHERE id='$id' ";
+        $result = $connection->query($sql);
+        if (!$result) {
+            die("Blad zapisu do bazy danych");
+        } else {
+            return $connection->insert_id;
+        }
+    }
+
+    public function deleteFromDb(mysqli $connection, Item $item)
+    {
+        $id = $item->id;
+        $id = intval($id);
+        $sql = "DELETE FROM photos WHERE `item_id`=$id";
+        $result = $connection->query($sql);
+        if (!$result) {
+            die("Błąd zapisu w bazie danych" . $connection->error);
+        }
+        $sql = "DELETE FROM cart WHERE `item_id`=$id";
+        $result = $connection->query($sql);
+        if (!$result) {
+            die("Błąd zapisu w bazie danych" . $connection->error);
+        }
+        $sql = "DELETE FROM item WHERE id=$id";
+        $result = $connection->query($sql);
+        if (!$result) {
+            die("Błąd zapisu w bazie danych" . $connection->error);
+        }
+        return true;
     }
 }

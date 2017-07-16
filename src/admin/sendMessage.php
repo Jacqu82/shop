@@ -39,8 +39,10 @@ if (!isset($_SESSION['admin'])) {
                 $message->setMessageTitle($messageTitle);
                 $message->setMessageContent($messageContent);
                 $message->setCreationDate();
-                $message->setMessageStatus($connection, $message->getId(), 0);
-                $message->saveToDB($connection);
+                $message->setMessageStatus(0);
+                $messageRepository = new MessageRepository();
+                $messageRepository->saveToDb($connection, $message);
+//                $message->saveToDB($connection);
                 $send = MessageRepository::loadLastSendMessageByAdminId($connection, $_SESSION['admin']);
 
                 foreach ($send as $value) {

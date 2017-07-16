@@ -89,52 +89,8 @@ class Message
         return $this->messageStatus;
     }
 
-    public function saveToDB(mysqli $connection)
+    public function setMessageStatus($messageStatus)
     {
-        if ($this->id == -1) {
-            $sql = /** @lang text */
-                "INSERT INTO message (adminId, receiverId, messageTitle, messageContent, creationDate, messageStatus)
-                VALUES ('$this->adminId', '$this->receiverId', '$this->messageTitle', '$this->messageContent', '$this->creationDate', '$this->messageStatus')";
-            $result = $connection->query($sql);
-            if ($result) {
-                $this->id = $connection->insert_id;
-            } else {
-                die("Connection Error" . $connection->connect_error);
-            }
-        } else {
-            $sql = /** @lang text */
-                "UPDATE message SET messageStatus = '$this->messageStatus' WHERE id = $this->id";
-            $result = $connection->query($sql);
-            if ($result) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public static function setMessageStatus(mysqli $connection, $messageId, $status)
-    {
-        $messageId = $connection->real_escape_string($messageId);
-        $status = $connection->real_escape_string($status);
-        if(MessageRepository::setMessageStatus($connection, $messageId, $status)) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public function deleteMessage(mysqli $connection)
-    {
-        if ($this->id != -1) {
-            $sql = /** @lang text */
-                "DELETE FROM message WHERE id = $this->id";
-            $result = $connection->query($sql);
-            if ($result) {
-                $this->id = -1;
-                return true;
-            }
-            return false;
-        }
-        return true;
+        $this->messageStatus = $messageStatus;
     }
 }

@@ -22,7 +22,8 @@ if (!isset($_SESSION['admin'])) {
         if (isset($_POST['delete_messege']) && isset($_POST['message_id'])) {
             $messageId = mysqli_real_escape_string($connection, $_POST['message_id']);
             $message = MessageRepository::loadMessageById($connection, $messageId);
-            $message->deleteMessage($connection);
+            $messageRepository = new MessageRepository();
+            $messageRepository->deleteMessage($connection, $message);
         }
     }
     ?>

@@ -87,6 +87,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         newItemCreation::newFolder($path);
 
         if ($_FILES['file1']['size'] == 0) {
+            for ($i = 0; $i != 4; $i++) {
+                $path = '';
+                $path = '../../files/' . $id . '/' . ($i + 1) . '_' . $id . '.jpg';
+                $pathtoDB = 'files/' . $id . '/' . ($i + 1) . '_' . $id . '.jpg';
+                copy('../../files/question.jpg', $path);
+                SqlQueries::insert($connection, $id, $pathtoDB);
+                var_dump($path);
+            }
             header('Location: itemPanel.php');
         } else {
             //sposób okreslam ile zdjęć zostało załadowanych - wartość tą wykorzystam w pętli
@@ -134,6 +142,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $pathtoDB = $pathtoDB . "/" . $_FILES[$i]['name'];
                 SqlQueries::insert($connection, $id, $pathtoDB);
                 move_uploaded_file($_FILES[$fileNo]['tmp_name'], $path);
+
+                if ($flag == 1) {
+                    for ($j = 1; $j != 4; $j++) {
+                        $path = '';
+                        $path = '../../files/' . $id . '/' . ($j + 1) . '_' . $id . '.jpg';
+                        $pathtoDB = 'files/' . $id . '/' . ($j + 1) . '_' . $id . '.jpg';
+                        copy('../../files/question.jpg', $path);
+                        SqlQueries::insert($connection, $id, $pathtoDB);
+                    }
+                } else if ($flag == 2 && $i == 1) {
+                    for ($j = 2; $j != 4; $j++) {
+                        $path = '';
+                        $path = '../../files/' . $id . '/' . ($j + 1) . '_' . $id . '.jpg';
+                        $pathtoDB = 'files/' . $id . '/' . ($j + 1) . '_' . $id . '.jpg';
+                        copy('../../files/question.jpg', $path);
+                        SqlQueries::insert($connection, $id, $pathtoDB);
+                    }
+                } else if ($flag == 3 && $i ==2) {
+                    for ($j = 3; $j != 4; $j++) {
+                        $path = '';
+                        $path = '../../files/' . $id . '/' . ($j + 1) . '_' . $id . '.jpg';
+                        $pathtoDB = 'files/' . $id . '/' . ($j + 1) . '_' . $id . '.jpg';
+                        copy('../../files/question.jpg', $path);
+                        SqlQueries::insert($connection, $id, $pathtoDB);
+                    }
+                }
             }
             header('Location: itemPanel.php');
         }
